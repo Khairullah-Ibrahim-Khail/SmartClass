@@ -557,6 +557,7 @@ CREATE TABLE `classes` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `ai_students` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'students may use AI helpers in this class',
+  `ai_student_writing` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'students see the AI writing help (language check, hints) in this class',
   `ai_language` enum('screen','en','question') NOT NULL DEFAULT 'screen',
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_code` (`class_code`),

@@ -113,7 +113,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
             <?php endif; ?>
         </div>
     </header>
-    <div class="post-body prewrap"><?php echo linkify($a['body']); ?></div>
+    <div class="post-body"><?php echo richText($a['body']); ?></div>
 </article>
 <?php endforeach; echo pagerHtml($total, $page_no, $per); endif; ?>
 </div><!-- /data-live-results -->

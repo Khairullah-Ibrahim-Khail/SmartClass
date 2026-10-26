@@ -96,7 +96,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
             <?php endif; ?>
         </div>
     </header>
-    <div class="post-body prewrap"><?php echo linkify($thread['body']); ?></div>
+    <div class="post-body"><?php echo richText($thread['body']); ?></div>
     <?php echo forumFilesHtml($files[0] ?? []); ?>
 </article>
 
@@ -124,8 +124,9 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
         <form method="POST" id="replyForm" class="comment-form" enctype="multipart/form-data" data-no-ajax action="<?php echo $self; ?>#replies" novalidate style="margin-top:14px;">
             <?php echo csrfField(); ?><input type="hidden" name="action" value="reply">
             <div class="form-group" style="flex:1;margin:0;">
-                <textarea name="body" rows="3" maxlength="5000" placeholder="Write a reply…" aria-label="Your reply" class="<?php echo $reply_error ? 'is-invalid' : ''; ?>"><?php echo htmlspecialchars($reply_body); ?></textarea>
+                <textarea name="body" id="replyBody" rows="3" maxlength="5000" placeholder="Write a reply…" aria-label="Your reply" class="<?php echo $reply_error ? 'is-invalid' : ''; ?>"><?php echo htmlspecialchars($reply_body); ?></textarea>
                 <div class="invalid-feedback"><?php echo htmlspecialchars($reply_error); ?></div>
+                <?php echo aiStudentButtons('#replyBody', (int) $thread['class_id'], ['hints' => false]); ?>
             </div>
             <label class="btn-app btn-sm btn-outline" for="replyFile" style="cursor:pointer;" title="Attach a file"><i class="fas fa-paperclip"></i> <span id="replyFileName">Attach</span></label>
             <input type="file" id="replyFile" name="file" hidden onchange="document.getElementById('replyFileName').textContent = this.files[0] ? this.files[0].name.slice(0, 24) : 'Attach'">

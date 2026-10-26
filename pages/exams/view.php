@@ -97,7 +97,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
                 <span class="status-badge <?php echo $published ? 'graded' : 'pending'; ?>"><?php echo $published ? 'Results published' : 'Results hidden'; ?></span>
                 <?php endif; ?>
             </div>
-            <?php if ($e['instructions']): ?><div class="prewrap" style="margin-top:6px;"><?php echo linkify($e['instructions']); ?></div><?php endif; ?>
+            <?php if ($e['instructions']): ?><div style="margin-top:6px;"><?php echo richText($e['instructions']); ?></div><?php endif; ?>
             <?php if (isStudent() && $published): ?>
             <div style="margin-top:8px;">
                 <?php if ($e['my_absent']): ?><span class="status-badge missing">Absent</span>

@@ -1663,3 +1663,13 @@ html[data-theme="dark"] .grade-file-body { background: #1b1f2b; }
 .ai-verdict.ok { background: rgba(18,184,134,.1); border-color: rgba(18,184,134,.45); } .ai-verdict.wait { background: rgba(240,140,0,.1); border-color: rgba(240,140,0,.5); }
 .ai-check-btn { margin-inline-end: 6px; margin-top: 6px; }
 .ai-draft-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+/* Student writing help (teacher's switch) */
+.sai-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 8px; padding: 8px 10px; border: 1px dashed var(--line); border-radius: 10px; background: var(--canvas, #f6f8fc); }
+.sai-note { font-size: 12.5px; color: var(--ink-3); flex: 1 1 260px; } .sai-btns { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.sai-out { flex: 1 1 100%; font-size: 14px; } .sai-out ul { margin: 4px 0 0; padding-inline-start: 20px; } .sai-out.is-error { color: #c4282d; }
+.sai-out .link-btn { margin-inline-start: 8px; }
+/* Rich text from plain text (richText()): paragraphs, bold headings, real lists */
+.rich-text { line-height: 1.7; overflow-wrap: anywhere; }
+.rich-text p { margin: 0 0 .6em; } .rich-text .rt-h { font-weight: 700; margin: 1em 0 .3em; color: var(--ink); } .rich-text > :first-child { margin-top: 0; } .rich-text > :last-child { margin-bottom: 0; }
+.rich-text ul, .rich-text ol { margin: .2em 0 .9em; padding-inline-start: 1.5em; } .rich-text li { margin: .2em 0; }
+.rich-text code { padding: 1px 5px; border-radius: 5px; background: rgba(120,130,150,.18); font-size: .92em; }

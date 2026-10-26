@@ -558,6 +558,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
                     <textarea class="q-text <?php echo !empty($e['text']) ? 'is-invalid' : ''; ?>" name="questions[<?php echo $qi; ?>][text]" rows="2"
                         placeholder="Type the question" aria-label="Question text"><?php echo htmlspecialchars($q['text']); ?></textarea>
                     <div class="invalid-feedback"><?php echo htmlspecialchars($e['text'] ?? ''); ?></div>
+                    <?php echo aiWriteButton('question', '', ['scope' => '.question-block', 'field' => '.q-text', 'class' => '#class_id', 'title' => '#title', 'use' => true, 'label' => 'Write / improve the question', 'scope_ctx' => ['type' => '.q-type', 'marks' => '.q-marks']]); ?>
                 </div>
                 <div class="form-group q-marks-group">
                     <input type="number" class="q-marks <?php echo !empty($e['marks']) ? 'is-invalid' : ''; ?>" name="questions[<?php echo $qi; ?>][marks]"
@@ -567,6 +568,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
                 </div>
             </div>
             <div class="form-group model-wrap">
+                <?php echo aiWriteButton('model', '', ['scope' => '.question-block', 'field' => '.q-model', 'class' => '#class_id', 'use' => true, 'label' => 'Write the model answer', 'scope_ctx' => ['question' => '.q-text', 'type' => '.q-type']]); ?>
                 <textarea class="q-model <?php echo !empty($e['model']) ? 'is-invalid' : ''; ?>" name="questions[<?php echo $qi; ?>][model_answer]" rows="3" maxlength="2000"
                     placeholder="Expected answer — what a good answer must include (students never see this before results are released)" aria-label="Expected answer"><?php echo htmlspecialchars($q['model']); ?></textarea>
                 <div class="invalid-feedback"><?php echo htmlspecialchars($e['model'] ?? ''); ?></div>
@@ -607,6 +609,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
             <div class="form-group">
                 <textarea class="q-text" rows="2" placeholder="Type the question" aria-label="Question text"></textarea>
                 <div class="invalid-feedback"></div>
+                <?php echo aiWriteButton('question', '', ['scope' => '.question-block', 'field' => '.q-text', 'class' => '#class_id', 'title' => '#title', 'use' => true, 'label' => 'Write / improve the question', 'scope_ctx' => ['type' => '.q-type', 'marks' => '.q-marks']]); ?>
             </div>
             <div class="form-group q-marks-group">
                 <input type="number" class="q-marks" min="1" max="100" value="1" aria-label="Marks">
@@ -615,6 +618,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
             </div>
         </div>
         <div class="form-group model-wrap">
+            <?php echo aiWriteButton('model', '', ['scope' => '.question-block', 'field' => '.q-model', 'class' => '#class_id', 'use' => true, 'label' => 'Write the model answer', 'scope_ctx' => ['question' => '.q-text', 'type' => '.q-type']]); ?>
             <textarea class="q-model" rows="3" maxlength="2000" placeholder="Expected answer — what a good answer must include (students never see this before results are released)" aria-label="Expected answer"></textarea>
             <div class="invalid-feedback"></div>
             <small class="form-hint">Students type their answer. You mark it, or press "Mark with AI" on the quiz page and review the AI's marks.</small>

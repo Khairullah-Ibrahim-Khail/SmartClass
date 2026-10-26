@@ -61,6 +61,7 @@
       if (extra.lang) body.set("lang", extra.lang);
       if (btn.dataset.titleSource) body.set("title", val(btn.dataset.titleSource));
       if (btn.dataset.summarySource) body.set("summary", val(btn.dataset.summarySource));
+      if (btn.dataset.scopeCtx) { try { const sc = btn.closest(btn.dataset.scope || "form"), m = JSON.parse(btn.dataset.scopeCtx); Object.keys(m).forEach(function (k) { const el = sc && sc.querySelector(m[k]); body.set("ctx[" + k + "]", el ? el.value : ""); }); } catch (e) {} }   // fields of the same block (a quiz question's type, marks, text)
       if (btn.dataset.ctxSources) { try { const m = JSON.parse(btn.dataset.ctxSources); Object.keys(m).forEach(function (k) { body.set("ctx[" + k + "]", val(m[k])); }); } catch (e) {} }   // other fields of the form the draft should fit (exam: kind, date, duration …)
       if (btn.dataset.student) { body.set("student_id", btn.dataset.student); body.set("c", btn.dataset.ctx || "class"); body.set("cid", btn.dataset.cid || "0"); }
       const label = btn.innerHTML;

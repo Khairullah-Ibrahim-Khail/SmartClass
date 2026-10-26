@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!isset(streamPermissionLabels()[$form['stream_permission']])) $form['stream_permission'] = 'comment';
         $form['require_approval'] = !empty($_POST['require_approval']) ? 1 : 0;
         $form['ai_students'] = !empty($_POST['ai_students']) ? 1 : 0;
+        $form['ai_student_writing'] = !empty($_POST['ai_student_writing']) ? 1 : 0;
         $form['ai_language'] = in_array($_POST['ai_language'] ?? '', ['screen', 'en', 'question'], true) ? $_POST['ai_language'] : 'screen';
 
         if ($form['class_name'] === '') {
@@ -70,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'stream_permission' => $form['stream_permission'],
                 'require_approval'  => $form['require_approval'],
                 'ai_students'       => $form['ai_students'],
+                'ai_student_writing' => $form['ai_student_writing'],
                 'ai_language'       => $form['ai_language'],
             ], 'id = ?', [$class_id]);
             logActivity('edit_class', 'classes', "Edited class #{$class_id} {$form['class_name']}");
@@ -200,6 +202,16 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
                 <span><strong>AI for students in this class</strong>
                     <small class="form-hint" style="display:block;margin:2px 0 0;">When off, no AI helper works for students in this class — not even with their own key.
                         When on, they use their own key, your shared key (Settings › My AI, with a monthly limit per student) or the school's.</small></span>
+            </label>
+        </div>
+
+        <div class="form-group" id="ai-student-writing">
+            <label class="switch-row">
+                <input type="hidden" name="ai_student_writing" value="0">
+                <input type="checkbox" name="ai_student_writing" value="1" <?php echo !empty($form['ai_student_writing']) ? 'checked' : ''; ?>>
+                <span><strong>AI writing help for students (language check and hints)</strong>
+                    <small class="form-hint" style="display:block;margin:2px 0 0;">Off by default — you decide. When on, students see two small buttons under the box where they write an assignment answer or a forum reply:
+                        “Check my language” (fixes spelling and grammar, keeps their own ideas) and “Give me hints” (what to look at — never the answer). It never writes the answer for them and is never shown in quizzes or exams.</small></span>
             </label>
         </div>
 

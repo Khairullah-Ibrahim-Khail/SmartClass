@@ -166,7 +166,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
         </span>
     </div>
     <div class="card-inner">
-        <div class="prewrap"><?php echo htmlspecialchars($assignment['description'] ?? ''); ?></div>
+        <?php echo richText($assignment['description'] ?? ''); ?>
     </div>
 </div>
 
@@ -194,6 +194,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
             <textarea id="content" name="content" rows="8" placeholder="Type your answer here (optional if you attach a file)"
                 class="<?php echo $field_errors['content'] ? 'is-invalid' : ''; ?>"><?php echo htmlspecialchars($content); ?></textarea>
             <div class="invalid-feedback"><?php echo htmlspecialchars($field_errors['content']); ?></div>
+            <?php echo aiStudentButtons('#content', (int) $assignment['class_id'], ['assignment_id' => (int) $assignment['id']]); ?>
         </div>
 
         <div class="form-group">

@@ -94,7 +94,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
                 <?php if ($r['authors']): ?><span><i class="fas fa-user-edit"></i> <?php echo htmlspecialchars($r['authors']); ?><?php echo $r['year'] ? ' (' . (int) $r['year'] . ')' : ''; ?></span><?php elseif ($r['year']): ?><span><i class="fas fa-calendar"></i> <?php echo (int) $r['year']; ?></span><?php endif; ?>
                 <?php if ($r['tags']): foreach (array_filter(array_map('trim', explode(',', $r['tags']))) as $tg): ?><span><i class="fas fa-tag"></i> <?php echo htmlspecialchars($tg); ?></span><?php endforeach; endif; ?>
             </div>
-            <?php if ($r['summary']): ?><div class="prewrap" style="margin-top:6px;"><?php echo htmlspecialchars($r['summary']); ?></div><?php endif; ?>
+            <?php if ($r['summary']): ?><div style="margin-top:6px;"><?php echo richText($r['summary']); ?></div><?php endif; ?>
         </div>
         <div class="lecture-actions">
             <?php if ($r['url']): ?><a class="btn-app btn-sm" href="<?php echo htmlspecialchars($r['url']); ?>" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Open</a><?php endif; ?>

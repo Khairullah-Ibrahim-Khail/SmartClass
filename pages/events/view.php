@@ -94,7 +94,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
                 <span><i class="fas fa-clock"></i> <?php echo date('D, M j · h:i A', $s); ?><?php echo $e['ends_at'] ? ' – ' . (date('Y-m-d', $s) === date('Y-m-d', strtotime($e['ends_at'])) ? date('h:i A', strtotime($e['ends_at'])) : date('D, M j · h:i A', strtotime($e['ends_at']))) : ''; ?></span>
                 <?php if ($e['location']): ?><span><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($e['location']); ?></span><?php endif; ?>
             </div>
-            <?php if ($e['description']): ?><div class="prewrap" style="margin-top:6px;"><?php echo linkify($e['description']); ?></div><?php endif; ?>
+            <?php if ($e['description']): ?><div style="margin-top:6px;"><?php echo richText($e['description']); ?></div><?php endif; ?>
         </div>
         <?php if (isTeacher()): ?>
         <div class="lecture-actions">

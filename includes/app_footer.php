@@ -30,7 +30,9 @@
     <script src="<?php echo asset('assets/js/live-list.js'); ?>" defer></script>
     <script>window.__scDownloadLabel = <?php echo json_encode(t('Download')); ?>; window.__scNewTabLabel = <?php echo json_encode(t('Open in a new tab')); ?>;</script>
     <script src="<?php echo asset('assets/js/file-view.js'); ?>" defer></script>
-    <?php if (!empty($GLOBALS['sc_ai_write_used']) && !in_array('assets/js/ai-assist.js', $page_scripts ?? [], true)): ?><script src="<?php echo asset('assets/js/ai-assist.js'); ?>" defer></script><?php endif; ?>
+    <?php /* Always loaded (not only on pages that show the buttons): a page reached by a click inside the app is swapped in without running the footer again, so a script loaded only for it would never start */ ?>
+    <script src="<?php echo asset('assets/js/ai-student.js'); ?>" defer></script>
+    <?php if (!in_array('assets/js/ai-assist.js', $page_scripts ?? [], true)): ?><script src="<?php echo asset('assets/js/ai-assist.js'); ?>" defer></script><?php endif; ?>
     <script src="<?php echo asset('assets/js/settings-nav.js'); ?>" defer></script>
     <script>
       // Installable app + offline page (sw.js never stores signed-in pages)

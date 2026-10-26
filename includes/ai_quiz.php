@@ -74,10 +74,10 @@ function aiNormalizeQuizQuestions(array $list, $max) {
     $seen = [];
     foreach ($list as $q) {
         if (!is_array($q)) { $dropped++; continue; }
-        $text = trim((string) ($q['question'] ?? $q['text'] ?? ''));
+        $text = aiMarkdownToPlain($q['question'] ?? $q['text'] ?? '');   // students read it as plain text
         $opts = [];
         foreach ((is_array($q['options'] ?? null) ? $q['options'] : []) as $o) {
-            $o = is_scalar($o) ? trim((string) $o) : '';
+            $o = is_scalar($o) ? aiMarkdownToPlain($o) : '';
             $o = preg_replace('/^\(?[A-Fa-f][.)]\s+/', '', $o);   // "A) text" → "text"
             $opts[] = $o;
         }

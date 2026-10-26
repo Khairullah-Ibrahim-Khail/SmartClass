@@ -218,7 +218,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
             <div class="detail-item"><div class="label">Due</div><div class="value"><?php echo $quiz['due_date'] ? formatDate($quiz['due_date'], 'M d, h:i A') : 'Open'; ?></div></div>
         </div>
         <?php if (!empty($quiz['description'])): ?>
-        <div class="prewrap" style="margin-bottom:16px;"><?php echo htmlspecialchars($quiz['description']); ?></div>
+        <div style="margin-bottom:16px;"><?php echo richText($quiz['description']); ?></div>
         <?php endif; ?>
         <p class="form-hint" style="margin-bottom:16px;">
             You get one attempt.<?php echo $quiz['time_limit'] ? ' The timer starts when you press Start and the quiz submits itself when time runs out.' : ''; ?>

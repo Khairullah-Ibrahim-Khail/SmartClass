@@ -535,6 +535,44 @@ function timeAgo($datetime) {
  * The text is split on URLs and every piece is escaped, so nothing else becomes HTML.
  * Trailing punctuation (.,;:!?) and an unmatched ")" stay outside the link.
  */
+/**
+ * A teacher's text shown properly: paragraphs, bold headings (a short line ending in ":" or "## …"), real bullet and numbered lists, **bold**, *italic*, `code` and links —
+ * made from plain text (what the AI writes and what people type). Everything is escaped first, so nothing typed can become HTML. Use it where the text is for reading
+ * (announcements, instructions, descriptions); NOT for what a student typed as an answer.
+ */
+function richText($text) {
+    $text = trim(str_replace(["\r\n", "\r"], "\n", (string) $text));
+    if ($text === '') return '';
+    $inline = function ($line) {
+        $h = linkify($line);   // escapes the text and links bare addresses
+        $h = preg_replace('/(\*\*|__)(?=\S)(.+?)(?<=\S)\1/su', '<strong>$2</strong>', $h);
+        $h = preg_replace('/(?<![*\w])\*(?![\s*])(.+?)(?<![\s*])\*(?![*\w])/u', '<em>$1</em>', $h);
+        return preg_replace('/`([^`\n]+)`/', '<code>$1</code>', $h);
+    };
+    $isBullet = fn($l) => (bool) preg_match('/^\s*[-*•]\s+\S/u', $l);
+    $isNumber = fn($l) => (bool) preg_match('/^\s*\d{1,3}[.)]\s+\S/', $l);
+    $isHeading = fn($l) => (bool) preg_match('/^\s{0,3}#{1,6}\s*\S/', $l) || (mb_strlen(trim($l)) <= 80 && (bool) preg_match('/\S:\s*$/u', $l) && !preg_match('~https?://~', $l));
+    $out = '';
+    foreach (preg_split('/\n{2,}/', $text) as $block) {
+        $lines = array_values(array_filter(array_map('rtrim', explode("\n", $block)), fn($l) => trim($l) !== ''));
+        for ($i = 0, $n = count($lines); $i < $n;) {
+            $l = $lines[$i];
+            if ($isBullet($l) || $isNumber($l)) {
+                $ordered = $isNumber($l); $items = '';
+                while ($i < $n && ($ordered ? $isNumber($lines[$i]) : $isBullet($lines[$i]))) { $items .= '<li>' . $inline(preg_replace('/^\s*(?:[-*•]|\d{1,3}[.)])\s+/u', '', $lines[$i])) . '</li>'; $i++; }
+                $out .= $ordered ? "<ol>{$items}</ol>" : "<ul>{$items}</ul>";
+            } elseif ($isHeading($l)) {
+                $out .= '<p class="rt-h">' . $inline(preg_replace('/^\s{0,3}#{1,6}\s*/', '', $l)) . '</p>'; $i++;
+            } else {
+                $para = [];
+                while ($i < $n && !$isBullet($lines[$i]) && !$isNumber($lines[$i]) && !($para && $isHeading($lines[$i]))) { $para[] = $inline($lines[$i]); $i++; }
+                $out .= '<p>' . implode('<br>', $para) . '</p>';
+            }
+        }
+    }
+    return '<div class="rich-text" dir="auto">' . $out . '</div>';
+}
+
 function linkify($text) {
     $text = (string) $text;
     $parts = preg_split('~(https?://[^\s<>"\']+)~i', $text, -1, PREG_SPLIT_DELIM_CAPTURE);

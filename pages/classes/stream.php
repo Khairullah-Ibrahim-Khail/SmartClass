@@ -432,7 +432,7 @@ classTop('stream');
                     <?php endif; ?>
                 </div>
             </header>
-            <div class="post-body prewrap"><?php echo linkify($a['body']); ?></div>
+            <div class="post-body"><?php echo richText($a['body']); ?></div>
             <?php if ((int) $a['user_id'] === (int) $current_user_id): $eid = (int) $a['id']; ?>
             <form method="POST" class="post-edit" id="edit-post-<?php echo $eid; ?>" action="<?php echo $self; ?>#post-<?php echo $eid; ?>"<?php echo isset($edit_errors[$eid]) ? '' : ' hidden'; ?>>
                 <?php echo csrfField(); ?>

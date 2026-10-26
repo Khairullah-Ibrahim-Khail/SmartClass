@@ -24,7 +24,7 @@ $pct = ($st === 'graded' && $released && $max > 0) ? round((float) $mine['marks_
 <div class="asg-cols">
     <div class="asg-main">
         <section class="content-card asg-card"><div class="card-head"><h2><i class="fas fa-file-lines"></i> <?php echo t('Instructions'); ?></h2></div>
-            <div class="card-inner"><?php if (trim((string) $assignment['description']) !== ''): ?><div class="prewrap asg-text"><?php echo htmlspecialchars($assignment['description']); ?></div>
+            <div class="card-inner"><?php if (trim((string) $assignment['description']) !== ''): ?><div class="asg-text"><?php echo richText($assignment['description']); ?></div>
                 <?php else: ?><p class="form-hint" style="margin:0;"><?php echo t('Your teacher did not write instructions.'); ?></p><?php endif; ?></div></section>
         <?php if ($materials): ?>
         <section class="content-card asg-card"><div class="card-head"><h2><i class="fas fa-paperclip"></i> <?php echo t('Materials'); ?></h2></div>

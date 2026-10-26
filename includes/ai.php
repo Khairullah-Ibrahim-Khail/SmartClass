@@ -47,6 +47,7 @@ function aiFeatures() {
         'grading'       => ['Grading assistant + rubrics', 'teachers'],
         'insights'      => ['Class insights summary', 'teachers'],
         'writing'       => ['Writers, feedback rewriter, translation, reply ideas', 'teachers'],
+        'student_writing' => ['Student writing help (language check, hints) — only where the teacher switched it on', 'students'],
         'explain'       => ['Explain my mistakes / my feedback', 'students'],
         'study'         => ['Lecture study helper, AI Tutor + practice quiz', 'students'],
     ];
@@ -156,10 +157,11 @@ function aiSources($feature, $user_id, $class_id = null) {
 
     if ($student) {
         $class = $class_id ? $db->fetchOne(
-            "SELECT c.id, c.ai_students FROM classes c INNER JOIN class_members cm ON cm.class_id = c.id AND cm.student_id = ?
+            "SELECT c.id, c.ai_students, c.ai_student_writing FROM classes c INNER JOIN class_members cm ON cm.class_id = c.id AND cm.student_id = ?
              WHERE c.id = ? AND c.is_active = 1", [(int) $user_id, (int) $class_id]) : null;
         if (!$class) return [[], 'AI helpers are only available inside your classes.'];
-        if (!$class['ai_students']) return [[], 'Your teacher has switched AI off for this class.'];
+        // the writing help (language check, hints) has its own teacher switch; every other student helper keeps "AI for students in this class" exactly as before
+        if (!($feature === 'student_writing' ? $class['ai_student_writing'] : $class['ai_students'])) return [[], 'Your teacher has switched AI off for this class.'];
     }
 
     $own = aiPersonalProvider($user_id);

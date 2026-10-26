@@ -316,7 +316,7 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
             <?php endif; ?>
         </div>
         <?php if (!empty($quiz['description'])): ?>
-        <div class="prewrap"><?php echo htmlspecialchars($quiz['description']); ?></div>
+        <?php echo richText($quiz['description']); ?>
         <?php endif; ?>
     </div>
 </div>

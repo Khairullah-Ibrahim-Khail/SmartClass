@@ -49,7 +49,7 @@ $due_txt = $assignment['due_date'] ? formatDate($assignment['due_date'], 'M d, Y
 <?php if ($tab === 'instructions'): ?>
 <!-- ============ Instructions: what the students see ============ -->
 <section class="content-card asg-card"><div class="card-head"><h2><i class="fas fa-file-lines"></i> <?php echo t('Instructions'); ?></h2></div>
-    <div class="card-inner"><?php if (trim((string) $assignment['description']) !== ''): ?><div class="prewrap asg-text"><?php echo htmlspecialchars($assignment['description']); ?></div>
+    <div class="card-inner"><?php if (trim((string) $assignment['description']) !== ''): ?><div class="asg-text"><?php echo richText($assignment['description']); ?></div>
         <?php else: ?><p class="form-hint" style="margin:0;"><?php echo t('No instructions were written.'); ?> <a href="create.php?id=<?php echo $aid; ?>"><?php echo t('Add them'); ?></a></p><?php endif; ?></div></section>
 <?php if ($materials): ?>
 <section class="content-card asg-card"><div class="card-head"><h2><i class="fas fa-paperclip"></i> <?php echo t('Materials'); ?></h2></div>
