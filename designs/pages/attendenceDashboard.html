@@ -1,0 +1,129 @@
+<div class="topbar">
+  <button id="btnCreate">Create Attendance</button>
+  <button id="btnEdit">Edit Attendance</button>
+  <button id="btnReports">Reports & Analytics</button>
+</div>
+
+<div class="containerAttendenceDashborad">
+  <!-- Dashboard -->
+  <div id="dashboard" class="section active">
+    <div
+      style="
+        padding: 30px;
+        border-radius: 12px;
+        width: 100%;
+        margin: 30px auto;
+        text-align: left;
+      "
+    >
+      <h1 style="text-align: center; color: #1e90ff; margin-bottom: 15px">
+        Welcome to the Attendance Dashboard
+      </h1>
+      <p style="font-size: 16px; line-height: 1.6; color: #333">
+        Manage and monitor student attendance efficiently. Follow the guidelines
+        below:
+      </p>
+      <div
+        style="
+          margin-top: 25px;
+          padding: 20px;
+          background-color: #e6f7ff;
+          border-left: 6px solid #1e90ff;
+          border-radius: 8px;
+          color: #0b3d91;
+          font-size: 16px;
+          line-height: 1.6;
+        "
+      >
+        <strong>Attendance Advisory:</strong>
+        <ul style="margin-top: 10px; padding-left: 20px">
+          <li>Update attendance daily to maintain accurate records.</li>
+          <li>Check for absent or late students promptly.</li>
+          <li>Use the <em>Edit</em> section to correct attendance.</li>
+          <li>Review analytics in the <em>Reports</em> section for trends.</li>
+        </ul>
+        <p style="margin-top: 10px">
+          <strong>Tip:</strong> Consistent tracking improves class performance.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Sections -->
+  <div id="create" class="section"></div>
+  <div id="edit" class="section"></div>
+  <div id="reports" class="section"></div>
+</div>
+
+<script>
+  function showSection(filePath, targetId) {
+    const container = document.getElementById(targetId);
+    if (!container) return;
+
+    // Hide all sections
+    document
+      .querySelectorAll(".section")
+      .forEach((s) => s.classList.remove("active"));
+
+    // Show target section
+    container.classList.add("active");
+
+    // Fetch HTML
+    fetch(filePath)
+      .then((res) => (res.ok ? res.text() : Promise.reject(res.status)))
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Inject HTML
+        container.innerHTML = doc.body.innerHTML;
+
+        // Run all inline scripts
+        doc.querySelectorAll("script").forEach((script) => {
+          const newScript = document.createElement("script");
+          if (script.src) {
+            newScript.src = script.src;
+          } else {
+            newScript.textContent = script.textContent;
+          }
+          document.body.appendChild(newScript);
+        });
+
+        // Special handling for report.js
+        if (targetId === "reports") {
+          if (!document.querySelector("#reportJs")) {
+            const script = document.createElement("script");
+            script.src = "../Assets/js/script/report.js";
+            script.id = "reportJs";
+            script.onload = () => {
+              if (typeof initReport === "function") initReport();
+            };
+            document.body.appendChild(script);
+          } else {
+            if (typeof initReport === "function") initReport();
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Load failed:", err);
+        container.innerHTML = "<p>Failed to load content</p>";
+      });
+  }
+
+  // Buttons
+  document
+    .getElementById("btnCreate")
+    .addEventListener("click", () =>
+      showSection("../pages/createAttendence.html", "create")
+    );
+  document
+    .getElementById("btnEdit")
+    .addEventListener("click", () =>
+      showSection("../pages/EditAttendence.html", "edit")
+    );
+  document
+    .getElementById("btnReports")
+    .addEventListener("click", () =>
+      showSection("../pages/reports.html", "reports")
+    );
+</script>

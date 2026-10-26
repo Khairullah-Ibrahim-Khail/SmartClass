@@ -1,0 +1,707 @@
+<div class="create-resource-container">
+  <main class="main-content">
+    <div class="create-resource-wrapper">
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="step active">
+          <div class="step-number">1</div>
+          <div class="step-label">Resource Details</div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-label">Upload File</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-label">Sharing Settings</div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-label">Review & Submit</div>
+        </div>
+      </div>
+
+      <!-- Create Resource Form -->
+      <div class="create-form-container">
+        <form
+          id="createResourceForm"
+          class="resource-form"
+          enctype="multipart/form-data"
+        >
+          <!-- Section 1: Basic Information -->
+          <div class="form-section active" id="section-basic">
+            <div class="section-header">
+              <h2>Basic Information</h2>
+              <p class="section-description">
+                Provide essential details about your research resource
+              </p>
+            </div>
+
+            <div class="form-grid">
+              <!-- Title Field -->
+              <div class="form-group full-width">
+                <label for="resourceTitle" class="form-label required">
+                  Resource Title
+                </label>
+                <input
+                  type="text"
+                  id="resourceTitle"
+                  name="resourceTitle"
+                  class="form-input"
+                  placeholder="e.g., Introduction to Machine Learning"
+                  required
+                  maxlength="200"
+                />
+                <div class="form-hint">
+                  Give your resource a clear, descriptive title. Maximum 200
+                  characters.
+                </div>
+              </div>
+
+              <!-- Description Field -->
+              <div class="form-group full-width">
+                <label for="resourceDescription" class="form-label required">
+                  Description
+                </label>
+                <textarea
+                  id="resourceDescription"
+                  name="resourceDescription"
+                  class="form-textarea"
+                  rows="5"
+                  placeholder="Describe the content, purpose, and key takeaways of this resource..."
+                  required
+                  maxlength="1000"
+                ></textarea>
+                <div class="form-hint">
+                  <span id="charCount">0</span>/1000 characters
+                </div>
+              </div>
+
+              <!-- Category & Type -->
+              <div class="form-group">
+                <label for="resourceCategory" class="form-label required">
+                  Category
+                </label>
+                <select
+                  id="resourceCategory"
+                  name="resourceCategory"
+                  class="form-select"
+                  required
+                >
+                  <option value="">Select a category</option>
+                  <option value="research-paper">Research Paper</option>
+                  <option value="presentation">Presentation/Slides</option>
+                  <option value="dataset">Dataset</option>
+                  <option value="code">Code Repository</option>
+                  <option value="video">Video/Lecture</option>
+                  <option value="book">Book/Textbook</option>
+                  <option value="article">Article/Blog Post</option>
+                  <option value="template">Template</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="resourceType" class="form-label required">
+                  Resource Type
+                </label>
+                <select
+                  id="resourceType"
+                  name="resourceType"
+                  class="form-select"
+                  required
+                >
+                  <option value="">Select type</option>
+                  <option value="educational">Educational Material</option>
+                  <option value="reference">Reference Material</option>
+                  <option value="exercise">Exercise/Practice</option>
+                  <option value="assessment">Assessment/Quiz</option>
+                  <option value="project">Project Template</option>
+                </select>
+              </div>
+
+              <!-- Tags -->
+              <div class="form-group full-width">
+                <label for="resourceTags" class="form-label">
+                  Tags (Keywords)
+                </label>
+                <div class="tags-input-container">
+                  <input
+                    type="text"
+                    id="resourceTags"
+                    class="tags-input"
+                    placeholder="Type a tag and press Enter"
+                  />
+                  <div class="tags-list" id="tagsList">
+                    <!-- Tags will be added here dynamically -->
+                  </div>
+                </div>
+                <div class="form-hint">
+                  Add relevant keywords to help students find this resource.
+                  Press Enter to add each tag.
+                </div>
+              </div>
+
+              <!-- Author Information -->
+              <div class="form-group">
+                <label for="authorName" class="form-label">
+                  Author/Creator
+                </label>
+                <input
+                  type="text"
+                  id="authorName"
+                  name="authorName"
+                  class="form-input"
+                  placeholder="Your name or resource author"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="publicationDate" class="form-label">
+                  Publication Date
+                </label>
+                <input
+                  type="date"
+                  id="publicationDate"
+                  name="publicationDate"
+                  class="form-input"
+                />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="window.history.back()"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary next-section"
+                data-next="section-file"
+              >
+                Next: Upload File →
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 2: File Upload -->
+          <div class="form-section" id="section-file">
+            <div class="section-header">
+              <h2>Upload File</h2>
+              <p class="section-description">
+                Upload your research file and provide file details
+              </p>
+            </div>
+
+            <!-- File Upload Area -->
+            <div class="file-upload-section">
+              <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">📤</div>
+                <h3>Drag & Drop Your File</h3>
+                <p class="upload-subtitle">or click to browse files</p>
+                <p class="upload-info">
+                  Supported formats: PDF, DOC, PPT, XLS, ZIP, MP4, JPG, PNG<br />
+                  Maximum file size: 100MB
+                </p>
+                <input
+                  type="file"
+                  id="resourceFile"
+                  name="resourceFile"
+                  class="file-input"
+                  hidden
+                />
+                <button type="button" class="btn btn-outline browse-btn">
+                  Browse Files
+                </button>
+              </div>
+
+              <!-- File Preview -->
+              <div class="file-preview" id="filePreview" style="display: none">
+                <div class="preview-header">
+                  <div class="file-info">
+                    <div class="file-icon-preview" id="fileIcon">📄</div>
+                    <div class="file-details">
+                      <h4 id="fileName">No file selected</h4>
+                      <p id="fileSize">-</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn-icon remove-file"
+                    id="removeFile"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div class="preview-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                  </div>
+                  <span class="progress-text" id="progressText"
+                    >Ready to upload</span
+                  >
+                </div>
+              </div>
+
+              <!-- File Details Form -->
+              <div
+                class="file-details-form"
+                id="fileDetailsForm"
+                style="display: none"
+              >
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="fileVersion" class="form-label">
+                      Version
+                    </label>
+                    <input
+                      type="text"
+                      id="fileVersion"
+                      name="fileVersion"
+                      class="form-input"
+                      placeholder="e.g., 1.0"
+                      value="1.0"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="fileLanguage" class="form-label">
+                      Language
+                    </label>
+                    <select
+                      id="fileLanguage"
+                      name="fileLanguage"
+                      class="form-select"
+                    >
+                      <option value="en">English</option>
+                      <option value="es">Spanish</option>
+                      <option value="fr">French</option>
+                      <option value="de">German</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group full-width">
+                    <label class="form-label"> File Accessibility </label>
+                    <div class="checkbox-group">
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          name="fileAccessibility[]"
+                          value="screen-reader"
+                        />
+                        <span class="checkbox-custom"></span>
+                        Screen reader compatible
+                      </label>
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          name="fileAccessibility[]"
+                          value="text-to-speech"
+                        />
+                        <span class="checkbox-custom"></span>
+                        Text-to-speech ready
+                      </label>
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          name="fileAccessibility[]"
+                          value="mobile-friendly"
+                        />
+                        <span class="checkbox-custom"></span>
+                        Mobile friendly
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary prev-section"
+                data-prev="section-basic"
+              >
+                ← Previous
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary next-section"
+                data-next="section-sharing"
+              >
+                Next: Sharing Settings →
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 3: Sharing Settings -->
+          <div class="form-section" id="section-sharing">
+            <div class="section-header">
+              <h2>Sharing Settings</h2>
+              <p class="section-description">
+                Configure who can access this resource and when
+              </p>
+            </div>
+
+            <div class="form-grid">
+              <!-- Visibility Settings -->
+              <div class="form-group full-width">
+                <label class="form-label required"> Resource Visibility </label>
+                <div class="radio-group vertical">
+                  <label class="radio-label">
+                    <input
+                      type="radio"
+                      name="visibility"
+                      value="public"
+                      checked
+                    />
+                    <span class="radio-custom"></span>
+                    <div class="radio-content">
+                      <strong>Public (All Students)</strong>
+                      <p class="radio-description">
+                        All students in your courses can access this resource
+                        immediately.
+                      </p>
+                    </div>
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="visibility" value="selected" />
+                    <span class="radio-custom"></span>
+                    <div class="radio-content">
+                      <strong>Selected Courses/Groups</strong>
+                      <p class="radio-description">
+                        Choose specific courses or student groups that can
+                        access this resource.
+                      </p>
+                    </div>
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="visibility" value="private" />
+                    <span class="radio-custom"></span>
+                    <div class="radio-content">
+                      <strong>Private (Draft)</strong>
+                      <p class="radio-description">
+                        Only you can see this resource. Useful for drafts or
+                        future resources.
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Course Selection (Conditional) -->
+              <div
+                class="form-group full-width"
+                id="courseSelection"
+                style="display: none"
+              >
+                <label class="form-label"> Select Courses/Groups </label>
+                <div class="checkbox-group scrollable">
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="courses[]" value="cs101" />
+                    <span class="checkbox-custom"></span>
+                    CS 101 - Introduction to Programming (42 students)
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="courses[]" value="ai201" />
+                    <span class="checkbox-custom"></span>
+                    AI 201 - Machine Learning Fundamentals (35 students)
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="courses[]" value="ds301" />
+                    <span class="checkbox-custom"></span>
+                    DS 301 - Advanced Data Science (28 students)
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="courses[]" value="res401" />
+                    <span class="checkbox-custom"></span>
+                    RES 401 - Research Methods (15 students)
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="courses[]" value="group-a" />
+                    <span class="checkbox-custom"></span>
+                    Research Group A - Graduate Students (8 students)
+                  </label>
+                </div>
+              </div>
+
+              <!-- Release Date -->
+              <div class="form-group">
+                <label for="releaseDate" class="form-label">
+                  Release Date
+                </label>
+                <input
+                  type="date"
+                  id="releaseDate"
+                  name="releaseDate"
+                  class="form-input"
+                  min="2023-11-01"
+                />
+                <div class="form-hint">
+                  If set, resource will be available from this date
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="expiryDate" class="form-label"> Expiry Date </label>
+                <input
+                  type="date"
+                  id="expiryDate"
+                  name="expiryDate"
+                  class="form-input"
+                />
+                <div class="form-hint">
+                  Optional. Resource will be hidden after this date
+                </div>
+              </div>
+
+              <!-- Permissions -->
+              <div class="form-group full-width">
+                <label class="form-label"> Student Permissions </label>
+                <div class="checkbox-group">
+                  <label class="checkbox-label">
+                    <input
+                      type="checkbox"
+                      name="permissions[]"
+                      value="download"
+                      checked
+                    />
+                    <span class="checkbox-custom"></span>
+                    Allow download
+                  </label>
+                  <label class="checkbox-label">
+                    <input
+                      type="checkbox"
+                      name="permissions[]"
+                      value="print"
+                      checked
+                    />
+                    <span class="checkbox-custom"></span>
+                    Allow printing
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="permissions[]" value="share" />
+                    <span class="checkbox-custom"></span>
+                    Allow sharing with classmates
+                  </label>
+                  <label class="checkbox-label">
+                    <input
+                      type="checkbox"
+                      name="permissions[]"
+                      value="comment"
+                    />
+                    <span class="checkbox-custom"></span>
+                    Allow comments and annotations
+                  </label>
+                </div>
+              </div>
+
+              <!-- License -->
+              <div class="form-group full-width">
+                <label for="resourceLicense" class="form-label">
+                  License/Copyright
+                </label>
+                <select
+                  id="resourceLicense"
+                  name="resourceLicense"
+                  class="form-select"
+                >
+                  <option value="copyright">
+                    Copyright © All rights reserved
+                  </option>
+                  <option value="creative-commons">
+                    Creative Commons Attribution
+                  </option>
+                  <option value="educational">Educational Use Only</option>
+                  <option value="open-source">Open Source</option>
+                  <option value="public-domain">Public Domain</option>
+                </select>
+                <div class="form-hint">
+                  Specify how others can use this resource
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary prev-section"
+                data-prev="section-file"
+              >
+                ← Previous
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary next-section"
+                data-next="section-review"
+              >
+                Next: Review & Submit →
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 4: Review & Submit -->
+          <div class="form-section" id="section-review">
+            <div class="section-header">
+              <h2>Review & Submit</h2>
+              <p class="section-description">
+                Review all details before publishing your resource
+              </p>
+            </div>
+
+            <!-- Review Summary -->
+            <div class="review-summary">
+              <div class="review-section">
+                <h3>Basic Information</h3>
+                <div class="review-item">
+                  <span class="review-label">Title:</span>
+                  <span class="review-value" id="reviewTitle">-</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Category:</span>
+                  <span class="review-value" id="reviewCategory">-</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Type:</span>
+                  <span class="review-value" id="reviewType">-</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Description:</span>
+                  <div class="review-value" id="reviewDescription">-</div>
+                </div>
+              </div>
+
+              <div class="review-section">
+                <h3>File Details</h3>
+                <div class="review-item">
+                  <span class="review-label">File:</span>
+                  <span class="review-value" id="reviewFile"
+                    >No file selected</span
+                  >
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Version:</span>
+                  <span class="review-value" id="reviewVersion">-</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Language:</span>
+                  <span class="review-value" id="reviewLanguage">-</span>
+                </div>
+              </div>
+
+              <div class="review-section">
+                <h3>Sharing Settings</h3>
+                <div class="review-item">
+                  <span class="review-label">Visibility:</span>
+                  <span class="review-value" id="reviewVisibility">-</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Available to:</span>
+                  <span class="review-value" id="reviewCourses">-</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Release Date:</span>
+                  <span class="review-value" id="reviewReleaseDate">-</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Permissions:</span>
+                  <span class="review-value" id="reviewPermissions">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Final Options -->
+            <div class="final-options">
+              <div class="form-group">
+                <label for="publishStatus" class="form-label">
+                  Publish Status
+                </label>
+                <select
+                  id="publishStatus"
+                  name="publishStatus"
+                  class="form-select"
+                >
+                  <option value="publish">Publish Immediately</option>
+                  <option value="schedule">Schedule for Later</option>
+                  <option value="draft">Save as Draft</option>
+                </select>
+              </div>
+
+              <div class="notification-options">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="sendNotification" checked />
+                  <span class="checkbox-custom"></span>
+                  Notify students when resource is available
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary prev-section"
+                data-prev="section-sharing"
+              >
+                ← Previous
+              </button>
+              <button type="submit" class="btn btn-success publish-btn">
+                <span class="btn-icon">📤</span>
+                Publish Resource
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Quick Tips Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-section">
+          <h3>📝 Tips for Great Resources</h3>
+          <ul class="tips-list">
+            <li>Use clear, descriptive titles</li>
+            <li>Add relevant tags for searchability</li>
+            <li>Provide detailed descriptions</li>
+            <li>Check file compatibility</li>
+            <li>Set appropriate permissions</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>⏱️ Recent Uploads</h3>
+          <div class="recent-uploads">
+            <div class="recent-item">
+              <span class="recent-icon">📄</span>
+              <div class="recent-details">
+                <div class="recent-title">ML Algorithms Guide</div>
+                <div class="recent-date">2 hours ago</div>
+              </div>
+            </div>
+            <div class="recent-item">
+              <span class="recent-icon">📊</span>
+              <div class="recent-details">
+                <div class="recent-title">Data Analysis Dataset</div>
+                <div class="recent-date">Yesterday</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>ℹ️ Need Help?</h3>
+          <p>Check our <a href="#">upload guide</a> or contact support.</p>
+          <button class="btn btn-outline help-btn">
+            <span class="btn-icon">❓</span>
+            Get Help
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- JavaScript -->
+<script src="resources.js"></script>

@@ -1,0 +1,1476 @@
+/* ===== UPDATE CONTAINER ===== */
+.UpdateContainer {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 2.5rem;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.UpdateContainer > h3 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #3498db;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ===== CARD STYLES ===== */
+.UpdateContainer .card {
+  background: white;
+  border: 1px solid #e1e8ed;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.UpdateContainer .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3498db, #2ecc71);
+}
+
+.UpdateContainer .card:hover {
+  box-shadow: 0 10px 30px rgba(52, 152, 219, 0.15);
+  transform: translateY(-4px);
+}
+
+.UpdateContainer .card h3 {
+  color: #2c3e50;
+  font-size: 1.6rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.UpdateContainer .card > p {
+  margin: 0.75rem 0;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.UpdateContainer .card > p b {
+  color: #2d3748;
+  font-weight: 600;
+  min-width: 160px;
+  display: inline-block;
+}
+
+/* ===== STATUS SECTION ===== */
+.UpdateContainer .card > p + p + p + p {
+  /* Target the "Status:" paragraph */
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px dashed #eaeaea;
+}
+
+/* ===== FORM ROWS ===== */
+.UpdateContainer .card .form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.25rem 0;
+  flex-wrap: wrap;
+  padding: 0.75rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #edf2f7;
+}
+
+.UpdateContainer .card select {
+  padding: 0.75rem 1rem;
+  border: 2px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: white;
+  color: #4a5568;
+  min-width: 200px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.UpdateContainer .card select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.UpdateContainer .card button[type="submit"] {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2);
+}
+
+.UpdateContainer .card button[type="submit"]:hover {
+  background: linear-gradient(135deg, #2980b9, #2573a7);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.UpdateContainer .card button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* ===== TIMELINE SECTION HEADER ===== */
+.UpdateContainer .card p:nth-last-of-type(2) {
+  /* Target "Research Phases:" paragraph */
+  margin-top: 2.5rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+}
+
+/* ===== ENHANCED TIMELINE ===== */
+.UpdateContainer .card .timeline {
+  list-style: none;
+  padding: 1.5rem 0 0 0;
+  margin: 0;
+  position: relative;
+}
+
+.UpdateContainer .card .timeline::before {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #3498db, #2ecc71, #e74c3c);
+  border-radius: 3px;
+}
+
+.UpdateContainer .card .timeline li {
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-left: 3.5rem;
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+}
+
+.UpdateContainer .card .timeline li::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  border: 3px solid #3498db;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+/* Timeline item status indicators */
+.UpdateContainer .card .timeline li input[type="checkbox"]:checked ~ * {
+  color: #27ae60;
+}
+
+.UpdateContainer .card .timeline li input[type="checkbox"]:checked + *::before {
+  border-color: #2ecc71;
+  background-color: #2ecc71;
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+
+/* Current phase (focused) */
+.UpdateContainer .card .timeline li input[type="checkbox"]:focus ~ * {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.UpdateContainer .card .timeline li input[type="checkbox"]:focus + *::before {
+  border-color: #3498db;
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3);
+}
+
+/* ===== TIMELINE FORM ROWS ===== */
+.UpdateContainer .card .timeline .form-row {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.UpdateContainer .card .timeline .form-row:hover {
+  background-color: #f8fafc;
+  border-color: #3498db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== TIMELINE CHECKBOXES ===== */
+.UpdateContainer .card .timeline input[type="checkbox"] {
+  margin-right: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+  accent-color: #3498db;
+  flex-shrink: 0;
+}
+
+.UpdateContainer .card .timeline input[type="checkbox"]:checked {
+  accent-color: #2ecc71;
+}
+
+/* ===== TIMELINE LABELS ===== */
+.UpdateContainer .card .timeline .form-row label {
+  flex-grow: 1;
+  color: #4a5568;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.25rem 0;
+}
+
+.UpdateContainer .card .timeline .form-row label::before {
+  content: attr(data-phase);
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 28px;
+  text-align: center;
+  background: #f8fafc;
+  border-radius: 6px;
+  margin-right: 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4a5568;
+  border: 1px solid #eaeaea;
+}
+
+/* ===== PHASE CATEGORIES ===== */
+/* Proposal Phase */
+.UpdateContainer .card .timeline li:nth-child(-n + 3) .form-row label::before {
+  background: #e3f2fd;
+  color: #1976d2;
+  border-color: #bbdefb;
+}
+
+/* Research Phase */
+.UpdateContainer
+  .card
+  .timeline
+  li:nth-child(n + 4):nth-child(-n + 7)
+  .form-row
+  label::before {
+  background: #e8f5e9;
+  color: #388e3c;
+  border-color: #c8e6c9;
+}
+
+/* Writing Phase */
+.UpdateContainer
+  .card
+  .timeline
+  li:nth-child(n + 8):nth-child(-n + 10)
+  .form-row
+  label::before {
+  background: #fff3e0;
+  color: #f57c00;
+  border-color: #ffe0b2;
+}
+
+/* Finalization Phase */
+.UpdateContainer .card .timeline li:nth-child(n + 11) .form-row label::before {
+  background: #f3e5f5;
+  color: #7b1fa2;
+  border-color: #e1bee7;
+}
+
+/* ===== TIMELINE BUTTONS ===== */
+.UpdateContainer .card .timeline button[type="submit"] {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  box-shadow: 0 2px 4px rgba(46, 204, 113, 0.2);
+  white-space: nowrap;
+}
+
+.UpdateContainer .card .timeline button[type="submit"]:hover {
+  background: linear-gradient(135deg, #27ae60, #219653);
+}
+
+/* ===== PROGRESS INDICATOR ===== */
+.progress-container {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #eaeaea;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+  width: 30%; /* This would be dynamic based on checked phases */
+}
+
+input[type="number"] {
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border: 1px solid green;
+  padding: 3px 5px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 992px) {
+  .UpdateContainer {
+    padding: 2rem;
+  }
+
+  .UpdateContainer .card > p b {
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .UpdateContainer {
+    padding: 1.5rem;
+  }
+
+  .UpdateContainer .card {
+    padding: 1.5rem;
+  }
+
+  .UpdateContainer .card .form-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .UpdateContainer .card select,
+  .UpdateContainer .card button[type="submit"] {
+    width: 100%;
+  }
+
+  .UpdateContainer .card .timeline li {
+    padding-left: 2.5rem;
+  }
+
+  .UpdateContainer .card .timeline::before {
+    left: 1rem;
+  }
+
+  .UpdateContainer .card .timeline li::before {
+    left: 0.5rem;
+  }
+
+  .UpdateContainer .card .timeline .form-row {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .UpdateContainer .card {
+    padding: 1.25rem;
+  }
+
+  .UpdateContainer > h3 {
+    font-size: 1.5rem;
+  }
+
+  .UpdateContainer .card h3 {
+    font-size: 1.3rem;
+  }
+
+  .UpdateContainer .card > p b {
+    min-width: 120px;
+    font-size: 0.9rem;
+  }
+
+  .UpdateContainer .card .timeline li {
+    padding-left: 2rem;
+  }
+
+  .UpdateContainer .card .timeline::before {
+    left: 0.75rem;
+  }
+
+  .UpdateContainer .card .timeline li::before {
+    left: 0.25rem;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* end of the update section */
+
+/* ===== CREATE RESEARCH CONTAINER ===== */
+.CreateResearchContainer {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 0;
+}
+
+/* ===== CARD STYLES ===== */
+.CreateResearchContainer .card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e1e8ed;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.CreateResearchContainer .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3498db, #9b59b6);
+  border-radius: 16px 0 0 16px;
+}
+
+/* ===== CARD TITLE ===== */
+.CreateResearchContainer .card h3 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f1f5f9;
+  font-weight: 700;
+  position: relative;
+}
+
+.CreateResearchContainer .card h3::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, #3498db, #9b59b6);
+  border-radius: 2px;
+}
+
+/* ===== FORM STYLES ===== */
+.CreateResearchContainer .card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* ===== FORM LABELS ===== */
+.CreateResearchContainer .card form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.CreateResearchContainer .card form label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 4px;
+  height: 16px;
+  background: #3498db;
+  border-radius: 2px;
+}
+
+/* ===== FORM INPUTS ===== */
+.CreateResearchContainer .card form input[type="text"],
+.CreateResearchContainer .card form input[type="date"] {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #4a5568;
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.CreateResearchContainer .card form input[type="text"]:hover,
+.CreateResearchContainer .card form input[type="date"]:hover {
+  border-color: #cbd5e0;
+  background-color: white;
+}
+
+.CreateResearchContainer .card form input[type="text"]:focus,
+.CreateResearchContainer .card form input[type="date"]:focus {
+  outline: none;
+  border-color: #3498db;
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
+}
+
+.CreateResearchContainer .card form input[type="text"]::placeholder,
+.CreateResearchContainer .card form input[type="date"]::placeholder {
+  color: #a0aec0;
+  font-size: 0.95rem;
+}
+
+/* ===== DATE INPUT CUSTOMIZATION ===== */
+.CreateResearchContainer .card form input[type="date"] {
+  position: relative;
+  cursor: pointer;
+}
+
+.CreateResearchContainer
+  .card
+  form
+  input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: transparent;
+  color: transparent;
+  cursor: pointer;
+  height: 100%;
+  width: 2rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.CreateResearchContainer .card form input[type="date"]::after {
+  content: "📅";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #718096;
+  pointer-events: none;
+}
+
+/* ===== FORM BUTTON ===== */
+.CreateResearchContainer .card form button[type="submit"] {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 1.25rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.CreateResearchContainer .card form button[type="submit"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.7s ease;
+}
+
+.CreateResearchContainer .card form button[type="submit"]:hover {
+  background: linear-gradient(135deg, #2980b9, #2573a7);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+}
+
+.CreateResearchContainer .card form button[type="submit"]:hover::before {
+  left: 100%;
+}
+
+.CreateResearchContainer .card form button[type="submit"]:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(52, 152, 219, 0.2);
+}
+
+.CreateResearchContainer .card form button[type="submit"]:disabled {
+  background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===== FORM VALIDATION STATES ===== */
+.CreateResearchContainer .card form input:required {
+  border-left: 3px solid #3498db;
+}
+
+.CreateResearchContainer .card form input:invalid:not(:placeholder-shown) {
+  border-color: #e74c3c;
+  background-color: #fef5f5;
+}
+
+.CreateResearchContainer
+  .card
+  form
+  input:invalid:not(:placeholder-shown):focus {
+  box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.15);
+}
+
+.CreateResearchContainer .card form input:valid:not(:placeholder-shown) {
+  border-color: #2ecc71;
+  background-color: #f9fefb;
+}
+
+/* ===== SUPERVISOR REMARKS SECTION ===== */
+.CreateResearchContainer > p {
+  margin: 2rem 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+
+.CreateResearchContainer > p b {
+  color: #2d3748;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.CreateResearchContainer > p b::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: #3498db;
+  border-radius: 2px;
+}
+
+/* ===== REMARKS BOX ===== */
+.CreateResearchContainer .remarks {
+  background: linear-gradient(135deg, #f8fafc, #f1f8ff);
+  border-left: 4px solid #3498db;
+  padding: 1.5rem;
+  border-radius: 10px;
+  color: #4a5568;
+  font-style: italic;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+.CreateResearchContainer .remarks::before {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 3.5rem;
+  color: rgba(52, 152, 219, 0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.CreateResearchContainer .remarks::after {
+  content: '"';
+  position: absolute;
+  bottom: -15px;
+  right: 20px;
+  font-size: 3.5rem;
+  color: rgba(52, 152, 219, 0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
+  font-weight: bold;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .CreateResearchContainer .card {
+    padding: 2rem;
+  }
+
+  .CreateResearchContainer .card h3 {
+    font-size: 1.6rem;
+  }
+
+  .CreateResearchContainer .card form {
+    gap: 1.5rem;
+  }
+
+  .CreateResearchContainer .card form input[type="text"],
+  .CreateResearchContainer .card form input[type="date"] {
+    padding: 0.9rem 1rem;
+  }
+
+  .CreateResearchContainer .card form button[type="submit"] {
+    padding: 1.1rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .CreateResearchContainer .card {
+    padding: 1.5rem;
+  }
+
+  .CreateResearchContainer .card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .CreateResearchContainer .card form label {
+    font-size: 0.95rem;
+  }
+
+  .CreateResearchContainer .card form input[type="text"],
+  .CreateResearchContainer .card form input[type="date"] {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .CreateResearchContainer .card form button[type="submit"] {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .CreateResearchContainer > p {
+    font-size: 1.1rem;
+  }
+
+  .CreateResearchContainer .remarks {
+    padding: 1.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ===== FOCUS VISIBLE FOR ACCESSIBILITY ===== */
+.CreateResearchContainer .card form input:focus-visible,
+.CreateResearchContainer .card form button:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .CreateResearchContainer .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+
+  .CreateResearchContainer .card form button[type="submit"] {
+    background: none;
+    color: black;
+    border: 1px solid #ddd;
+    box-shadow: none;
+  }
+
+  .CreateResearchContainer .remarks {
+    background: none;
+    border: 1px solid #ddd;
+    box-shadow: none;
+  }
+}
+
+/* end of the create research code */
+
+/* ===== STUDENT RESEARCH CONTAINER ===== */
+.StudentResearchContainer {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 0;
+}
+
+/* ===== CARD STYLES ===== */
+.StudentResearchContainer .card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e1e8ed;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.StudentResearchContainer .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.StudentResearchContainer .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3498db, #2ecc71);
+  border-radius: 16px 0 0 16px;
+}
+
+/* ===== CARD TITLE ===== */
+.StudentResearchContainer .card h3 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f1f5f9;
+  font-weight: 700;
+  position: relative;
+}
+
+.StudentResearchContainer .card h3::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px;
+  height: 2px;
+  background: #3498db;
+}
+
+/* ===== CARD PARAGRAPHS ===== */
+.StudentResearchContainer .card > p {
+  margin: 1rem 0;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.StudentResearchContainer .card > p b {
+  color: #2d3748;
+  font-weight: 600;
+  min-width: 160px;
+  display: inline-block;
+}
+
+/* ===== STATUS BADGES ===== */
+.StudentResearchContainer .card .status {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  border: 2px solid;
+}
+
+.StudentResearchContainer .card .status.inprogress {
+  background-color: #e8f4fc;
+  color: #2980b9;
+  border-color: #3498db;
+  animation: pulse 2s infinite;
+}
+
+.StudentResearchContainer .card .status.completed {
+  background-color: #e8f7ef;
+  color: #27ae60;
+  border-color: #2ecc71;
+}
+
+.StudentResearchContainer .card .status.suspended {
+  background-color: #fde8e8;
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+/* Status animation */
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(52, 152, 219, 0);
+  }
+}
+
+/* ===== PROGRESS CONTAINER ===== */
+.StudentResearchContainer .card .progress-container {
+  width: 100%;
+  height: 24px;
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  margin: 1rem 0 2rem 0;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #e2e8f0;
+}
+
+.StudentResearchContainer .card .progress-bar {
+  height: 100%;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: width 1s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.StudentResearchContainer .card .progress-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ===== TIMELINE ===== */
+.StudentResearchContainer .card .timeline {
+  list-style: none;
+  padding: 1.5rem 0 0 0;
+  margin: 0;
+  position: relative;
+}
+
+.StudentResearchContainer .card .timeline::before {
+  content: "";
+  position: absolute;
+  left: 1.8rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #2ecc71, #3498db, #e0e0e0);
+  border-radius: 3px;
+}
+
+.StudentResearchContainer .card .timeline li {
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-left: 3.5rem;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.StudentResearchContainer .card .timeline li::before {
+  content: "";
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  border: 3px solid;
+  z-index: 2;
+
+  transition: all 0.3s ease;
+}
+
+/* Timeline status classes */
+.StudentResearchContainer .card .timeline li.completed {
+  color: #27ae60;
+}
+
+.StudentResearchContainer .card .timeline li.completed::before {
+  border-color: #2ecc71;
+  background-color: #2ecc71;
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+
+.StudentResearchContainer .card .timeline li.current {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.StudentResearchContainer .card .timeline li.current::before {
+  border-color: #3498db;
+  background-color: #3498db;
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.StudentResearchContainer .card .timeline li.upcoming {
+  color: #95a5a6;
+}
+
+.StudentResearchContainer .card .timeline li.upcoming::before {
+  border-color: #e0e0e0;
+  background-color: #f8f9fa;
+}
+
+/* Timeline phase numbers */
+.StudentResearchContainer .card .timeline li::after {
+  content: attr(data-phase);
+  position: absolute;
+  left: 1.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  z-index: 3;
+  text-align: center;
+  width: 16px;
+}
+
+.StudentResearchContainer .card .timeline li.upcoming::after {
+  color: #95a5a6;
+}
+
+/* ===== SUPERVISOR REMARKS ===== */
+.StudentResearchContainer .card .remarks {
+  background: linear-gradient(135deg, #f8fafc, #f1f8ff);
+  border-left: 4px solid #3498db;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  color: #4a5568;
+  font-style: italic;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.StudentResearchContainer .card .remarks::before {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 3rem;
+  color: rgba(52, 152, 219, 0.2);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+/* ===== SECTION HEADERS ===== */
+.StudentResearchContainer .card p:nth-last-of-type(4) {
+  /* Target "Progress:" paragraph */
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.StudentResearchContainer .card p:nth-last-of-type(3) {
+  /* Target "Research Phases:" paragraph */
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.StudentResearchContainer .card p:nth-last-of-type(2) {
+  /* Target "Supervisor Remarks:" paragraph */
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .StudentResearchContainer .card {
+    padding: 1.75rem;
+  }
+
+  .StudentResearchContainer .card > p b {
+    min-width: 140px;
+    font-size: 0.95rem;
+  }
+
+  .StudentResearchContainer .card .timeline li {
+    padding-left: 2.5rem;
+  }
+
+  .StudentResearchContainer .card .timeline::before {
+    left: 1.3rem;
+  }
+
+  .StudentResearchContainer .card .timeline li::before {
+    left: 0.8rem;
+    width: 14px;
+    height: 14px;
+  }
+
+  .StudentResearchContainer .card .timeline li::after {
+    left: 0.95rem;
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .StudentResearchContainer .card {
+    padding: 1.5rem;
+  }
+
+  .StudentResearchContainer .card h3 {
+    font-size: 1.5rem;
+  }
+
+  .StudentResearchContainer .card > p {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .StudentResearchContainer .card > p b {
+    min-width: auto;
+    margin-bottom: 0.25rem;
+  }
+
+  .StudentResearchContainer .card .timeline li {
+    padding-left: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .StudentResearchContainer .card .timeline::before {
+    left: 0.75rem;
+  }
+
+  .StudentResearchContainer .card .timeline li::before {
+    left: 0.25rem;
+  }
+
+  .StudentResearchContainer .card .timeline li::after {
+    left: 0.7rem;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .StudentResearchContainer .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .StudentResearchContainer .card .progress-bar {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* end of the student */
+
+/* Main container styling */
+.containerResearchDashbord {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  /* background-color: #f5f7fa; */
+  min-height: 100vh;
+}
+
+/* Research navigation styling */
+.containerResearchDashbord .researchNav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 1px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.containerResearchDashbord .researchNav .ResearchTopbar {
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 12px;
+}
+
+.containerResearchDashbord .researchNav .ResearchTopbar button {
+  flex: 1;
+  padding: 5px 11px;
+  border: none;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.containerResearchDashbord .researchNav .ResearchTopbar button:hover {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.containerResearchDashbord .researchNav .ResearchTopbar button.active {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+}
+
+/* Welcome section styling */
+.containerResearchDashbord .welcomeResearch {
+  padding: 40px;
+  border-radius: 16px;
+
+  margin-bottom: 30px;
+}
+
+.containerResearchDashbord .welcomeResearch h1 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  background: linear-gradient(to right, #2c3e50, #3498db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.containerResearchDashbord .welcomeResearch p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+/* Feature list styling */
+.containerResearchDashbord .welcomeResearch .feature-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.containerResearchDashbord .welcomeResearch .feature-list .feature-card {
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid #eef2f7;
+  position: relative;
+  overflow: hidden;
+}
+
+.containerResearchDashbord
+  .welcomeResearch
+  .feature-list
+  .feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+.containerResearchDashbord .welcomeResearch .feature-list .feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.containerResearchDashbord
+  .welcomeResearch
+  .feature-list
+  .feature-card
+  .feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.containerResearchDashbord .welcomeResearch .feature-list .feature-card h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.containerResearchDashbord .welcomeResearch .feature-list .feature-card p {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Getting started section */
+.containerResearchDashbord .welcomeResearch div[style*="margin-top: 30px"] {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 25px;
+  margin-top: 40px !important;
+}
+
+.containerResearchDashbord .welcomeResearch div[style*="margin-top: 30px"] p {
+  margin: 0;
+  text-align: left;
+  font-size: 14px;
+}
+
+.containerResearchDashbord
+  .welcomeResearch
+  div[style*="margin-top: 30px"]
+  strong {
+  color: #2c3e50;
+}
+
+/* Dynamic sections styling */
+.containerResearchDashbord .section {
+  display: none;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease;
+}
+
+.containerResearchDashbord .section.active {
+  display: block;
+}
+
+/* Error message styling (for failed loads) */
+.containerResearchDashbord .section div[style*="background: #fff3cd"] {
+  animation: fadeIn 0.5s ease;
+}
+
+.containerResearchDashbord .section div[style*="background: #fff3cd"] button {
+  transition: all 0.3s ease;
+}
+
+.containerResearchDashbord
+  .section
+  div[style*="background: #fff3cd"]
+  button:hover {
+  background: #6a11cb !important;
+  transform: translateY(-2px);
+}
+
+/* Animation for section transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .containerResearchDashbord .researchNav .ResearchTopbar {
+    flex-direction: column;
+  }
+
+  .containerResearchDashbord .researchNav .ResearchTopbar button {
+    width: 100%;
+  }
+
+  .containerResearchDashbord .welcomeResearch {
+    padding: 25px;
+  }
+
+  .containerResearchDashbord .welcomeResearch h1 {
+    font-size: 2rem;
+  }
+
+  .containerResearchDashbord .welcomeResearch .feature-list {
+    grid-template-columns: 1fr;
+  }
+
+  .containerResearchDashbord .section {
+    padding: 25px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .containerResearchDashbord .researchNav,
+  .containerResearchDashbord .welcomeResearch {
+    display: none;
+  }
+
+  .containerResearchDashbord .section.active {
+    display: block;
+    box-shadow: none;
+    padding: 0;
+  }
+}

@@ -1,0 +1,407 @@
+/* ===== BASE STYLES ===== */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #2c3e50;
+  background: linear-gradient(135deg, #f8fafc 0%, #e8f4f8 100%);
+  padding: 2rem;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ===== STUDENT RESEARCH CONTAINER ===== */
+.StudentResearchContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ===== CARD STYLES ===== */
+.StudentResearchContainer .card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e1e8ed;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.StudentResearchContainer .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.StudentResearchContainer .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3498db, #2ecc71);
+  border-radius: 16px 0 0 16px;
+}
+
+/* ===== CARD TITLE ===== */
+.StudentResearchContainer .card h3 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f1f5f9;
+  font-weight: 700;
+  position: relative;
+}
+
+.StudentResearchContainer .card h3::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px;
+  height: 2px;
+  background: #3498db;
+}
+
+/* ===== CARD PARAGRAPHS ===== */
+.StudentResearchContainer .card > p {
+  margin: 1rem 0;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.StudentResearchContainer .card > p b {
+  color: #2d3748;
+  font-weight: 600;
+  min-width: 160px;
+  display: inline-block;
+}
+
+/* ===== STATUS BADGES ===== */
+.StudentResearchContainer .card .status {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  border: 2px solid;
+}
+
+.StudentResearchContainer .card .status.inprogress {
+  background-color: #e8f4fc;
+  color: #2980b9;
+  border-color: #3498db;
+  animation: pulse 2s infinite;
+}
+
+.StudentResearchContainer .card .status.completed {
+  background-color: #e8f7ef;
+  color: #27ae60;
+  border-color: #2ecc71;
+}
+
+.StudentResearchContainer .card .status.suspended {
+  background-color: #fde8e8;
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+/* Status animation */
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(52, 152, 219, 0);
+  }
+}
+
+/* ===== PROGRESS CONTAINER ===== */
+.StudentResearchContainer .card .progress-container {
+  width: 100%;
+  height: 24px;
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  margin: 1rem 0 2rem 0;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #e2e8f0;
+}
+
+.StudentResearchContainer .card .progress-bar {
+  height: 100%;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: width 1s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.StudentResearchContainer .card .progress-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ===== TIMELINE ===== */
+.StudentResearchContainer .card .timeline {
+  list-style: none;
+  padding: 1.5rem 0 0 0;
+  margin: 0;
+  position: relative;
+}
+
+.StudentResearchContainer .card .timeline::before {
+  content: "";
+  position: absolute;
+  left: 1.8rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #2ecc71, #3498db, #e0e0e0);
+  border-radius: 3px;
+}
+
+.StudentResearchContainer .card .timeline li {
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-left: 3.5rem;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.StudentResearchContainer .card .timeline li::before {
+  content: "";
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  border: 3px solid;
+  z-index: 2;
+
+  transition: all 0.3s ease;
+}
+
+/* Timeline status classes */
+.StudentResearchContainer .card .timeline li.completed {
+  color: #27ae60;
+}
+
+.StudentResearchContainer .card .timeline li.completed::before {
+  border-color: #2ecc71;
+  background-color: #2ecc71;
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+
+.StudentResearchContainer .card .timeline li.current {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.StudentResearchContainer .card .timeline li.current::before {
+  border-color: #3498db;
+  background-color: #3498db;
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.StudentResearchContainer .card .timeline li.upcoming {
+  color: #95a5a6;
+}
+
+.StudentResearchContainer .card .timeline li.upcoming::before {
+  border-color: #e0e0e0;
+  background-color: #f8f9fa;
+}
+
+/* Timeline phase numbers */
+.StudentResearchContainer .card .timeline li::after {
+  content: attr(data-phase);
+  position: absolute;
+  left: 1.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  z-index: 3;
+  text-align: center;
+  width: 16px;
+}
+
+.StudentResearchContainer .card .timeline li.upcoming::after {
+  color: #95a5a6;
+}
+
+/* ===== SUPERVISOR REMARKS ===== */
+.StudentResearchContainer .card .remarks {
+  background: linear-gradient(135deg, #f8fafc, #f1f8ff);
+  border-left: 4px solid #3498db;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  color: #4a5568;
+  font-style: italic;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.StudentResearchContainer .card .remarks::before {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 3rem;
+  color: rgba(52, 152, 219, 0.2);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+/* ===== SECTION HEADERS ===== */
+.StudentResearchContainer .card p:nth-last-of-type(4) {
+  /* Target "Progress:" paragraph */
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.StudentResearchContainer .card p:nth-last-of-type(3) {
+  /* Target "Research Phases:" paragraph */
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.StudentResearchContainer .card p:nth-last-of-type(2) {
+  /* Target "Supervisor Remarks:" paragraph */
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .StudentResearchContainer .card {
+    padding: 1.75rem;
+  }
+
+  .StudentResearchContainer .card > p b {
+    min-width: 140px;
+    font-size: 0.95rem;
+  }
+
+  .StudentResearchContainer .card .timeline li {
+    padding-left: 2.5rem;
+  }
+
+  .StudentResearchContainer .card .timeline::before {
+    left: 1.3rem;
+  }
+
+  .StudentResearchContainer .card .timeline li::before {
+    left: 0.8rem;
+    width: 14px;
+    height: 14px;
+  }
+
+  .StudentResearchContainer .card .timeline li::after {
+    left: 0.95rem;
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .StudentResearchContainer .card {
+    padding: 1.5rem;
+  }
+
+  .StudentResearchContainer .card h3 {
+    font-size: 1.5rem;
+  }
+
+  .StudentResearchContainer .card > p {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .StudentResearchContainer .card > p b {
+    min-width: auto;
+    margin-bottom: 0.25rem;
+  }
+
+  .StudentResearchContainer .card .timeline li {
+    padding-left: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .StudentResearchContainer .card .timeline::before {
+    left: 0.75rem;
+  }
+
+  .StudentResearchContainer .card .timeline li::before {
+    left: 0.25rem;
+  }
+
+  .StudentResearchContainer .card .timeline li::after {
+    left: 0.7rem;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .StudentResearchContainer .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .StudentResearchContainer .card .progress-bar {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

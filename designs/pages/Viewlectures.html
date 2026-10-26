@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Lecture</title>
+    <style>
+      body {
+        font-family: Inter, sans-serif;
+        background: #f4f6f8;
+        padding: 30px;
+      }
+      .container {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2 {
+        color: #1e3a8a;
+        margin-bottom: 20px;
+      }
+      .lecture-block {
+        margin-bottom: 25px;
+      }
+      pre {
+        background: #1e1e2f;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 10px;
+        overflow-x: auto;
+      }
+      p {
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Lecture View</h1>
+
+      <!-- ====== Post Heading ====== -->
+      <div class="lecture-block">
+        <h2><!-- PHP: echo $heading -->Lecture Heading</h2>
+      </div>
+
+      <!-- ====== Lecture Content ====== -->
+      <div class="lecture-block">
+        <!-- PHP: echo $content -->
+        <p>This is a sample paragraph for lecture content.</p>
+        <pre>
+console.log('Example code block');
+        </pre>
+      </div>
+
+      <!-- ====== Teacher Notes ====== -->
+      <div class="lecture-block">
+        <p>
+          <strong>Teacher Notes:</strong>
+          <!-- PHP: echo $notes -->These are the teacher notes.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

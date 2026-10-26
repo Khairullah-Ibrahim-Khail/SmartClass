@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Updated Full-featured Editor.js</title>
+
+    <!-- Editor.js core -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
+    <!-- Blocks -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+
+    <!-- CodeMirror -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/theme/dracula.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
+
+    <!-- Interact.js -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
+    <style>
+      body {
+        font-family: Inter, sans-serif;
+        background: #f4f6f8;
+        padding: 40px 20px;
+      }
+      .container {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 16px;
+      }
+      h2 {
+        margin-bottom: 20px;
+      }
+      .editor {
+        background: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        min-height: 200px;
+      }
+      .editor-toolbar {
+        margin-bottom: 5px;
+      }
+      .editor-toolbar select,
+      .editor-toolbar input[type="color"] {
+        margin-right: 5px;
+        padding: 4px 8px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button.save-btn {
+        margin-top: 20px;
+        padding: 12px 28px;
+        border: none;
+        border-radius: 10px;
+        background: #3b82f6;
+        color: #fff;
+        cursor: pointer;
+      }
+      .ce-block__content img,
+      .ce-block__content pre {
+        cursor: move;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form
+        class="container"
+        id="lectureForm"
+        method="POST"
+        action="/submit-lecture"
+      >
+        <h2>Create Lecture</h2>
+
+        <!-- Post Heading -->
+        <label for="headingEditor">Post Heading</label>
+        <div class="editor-toolbar" id="headingToolbar"></div>
+        <div id="headingEditor" class="editor" contenteditable="true"></div>
+        <input type="hidden" name="heading" id="headingInput" />
+
+        <!-- Lecture Content -->
+        <label for="contentEditor">Lecture Content</label>
+        <div class="editor-toolbar" id="contentToolbar"></div>
+        <div id="contentEditor" class="editor" contenteditable="true"></div>
+        <input type="hidden" name="content" id="contentInput" />
+
+        <!-- Teacher Notes -->
+        <label for="notesEditor">Teacher Notes</label>
+        <div class="editor-toolbar" id="notesToolbar"></div>
+        <div id="notesEditor" class="editor" contenteditable="true"></div>
+        <input type="hidden" name="notes" id="notesInput" />
+
+        <!-- Save Button -->
+        <button type="submit" class="save-btn" id="saveBtn">
+          Save Lecture
+        </button>
+      </form>
+    </div>
+    <script>
+      // On form submit, copy content from editable divs to hidden inputs
+      document
+        .getElementById("lectureForm")
+        .addEventListener("submit", function (e) {
+          document.getElementById("headingInput").value =
+            document.getElementById("headingEditor").innerHTML;
+          document.getElementById("contentInput").value =
+            document.getElementById("contentEditor").innerHTML;
+          document.getElementById("notesInput").value =
+            document.getElementById("notesEditor").innerHTML;
+        });
+    </script>
+    <script src="../../JS/editor.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+# Bigger uploads: files up to 14 MB (assignment work, resources, forum attachments). PHP's own default is 2 MB.
+# post_max_size is a little above upload_max_filesize so the file plus the form fields fit in one request.
+<IfModule mod_php.c>
+    php_value upload_max_filesize 14M
+    php_value post_max_size 20M
+</IfModule>
+<IfModule mod_php8.c>
+    php_value upload_max_filesize 14M
+    php_value post_max_size 20M
+</IfModule>

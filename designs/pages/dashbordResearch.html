@@ -1,0 +1,130 @@
+<div class="containerResearchDashbord">
+  <div class="researchNav">
+    <div class="ResearchTopbar">
+      <button id="btnCreate">Create Research</button>
+      <button id="btnView">View Research</button>
+      <button id="btnStudent">In Progress Research</button>
+    </div>
+  </div>
+
+  <!-- Welcome Section -->
+  <div class="welcomeResearch">
+    <h1>Welcome to Research Management Dashboard</h1>
+    <p>
+      Streamline your research activities with our comprehensive management
+      tool. Track attendance, manage sessions, and analyze research progress all
+      in one place.
+    </p>
+
+    <div class="feature-list">
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>Create Research</h3>
+        <p>Set up new research projects and define research parameters</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>View Research</h3>
+        <p>View and manage existing research projects and their details</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>In Progress Research</h3>
+        <p>Track ongoing research progress and monitor student activities</p>
+      </div>
+    </div>
+
+    <div
+      style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd"
+    >
+      <p style="color: #7f8c8d; font-size: 14px">
+        <strong>Getting Started:</strong> Click any button above to begin. Your
+        work is automatically saved.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dynamic Sections - FIXED IDs to match button targets -->
+  <div id="create" class="section"></div>
+  <div id="view" class="section"></div>
+  <div id="student" class="section"></div>
+</div>
+
+<script>
+  function showSection(filePath, targetId) {
+    const container = document.getElementById(targetId);
+    if (!container) return;
+
+    // Hide welcome screen
+    const welcomeScreen = document.querySelector(".welcomeResearch");
+    if (welcomeScreen) {
+      welcomeScreen.style.display = "none";
+    }
+
+    // Hide all sections
+    document.querySelectorAll(".section").forEach((s) => {
+      s.classList.remove("active");
+      s.style.display = "none";
+    });
+
+    // Show target section
+    container.classList.add("active");
+    container.style.display = "block";
+
+    // Update button active states
+    document.querySelectorAll(".ResearchTopbar button").forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    event.target.classList.add("active");
+
+    // Fetch HTML
+    fetch(filePath)
+      .then((res) => (res.ok ? res.text() : Promise.reject(res.status)))
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Inject HTML
+        container.innerHTML = doc.body.innerHTML;
+
+        // Run all inline scripts
+        doc.querySelectorAll("script").forEach((script) => {
+          const newScript = document.createElement("script");
+          if (script.src) {
+            newScript.src = script.src;
+          } else {
+            newScript.textContent = script.textContent;
+          }
+          document.body.appendChild(newScript);
+        });
+      })
+      .catch((err) => {
+        console.error("Load failed:", err);
+        container.innerHTML = `
+                <div style="padding: 40px; text-align: center; background: #fff3cd; border: 1px solid #ffecb5; border-radius: 8px; margin: 20px;">
+                    <h3 style="color: #856404; margin-bottom: 15px;">⚠️ Content Loading Failed</h3>
+                    <p style="color: #856404; margin-bottom: 20px;">Unable to load the requested content. Please try again.</p>
+                    <button onclick="showSection('${filePath}', '${targetId}')" 
+                            style="padding: 10px 20px; background: #856404; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Retry Loading
+                    </button>
+                </div>
+            `;
+      });
+  }
+
+  // Button event listeners - FIXED: Correct IDs and target sections
+  document.getElementById("btnCreate").addEventListener("click", (e) => {
+    showSection("../pages/research/teacher_Create-research.html", "create");
+  });
+
+  document.getElementById("btnView").addEventListener("click", (e) => {
+    // Fixed: Changed target ID from "edit" to "view"
+    showSection("../pages/research/updateTeacher.html", "view");
+  });
+
+  document.getElementById("btnStudent").addEventListener("click", (e) => {
+    // Fixed: Changed target ID from "reports" to "student"
+    showSection("../pages/research/student_Research-progress.html", "student");
+  });
+</script>

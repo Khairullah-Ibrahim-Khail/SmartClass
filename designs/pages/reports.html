@@ -1,0 +1,140 @@
+<div class="ReportContainer">
+  <h1>📊 Attendance Reports & Analytics</h1>
+
+  <!-- Filters -->
+  <div class="filter-section">
+    <div class="filter-group">
+      <label for="classSelect">Select Class:</label>
+      <select id="classSelect">
+        <option value="">-- All Classes --</option>
+        <option value="10-A">Class 10-A</option>
+        <option value="10-B">Class 10-B</option>
+        <option value="11-A">Class 11-A</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="subjectSelect">Subject:</label>
+      <select id="subjectSelect">
+        <option value="">-- All Subjects --</option>
+        <option value="Math">Mathematics</option>
+        <option value="Science">Science</option>
+        <option value="English">English</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="reportType">Report Type:</label>
+      <select id="reportType">
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" />
+    </div>
+    <div class="filter-group">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" />
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="btn btn-primary" id="generateBtn">🔍 Generate Report</button>
+    <button class="btn btn-success" id="excelBtn">📥 Export Excel</button>
+    <button class="btn btn-warning" id="pdfBtn">📄 Export PDF</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-tab="report">📋 Report</button>
+    <button class="tab" data-tab="analytics">📈 Analytics</button>
+  </div>
+
+  <!-- Report -->
+  <div id="report" class="tab-content active">
+    <h2 id="reportTitle">Daily Attendance Report</h2>
+    <table id="reportTable">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Date</th>
+          <th>Student Name</th>
+          <th>Roll No.</th>
+          <th>Present</th>
+          <th>Absent</th>
+          <th>Official Present</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody id="reportBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Analytics -->
+  <div id="analytics" class="tab-content">
+    <h2>Attendance Analytics</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Students</h3>
+        <div id="totalStudents" class="value">0</div>
+      </div>
+      <div
+        class="stat-card"
+        style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+      >
+        <h3>Total Present</h3>
+        <div id="totalPresent" class="value">0</div>
+      </div>
+      <div
+        class="stat-card"
+        style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+      >
+        <h3>Total Absent</h3>
+        <div id="totalAbsent" class="value">0</div>
+      </div>
+      <div
+        class="stat-card"
+        style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+      >
+        <h3>Official Present</h3>
+        <div id="totalOfficial" class="value">0</div>
+      </div>
+      <div
+        class="stat-card"
+        style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+      >
+        <h3>Attendance %</h3>
+        <div id="attendancePercent" class="value">0%</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h3>Attendance Trend (Line Chart)</h3>
+      <canvas id="attendanceChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Class Attendance Distribution</h3>
+      <canvas id="classChart"></canvas>
+    </div>
+
+    <h3>Per Student Analytics</h3>
+    <table id="analyticsTable">
+      <thead>
+        <tr>
+          <th>Roll No.</th>
+          <th>Student Name</th>
+          <th>Total Present</th>
+          <th>Total Absent</th>
+          <th>Total Official</th>
+          <th>Total Classes</th>
+          <th>Attendance %</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="analyticsBody"></tbody>
+    </table>
+  </div>
+</div>

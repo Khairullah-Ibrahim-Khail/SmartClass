@@ -1,0 +1,22 @@
+# Secrets and per-server settings
+config/local.php
+config/instances/*
+!config/instances/.htaccess
+
+# Data written at run time (keep the .htaccess files that protect the folders)
+uploads/*
+!uploads/.htaccess
+backups/*
+!backups/.htaccess
+!backups/index.html
+instances/*
+!instances/.htaccess
+sessions/
+logs/*
+!logs/.htaccess
+
+# Editor / system files
+.DS_Store
+*.swp
+.idea/
+.vscode/

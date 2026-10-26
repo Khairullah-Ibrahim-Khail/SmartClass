@@ -1,0 +1,931 @@
+/* ===== BASE STYLES ===== */
+.resources-container {
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== HEADER STYLES (Common) ===== */
+.main-header {
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  color: #2d3748;
+  margin: 0;
+}
+
+.user-role-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Teacher specific badge */
+.teacher-view .user-role-badge {
+  background: #4299e1;
+  color: white;
+}
+
+/* Student specific badge */
+.student-view .user-role-badge {
+  background: #38b2ac;
+  color: white;
+}
+
+.student-view .user-role-badge.student {
+  background: #ed8936;
+}
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #4a5568;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ===== TEACHER VIEW SPECIFIC STYLES ===== */
+.teacher-view .main-nav a.active {
+  background: #4299e1;
+  color: white;
+}
+
+.teacher-view .main-nav a:hover {
+  background: #ebf8ff;
+}
+
+.teacher-view .btn-create {
+  background: #48bb78;
+  color: white;
+  font-weight: 600;
+}
+
+.teacher-view .btn-create:hover {
+  background: #38a169;
+}
+
+/* Content wrapper for teacher */
+.teacher-view .content-wrapper {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Teacher page header */
+.teacher-view .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.teacher-view .header-left h2 {
+  font-size: 1.75rem;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+}
+
+.teacher-view .subtitle {
+  color: #718096;
+  margin: 0;
+}
+
+.teacher-view .header-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.teacher-view .stats {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.teacher-view .stat-item {
+  text-align: center;
+}
+
+.teacher-view .stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.teacher-view .stat-label {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+/* Teacher buttons */
+.teacher-view .primary-btn {
+  background: #4299e1;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.teacher-view .primary-btn:hover {
+  background: #3182ce;
+}
+
+/* Teacher filters */
+.teacher-view .filters-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.teacher-view .search-box {
+  flex: 1;
+  display: flex;
+}
+
+.teacher-view .search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px 0 0 6px;
+  font-size: 0.875rem;
+}
+
+.teacher-view .search-btn {
+  background: #4299e1;
+  color: white;
+  border: none;
+  padding: 0 1.5rem;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+}
+
+.teacher-view .filter-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.teacher-view .filter-select {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+.teacher-view .filter-btn {
+  background: #e2e8f0;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+/* Teacher table container */
+.teacher-view .resources-table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.teacher-view .table-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.teacher-view .table-header h3 {
+  margin: 0;
+  color: #2d3748;
+}
+
+.teacher-view .table-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.teacher-view .action-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s;
+}
+
+.teacher-view .action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.teacher-view .bulk-delete {
+  color: #e53e3e;
+  border-color: #fed7d7;
+}
+
+/* Teacher table */
+.teacher-view .resources-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.teacher-view .resources-table th {
+  text-align: left;
+  padding: 1rem 1.5rem;
+  background: #f7fafc;
+  color: #4a5568;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.teacher-view .resources-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f7fafc;
+  vertical-align: top;
+}
+
+.teacher-view .resource-item:hover {
+  background: #f8fafc;
+}
+
+/* Teacher table columns */
+.teacher-view .select-col {
+  width: 40px;
+}
+
+.teacher-view .category-col,
+.teacher-view .type-col,
+.teacher-view .date-col,
+.teacher-view .size-col,
+.teacher-view .status-col,
+.teacher-view .actions-col {
+  width: 120px;
+}
+
+/* Teacher resource details */
+.teacher-view .resource-details {
+  min-width: 300px;
+}
+
+.teacher-view .resource-title {
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.teacher-view .resource-description {
+  color: #718096;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.teacher-view .resource-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: #a0aec0;
+}
+
+.teacher-view .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Teacher badges */
+.teacher-view .category-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.teacher-view .category-tag.research {
+  background: #ebf8ff;
+  color: #2b6cb0;
+}
+
+.teacher-view .category-tag.presentation {
+  background: #fefcbf;
+  color: #975a16;
+}
+
+.teacher-view .category-tag.dataset {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.teacher-view .file-type {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.teacher-view .file-type.pdf {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.teacher-view .file-type.ppt {
+  background: #bee3f8;
+  color: #2b6cb0;
+}
+
+.teacher-view .file-type.csv {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.teacher-view .status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.teacher-view .status-badge.published {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.teacher-view .status-badge.draft {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+/* Teacher action buttons */
+.teacher-view .action-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.teacher-view .icon-btn {
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s;
+}
+
+.teacher-view .icon-btn:hover {
+  background: #f7fafc;
+}
+
+.teacher-view .delete-btn:hover {
+  background: #fed7d7;
+  border-color: #fc8181;
+}
+
+.teacher-view .share-btn:hover {
+  background: #bee3f8;
+  border-color: #63b3ed;
+}
+
+/* Teacher bulk actions */
+.teacher-view .bulk-actions-panel {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.teacher-view .selected-count {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.teacher-view .bulk-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.teacher-view .secondary-btn {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.teacher-view .danger-btn {
+  background: #fed7d7;
+  border: 1px solid #fc8181;
+  color: #c53030;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.teacher-view .secondary-btn:disabled,
+.teacher-view .danger-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== STUDENT VIEW SPECIFIC STYLES ===== */
+.student-view .main-nav a.active {
+  background: #38b2ac;
+  color: white;
+}
+
+.student-view .main-nav a:hover {
+  background: #e6fffa;
+}
+
+.student-view .btn-bookmark {
+  background: #f6ad55;
+  color: #744210;
+  font-weight: 600;
+}
+
+.student-view .btn-bookmark:hover {
+  background: #ed8936;
+}
+
+/* Content wrapper for student */
+.student-view .content-wrapper {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Student welcome section */
+.student-view .welcome-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.student-view .welcome-section h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+}
+
+.student-view .welcome-section p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Student search section */
+.student-view .search-section {
+  margin-bottom: 2rem;
+}
+
+.student-view .search-container {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.student-view .search-input {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px 0 0 8px;
+  font-size: 1rem;
+}
+
+.student-view .search-button {
+  background: #38b2ac;
+  color: white;
+  border: none;
+  padding: 0 2rem;
+  border-radius: 0 8px 8px 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.student-view .filter-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.student-view .filter-tag {
+  background: white;
+  border: 2px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s;
+}
+
+.student-view .filter-tag.active {
+  background: #38b2ac;
+  color: white;
+  border-color: #38b2ac;
+}
+
+.student-view .filter-tag:hover {
+  border-color: #38b2ac;
+}
+
+/* Student resources grid */
+.student-view .resources-grid {
+  margin-bottom: 2rem;
+}
+
+.student-view .section-title {
+  font-size: 1.5rem;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+}
+
+.student-view .resources-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Student resource cards */
+.student-view .resource-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.student-view .resource-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.student-view .resource-card.featured {
+  border: 2px solid #f6ad55;
+}
+
+.student-view .featured-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #f6ad55;
+  color: #744210;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.student-view .card-header {
+  padding: 1rem 1.5rem;
+  background: #f7fafc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-view .file-type-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.student-view .file-type-indicator.pdf {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.student-view .file-type-indicator.ppt {
+  background: #bee3f8;
+  color: #2b6cb0;
+}
+
+.student-view .file-type-indicator.dataset {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.student-view .file-type-indicator.video {
+  background: #fed7e2;
+  color: #d53f8c;
+}
+
+.student-view .file-type-indicator.doc {
+  background: #e9d8fd;
+  color: #6b46c1;
+}
+
+.student-view .file-type-indicator.code {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.student-view .card-actions .bookmark-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.student-view .card-actions .bookmark-btn.active,
+.student-view .card-actions .bookmark-btn:hover {
+  opacity: 1;
+  color: #f6ad55;
+}
+
+/* Student card content */
+.student-view .card-content {
+  padding: 1.5rem;
+}
+
+.student-view .resource-title {
+  font-size: 1.125rem;
+  color: #2d3748;
+  margin: 0 0 0.75rem 0;
+  font-weight: 600;
+}
+
+.student-view .resource-description {
+  color: #718096;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.student-view .resource-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: #a0aec0;
+}
+
+.student-view .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Student card footer */
+.student-view .card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-view .date {
+  font-size: 0.75rem;
+  color: #a0aec0;
+}
+
+.student-view .card-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.student-view .view-btn,
+.student-view .download-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.student-view .view-btn {
+  background: #ebf8ff;
+  color: #2b6cb0;
+}
+
+.student-view .download-btn {
+  background: #38b2ac;
+  color: white;
+}
+
+.student-view .view-btn:hover {
+  background: #bee3f8;
+}
+
+.student-view .download-btn:hover {
+  background: #319795;
+}
+
+/* Student stats section */
+.student-view .stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.student-view .stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-view .stat-icon {
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+.student-view .stat-info h3 {
+  font-size: 1.75rem;
+  color: #2d3748;
+  margin: 0;
+}
+
+.student-view .stat-info p {
+  color: #718096;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* ===== FOOTER STYLES (Common) ===== */
+.main-footer {
+  background: #2d3748;
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 3rem;
+}
+
+.main-footer p {
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+  .student-view .resources-grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .teacher-view .page-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .teacher-view .header-right {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .teacher-view .filters-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .teacher-view .search-box {
+    flex-direction: column;
+  }
+
+  .teacher-view .search-input {
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+
+  .teacher-view .search-btn {
+    border-radius: 6px;
+    padding: 0.75rem;
+  }
+
+  .teacher-view .filter-controls {
+    flex-direction: column;
+  }
+
+  .student-view .search-container {
+    flex-direction: column;
+  }
+
+  .student-view .search-input {
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  .student-view .search-button {
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .teacher-view .table-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .teacher-view .resources-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .student-view .card-footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .student-view .card-buttons {
+    justify-content: center;
+  }
+
+  .student-view .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .student-view .resources-grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .student-view .stats-section {
+    grid-template-columns: 1fr;
+  }
+}

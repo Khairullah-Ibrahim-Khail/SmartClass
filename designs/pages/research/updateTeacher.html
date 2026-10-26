@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./update teacher.css" />
+  </head>
+  <body>
+    <div class="UpdateContainer">
+      <!-- Manage Existing Research -->
+      <h3>Student Research Projects</h3>
+
+      <div class="card">
+        <h3>AI in Education</h3>
+        <p><b>Student:</b> John Doe</p>
+        <p><b>Start Date:</b> 2025-12-01</p>
+        <p><b>Expected Completion:</b> 2026-06-01</p>
+
+        <!-- Update status -->
+        <p><b>Status:</b></p>
+        <form class="form-row" action="../thankyou.html" method="post">
+          <select name="status">
+            <option value="In Progress" selected>In Progress</option>
+            <option value="Literature Review">Literature Review</option>
+            <option value="Data Collection">Data Collection</option>
+            <option value="Analysis">Analysis</option>
+            <option value="Writing">Writing</option>
+            <option value="Revision">Revision</option>
+            <option value="Suspended">Suspended</option>
+            <option value="Completed">Completed</option>
+          </select>
+          <button type="submit">Update Status</button>
+        </form>
+
+        <!-- Timeline for teacher to update -->
+        <p><b>Research Phases:</b></p>
+        <ul class="timeline">
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="topic_selection" checked />
+              <label data-phase="P1">Topic Selection & Approval</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="proposal" checked />
+              <label data-phase="P2">Research Proposal</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="ethics" checked />
+              <label data-phase="P3">Ethics Approval</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+
+          <!-- Research Phase -->
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="literature" checked />
+              <label data-phase="R1">Literature Review</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="methodology" />
+              <label data-phase="R2">Methodology Design</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="experiment" />
+              <label data-phase="R3">Experiment Setup</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="data_collection" />
+              <label data-phase="R4">Data Collection</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+
+          <!-- Writing Phase -->
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="analysis" />
+              <label data-phase="W1">Data Analysis</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="draft" />
+              <label data-phase="W2">First Draft</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="revision" />
+              <label data-phase="W3">Revision & Editing</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+
+          <!-- Finalization Phase -->
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="abstract" />
+              <label data-phase="F1">Abstract Writing</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="introduction" />
+              <label data-phase="F2">Introduction & Conclusion</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="references" />
+              <label data-phase="F3">References & Formatting</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="final_submission" />
+              <label data-phase="F4">Final Submission</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="defense" />
+              <label data-phase="F5">Thesis Defense</label>
+              <button type="submit">Update</button>
+            </form>
+          </li>
+          <li>
+            <form class="form-row" action="../thankyou.html" method="post">
+              <input type="checkbox" name="defense" />
+              <label data-phase="F6">Marks & Grading </label>
+              <input type="number" placeholder="Marks" />
+              <button type="submit">Update</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

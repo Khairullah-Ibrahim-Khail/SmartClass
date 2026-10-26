@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="" />
+<div class="topbar">
+  <h2>Smart Class</h2>
+
+  <button onclick="showSection('../createAttendence.html', 'create')">
+    Create Attendance
+  </button>
+  <button onclick="showSection('../EditAttendence.html', 'edit')">
+    Edit Attendance
+  </button>
+  <button onclick="showSection('../AttendencReports.html', 'reports')">
+    Reports & Analytics
+  </button>
+</div>
+
+<div class="container">
+  <!-- Dashboard -->
+  <!-- Dashboard -->
+  <div id="dashboard" class="section active">
+    <div
+      style="
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 900px;
+        margin: 30px auto;
+        text-align: left;
+      "
+    >
+      <h1 style="text-align: center; color: #1e90ff; margin-bottom: 15px">
+        Welcome to the Attendance Dashboard
+      </h1>
+      <p style="font-size: 16px; line-height: 1.6; color: #333">
+        Here you can manage and monitor student attendance efficiently. Please
+        follow the guidelines below to ensure accurate and up-to-date records:
+      </p>
+      <!-- Advisory message -->
+      <div
+        style="
+          margin-top: 25px;
+          padding: 20px;
+          background-color: #e6f7ff;
+          border-left: 6px solid #1e90ff;
+          border-radius: 8px;
+          color: #0b3d91;
+          font-size: 16px;
+          line-height: 1.6;
+        "
+      >
+        <strong>Attendance Advisory:</strong>
+        <ul style="margin-top: 10px; padding-left: 20px">
+          <li>
+            Update attendance for every class daily to maintain accurate
+            records.
+          </li>
+          <li>Check for absent or late students and follow up promptly.</li>
+          <li>Use the <em>Edit</em> section to mark or correct attendance.</li>
+          <li>
+            Review attendance analytics in the <em>Reports</em> section for
+            trends or irregularities.
+          </li>
+          <li>
+            Students should ensure they are marked present in the system and
+            report discrepancies immediately.
+          </li>
+        </ul>
+        <p style="margin-top: 10px">
+          <strong>Tip:</strong> Consistent attendance tracking helps improve
+          class performance and ensures all students receive proper guidance and
+          support.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Attendance -->
+
+  <div id="create" class="section"></div>
+
+  <!-- Edit Attendance -->
+  <div id="edit" class="section"></div>
+
+  <!-- Reports & Analytics -->
+  <div id="reports" class="section"></div>
+</div>
+
+<script>
+  function showSection(filePath, targetId) {
+    const container = document.getElementById(targetId);
+
+    if (!container) {
+      console.error("Container not found:", targetId);
+      return;
+    }
+
+    // Hide all sections
+    document
+      .querySelectorAll(".section")
+      .forEach((s) => s.classList.remove("active"));
+
+    // Show target section
+    container.classList.add("active");
+
+    // Fetch the external HTML
+    fetch(filePath)
+      .then((res) => {
+        if (!res.ok) throw new Error(res.status);
+        return res.text();
+      })
+      .then((html) => {
+        // Parse the HTML and extract only the body content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        container.innerHTML = doc.body.innerHTML;
+      })
+      .catch((err) => {
+        console.error("Load failed:", err);
+        container.innerHTML = "<p>Failed to load content</p>";
+      });
+  }
+</script>

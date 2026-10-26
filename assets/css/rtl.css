@@ -1,0 +1,106 @@
+/* ===== Right-to-left layout (Pashto, Dari) — loaded only when the page is rtl; mirrors what the left-to-right styles place on one side ===== */
+html[dir="rtl"] body, html[dir="rtl"] button, html[dir="rtl"] input, html[dir="rtl"] select, html[dir="rtl"] textarea {
+  font-family: "Noto Naskh Arabic", "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+}
+html[dir="rtl"] body { text-align: right; line-height: 1.75; }
+html[dir="rtl"] .fas, html[dir="rtl"] .far, html[dir="rtl"] .fab, html[dir="rtl"] i[class*="fa-"] { font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif; }
+html[dir="rtl"] code, html[dir="rtl"] pre, html[dir="rtl"] .code-block, html[dir="rtl"] .code-out, html[dir="rtl"] textarea.code-editor, html[dir="rtl"] input[type="email"], html[dir="rtl"] input[type="url"], html[dir="rtl"] input[type="number"] { direction: ltr; text-align: left; }
+html[dir="rtl"] .code-block, html[dir="rtl"] .code-out { text-align: left; }
+
+/* shell */
+html[dir="rtl"] .sidebar { left: auto; right: 0; }
+html[dir="rtl"] .main-wrapper { margin-left: 0; margin-right: var(--sidebar-width-lg); }
+html[dir="rtl"] .sidebar.collapsed ~ .main-wrapper { margin-left: 0; margin-right: var(--sidebar-width-sm); }
+html[dir="rtl"] .sidebar-toggle { margin-left: 0; margin-right: auto; }
+html[dir="rtl"] .sidebar .menu-item, html[dir="rtl"] .sidebar a { text-align: right; }
+html[dir="rtl"] .sidebar .arrow { transform: scaleX(-1); }
+html[dir="rtl"] .header-nav { margin-left: 0; margin-right: 20px; }
+@media (max-width: 1024px) and (min-width: 721px) {
+  html[dir="rtl"] .main-wrapper { margin-left: 0; margin-right: var(--sidebar-width-sm); }
+  html[dir="rtl"] .sidebar.expanded ~ .main-wrapper { margin-left: 0; margin-right: var(--sidebar-width-lg); }
+}
+@media (max-width: 720px) {
+  html[dir="rtl"] .sidebar { transform: translateX(100%); }
+  html[dir="rtl"] .sidebar.active { transform: translateX(0); }
+  html[dir="rtl"] .main-wrapper { margin-left: 0 !important; margin-right: 0 !important; }
+  html[dir="rtl"] .sidebar.active ~ .main-wrapper { transform: translateX(calc(-1 * var(--sidebar-width-lg))); }   /* mirrored: the page slides to the left */
+  html[dir="rtl"] .mobile-toggle { left: auto; right: 15px; }
+  html[dir="rtl"] .main-header { padding-left: 25px; padding-right: 70px; }
+  html[dir="rtl"] .header-nav { margin-right: 0; }
+}
+
+/* arrows and chevrons point the other way */
+html[dir="rtl"] .fa-arrow-left, html[dir="rtl"] .fa-arrow-right, html[dir="rtl"] .fa-chevron-left, html[dir="rtl"] .fa-chevron-right,
+html[dir="rtl"] .fa-angle-left, html[dir="rtl"] .fa-angle-right, html[dir="rtl"] .fa-caret-left, html[dir="rtl"] .fa-caret-right,
+html[dir="rtl"] .fa-long-arrow-alt-left, html[dir="rtl"] .fa-long-arrow-alt-right, html[dir="rtl"] .fa-sign-in-alt, html[dir="rtl"] .fa-reply, html[dir="rtl"] .fa-rotate-left { transform: scaleX(-1); }
+
+/* icon + text pairs: the gap goes on the other side */
+html[dir="rtl"] .btn-app i:first-child, html[dir="rtl"] .btn i:first-child, html[dir="rtl"] .link-btn i:first-child, html[dir="rtl"] .back-link i:first-child,
+html[dir="rtl"] .status-badge i:first-child, html[dir="rtl"] .chip i:first-child, html[dir="rtl"] h1 i, html[dir="rtl"] h2 i, html[dir="rtl"] h3 i, html[dir="rtl"] label i:first-child { margin-right: 0; margin-left: 8px; }
+html[dir="rtl"] .me-1 { margin-right: 0 !important; margin-left: .25rem !important; } html[dir="rtl"] .me-2 { margin-right: 0 !important; margin-left: .5rem !important; }
+html[dir="rtl"] .ms-1 { margin-left: 0 !important; margin-right: .25rem !important; } html[dir="rtl"] .ms-2 { margin-left: 0 !important; margin-right: .5rem !important; }
+
+/* text blocks, tables, forms */
+html[dir="rtl"] th, html[dir="rtl"] td, html[dir="rtl"] .name, html[dir="rtl"] .form-hint, html[dir="rtl"] label, html[dir="rtl"] .card-head h2, html[dir="rtl"] .page-head, html[dir="rtl"] .page-head h1 { text-align: right; }
+html[dir="rtl"] .app-table th, html[dir="rtl"] .app-table td { text-align: right; }
+html[dir="rtl"] table.reg td, html[dir="rtl"] td.cell, html[dir="rtl"] .att-counts, html[dir="rtl"] .gb-cell { text-align: center; }
+html[dir="rtl"] input, html[dir="rtl"] select, html[dir="rtl"] textarea { text-align: right; }
+html[dir="rtl"] input[type="password"] { direction: ltr; text-align: left; }
+html[dir="rtl"] .invalid-feedback, html[dir="rtl"] .required-mark { text-align: right; }
+html[dir="rtl"] .password-toggle, html[dir="rtl"] .password-field button.password-toggle { right: auto; left: 10px; }
+html[dir="rtl"] .switch-row { flex-direction: row; }
+html[dir="rtl"] ul, html[dir="rtl"] ol { padding-left: 0; padding-right: 1.4rem; }
+html[dir="rtl"] .lec-body ul, html[dir="rtl"] .lec-body ol { padding-left: 0; padding-right: 24px; }
+html[dir="rtl"] blockquote { border-left: 0; border-right: 4px solid var(--primary); padding-left: 0; padding-right: 14px; }
+
+/* cards, chips, notifications, dropdowns */
+html[dir="rtl"] .notif-dropdown, html[dir="rtl"] .profile-dropdown, html[dir="rtl"] .dropdown-menu { left: 0; right: auto; text-align: right; }
+html[dir="rtl"] .notif-badge { right: auto; left: -4px; }
+html[dir="rtl"] .gc-avatar { right: auto; left: 18px; }
+html[dir="rtl"] .banner-chip, html[dir="rtl"] .gc-chip { direction: rtl; }
+html[dir="rtl"] .classwork-item, html[dir="rtl"] .feed-row, html[dir="rtl"] .rd-item { text-align: right; }
+html[dir="rtl"] .rd-bar i { float: none; }
+html[dir="rtl"] .settings-nav, html[dir="rtl"] .sn-item { text-align: right; }
+html[dir="rtl"] .lec-img.align-left, html[dir="rtl"] .lec-body .lec-img.align-left { float: right; margin: 4px 0 12px 22px; }
+html[dir="rtl"] .lec-body .lec-img.align-right { float: left; margin: 4px 22px 12px 0; }
+html[dir="rtl"] .tb.me, html[dir="rtl"] .st-b.me, html[dir="rtl"] .ai-b.me { align-self: flex-start; }
+html[dir="rtl"] .tb.ai, html[dir="rtl"] .st-b.ai, html[dir="rtl"] .ai-b.ai { align-self: flex-end; }
+html[dir="rtl"] .staging-strip { text-align: center; }
+html[dir="rtl"] .sn-item i, html[dir="rtl"] .menu-item i { margin-right: 0; }
+
+/* sign-in pages (Bootstrap's own rtl build is used there) */
+html[dir="rtl"] .form-floating > label { right: 0; left: auto; }
+html[dir="rtl"] .login-card, html[dir="rtl"] .register-card { text-align: right; }
+
+html[dir="rtl"] .hl-menu, html[dir="rtl"] .hl-menu a { text-align: right; }
+
+/* truncated texts: names written in Latin letters keep their beginning (not their end) when cut with "…" */
+html[dir="rtl"] .logo-text, html[dir="rtl"] .profile-item .header-text, html[dir="rtl"] .ins-name, html[dir="rtl"] .classwork-title,
+html[dir="rtl"] .material-item strong, html[dir="rtl"] .conv-preview, html[dir="rtl"] .lec-card-excerpt { unicode-bidi: plaintext; text-align: start; }
+/* long sidebar labels in Pashto / Dari wrap onto a second line instead of being cut */
+html[dir="rtl"] .menu-text h3 { white-space: normal; line-height: 1.35; unicode-bidi: plaintext; }
+html[dir="rtl"] .staging-strip { unicode-bidi: plaintext; text-align: center; }
+/* a code editor stays left-to-right, whatever the language of the page */
+html[dir="rtl"] .lec-editor textarea, html[dir="rtl"] #content, html[dir="rtl"] .code-input, html[dir="rtl"] textarea.mono { direction: ltr; text-align: left; }
+
+/* dashboard number cards: icon on the left, text starts at the right edge */
+html[dir="rtl"] .kpi-icon { right: auto; left: 14px; }
+html[dir="rtl"] .kpi-label { padding-right: 0; padding-left: 40px; }
+
+/* spacing / alignment written directly on an element (style="…") is mirrored too */
+html[dir="rtl"] [style*="margin-left:6px"] { margin-left: 0 !important; margin-right: 6px; }
+html[dir="rtl"] [style*="margin-left:8px"] { margin-left: 0 !important; margin-right: 8px; }
+html[dir="rtl"] [style*="margin-left:10px"] { margin-left: 0 !important; margin-right: 10px; }
+html[dir="rtl"] [style*="margin-right:6px"] { margin-right: 0 !important; margin-left: 6px; }
+html[dir="rtl"] [style*="margin:0 auto 0 0"] { margin: 0 0 0 auto !important; }
+html[dir="rtl"] [style*="margin-left:auto"] { margin-left: 0 !important; margin-right: auto !important; }
+html[dir="rtl"] [style*="margin-right:auto"] { margin-right: 0 !important; margin-left: auto !important; }
+html[dir="rtl"] [style*="text-align:right"] { text-align: left !important; }
+html[dir="rtl"] [style*="text-align:left"] { text-align: right !important; }
+html[dir="rtl"] [style*="float:right"] { float: left !important; }
+html[dir="rtl"] [style*="float:left"] { float: right !important; }
+
+/* header pop-ups open under their button on the LEFT side in right-to-left languages (the base rules pin them to the right with !important) */
+html[dir="rtl"] .profile-dropdown { right: auto !important; left: 25px !important; text-align: right; }
+@media (max-width: 1024px) { html[dir="rtl"] .profile-dropdown { left: 15px !important; } }
+@media (max-width: 720px) { html[dir="rtl"] .profile-dropdown { left: 10px !important; } }

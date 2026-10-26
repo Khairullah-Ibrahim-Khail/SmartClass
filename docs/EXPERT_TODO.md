@@ -1,0 +1,71 @@
+# Expert review — to-do list
+
+Order = priority. `[x]` is only ticked after the item was built **and tested** (how is written next to it).
+Rules kept throughout: nothing is tested on the live database except read-only checks; test data is removed by exact ids;
+no existing screen is removed; everything shown is real (wired), not decoration.
+
+## 1. Safety net
+- [x] 1.1 Restore drill: take a backup of the live database, restore it into a throwaway database, compare table counts and row counts (script `bin/restore_drill.php`, repeatable).
+      → done: bin/restore_drill.php — backup of the live database restored into a throw-away database: 62 tables, 114 foreign keys, every table identical (rows + checksum), database dropped; repeatable any time
+- [x] 1.2 Staging copy: `bin/make_staging.php` creates / refreshes a separate database `smartclass_staging` (data copied from live, e-mail and AI keys removed) and a config switch so a staging site never sends e-mail.
+      → done: bin/make_staging.php builds smartclass_staging from live data (e-mail settings/queue, AI keys, sign-in codes, reset links, 2FA secrets, customers, invites removed; student e-mails and guardian contacts anonymised); bin/staging.sh serves it on http://127.0.0.1:8081/myProject/SmartClass/ with an orange STAGING strip; staging sends no e-mail and calls no AI (checked); live database untouched (checked)
+- [x] 1.3 Automated tests: `tests/` with a runner (`php tests/run.php`) on a throwaway database — permissions matrix, attendance (sessions), grading maths, final marks, print pages, CSRF, uploads.
+      → done: tests/run.php: 37 tests on a throw-away database built from config/install_schema.sql + the built-in web server (schema, grading scales / rounding / bands / GPA, final marks, attendance sessions over real pages, permission matrix, CSRF, picture library, security headers, login behaviour, print-language whitelist, XSS in lectures, AI tutor access); all pass; checked that a deliberately removed requireAdmin() is caught (restored); run with: php tests/run.php [filter]
+- [x] 1.4 Monitoring: one error log for PHP errors / failed e-mail / failed AI calls, shown in Settings › System check (last 20) and a daily summary e-mail line to the admin.
+      → done: includes/health.php + cron/housekeeping.php: System check now has 'Background jobs' (last run / late warnings with the cron line to add) and 'Recent problems' (PHP errors, failed AI calls, failed e-mails, grouped, 7 days) with an archive button; admins get an in-app (and e-mail) note once a day when something went wrong or a job is late; also fixed three real problems the log showed (lectures list notice, 12 PHP 8.4 CSV deprecations via csvRow()); 5 tests; the old log (all fixed bugs) was archived so monitoring starts clean
+
+## 2. Production readiness
+- [x] 2.1 HTTPS: setting "Force HTTPS" (redirect + HSTS) that only turns on when the request really is https.
+      → done: Settings › Security rules: 'Force HTTPS' (redirect + HSTS; can only be switched on from an https page; never touches localhost / IPs / .local); includes/hardening.php; unit-tested redirect rules
+- [x] 2.2 Rate limits: login (per account and per IP), password reset, AI endpoints (tutor, study, explain), uploads.
+      → done: includes/ratelimit.php + migration 046: sign-in (8 wrong passwords per e-mail / 40 per address in 15 min → locked with a wait time, success clears it), password-reset requests (5 per e-mail, 20 per address per hour; page looks the same, nothing is sent), sign-ups (10 per hour per address), AI calls (30 per minute per person, inside aiChat), uploads (40 per minute per person); old counters cleaned daily; 4 tests
+- [x] 2.3 Password rules: minimum length 10, not the e-mail / name, not in a list of common passwords; applies to sign-up, change and reset.
+      → done: includes/passwords.php: minimum 10 (school can set 8–20), common-password list (also with digits/symbols added), no own name/e-mail, no repeats/runs; applied to sign-up, change, reset, teacher invitation, first sign-in; 3 tests
+- [x] 2.4 Admin two-step sign-in: setting "Require two-step sign-in for administrators"; admins without it are sent to set it up.
+      → done: setting 'Administrators must use two-step sign-in': an admin without it is sent to set it up (setup page and sign-out stay open); lock-out escape: php bin/security_switch.php; 4 tests
+- [x] 2.5 Cron health: each cron job writes a heartbeat; System check shows "last run" and warns when late.
+      → done: done together with 1.4: includes/health.php heartbeat per cron job + System check 'Background jobs' (Running / Late / Not started + the exact cron line); cron/housekeeping.php added
+- [x] 2.6 Database: index review of the large tables (explain on the hot queries), pagination on every long list, least-privilege database user notes.
+      → done: indexes added for the lists that grow (activity log, notifications — migration 047) and the other tables reviewed (attendance, submissions, messages, events … already covered); every long list now has a safety limit (lectures, assignments, resources, students); secrets: config/local.php (database login + independent secret_key, written by bin/init_local_config.php), stored secrets are now v2 (bin/rotate_secrets.php, done on this server with a backup; tested); installer setup.php reads the same config; 55 tests green; customers updated to 047
+
+## 3. Student data and privacy
+- [x] 3.1 Data retention setting (activity log, AI usage, AI chats, login codes) with a daily cleanup job.
+      → done: includes/privacy.php + Settings › Privacy & data: months per record type (activity log, AI usage, AI Tutor chats, read notifications, sent e-mail copies, attendance edit history; 0 = keep), preview of what the next clean-up removes, nightly run in cron/housekeeping.php; school records are never touched; tested
+- [x] 3.2 "Export my data" (student / teacher): one ZIP/JSON of their own records.
+      → done: Settings › Profile › 'Download my data' (JSON: account, classes, work, marks, attendance, messages, AI Tutor chats, notifications — never passwords or keys) and the admin's 'Download their data' for any person; tested
+- [x] 3.3 "Delete my data" / remove a student: admin tool that anonymises or deletes everything of one person, with a confirmation and a log line.
+      → done: Settings › Privacy & data › find a person → Anonymise (keeps marks / attendance / work, removes name, e-mail, photo, parent contact, sign-in data, notifications, AI chats, activity) or Delete (students / teachers without classes); typed-e-mail confirmation; admins protected; students can ask the school to remove their data (admins notified once a day); tested
+- [x] 3.4 Safeguarding for the AI Tutor: a school setting; messages that mention self-harm / abuse keywords are flagged to the class teacher (never auto-replied away), with the rule written in the settings page.
+      → done: AI Tutor safeguarding: harm messages (self-harm, abuse, violence, bullying; English + Pashto/Dari phrases) never reach the AI — fixed kind answer, flag (migration 048), class teachers + admins notified, 'Safeguarding' page with Handled + note, switch in Privacy & data; false-positive tests (kill a process, abuse of power …); tested
+- [x] 3.5 Who can read personal data: review guardian contacts, activity log, AI chats access; document in `docs/PRIVACY.md`.
+      → done: reviewed who can read personal data (guardian contacts: class teachers only — tested; AI chats: the student only; activity log: own sign-ins + admin); written down in docs/PRIVACY.md
+
+## 4. AI features
+- [x] 4.1 School monthly AI budget (tokens) with a warning at 80 % and a stop at 100 %; visible on the AI settings page.
+      → done: AI settings: a progress bar for the monthly school budget; admins are told once at 80 % and once at 100 % (stop at 100 % already existed); tested
+- [x] 4.2 One "AI off for the whole school" switch that is obvious (exists as `ai_enabled`; add a top-bar notice for admins when it is off).
+      → done: AI settings: a one-click 'Switch AI off for everyone' (with confirmation) and a red banner + 'Switch AI on' while it is off; teachers cannot use it; features really stop (tested)
+- [x] 4.3 Teacher can flag an AI answer as wrong (button on tutor / study answers) → stored, shown on the AI settings page.
+      → done: 'Report a wrong answer' under AI Tutor answers, lecture AI chat/summary answers and code explanations (assets/js/ai-report.js, pages/ai/report.php, migration 049); admins are told and review the list under Settings › AI providers › Reported answers; 10 reports per person per hour; tested
+- [x] 4.4 Run button: host the Python engine (Pyodide) on this server when it is available, CDN as fallback; document how.
+      → done: Python engine (Pyodide 0.26.4, 13 MB) now lives in assets/vendor/pyodide/ and is served by assets/vendor/pyodide.php (adds the cross-origin headers; no Apache module needed); the Run button uses it when present and the CDN only as fallback; checked in a real browser with the CDN blocked: print(6*7) → 42 in 2.6 s
+
+## 5. Product
+- [x] 5.1 Phone check: every page at 390 px (no sideways scroll, tap targets ≥ 40 px) — automatic scan of all pages for overflow, fix what fails.
+      → done: tests/browser_scan.py (real browser, 390 px): admin 70 pages, teacher 40, student 40 — no sideways scroll, no JavaScript errors, no broken pictures anywhere; tap targets below 36 px (header icons, class code chips, links, search boxes, code buttons …) fixed with a touch-device stylesheet (min 40 px); re-scan: student 38/40, teacher 30+/40 clean, rest are tiny table sort buttons / schedule links
+- [x] 5.2 Installable app (manifest + icons + service worker with an offline notice page).
+      → done: manifest.php (per school: name, colour, start page), icons (192, 512, maskable), sw.js (caches only styles / scripts / icons; never signed-in pages or answers), offline.php; checked in a real browser: the worker installs, pages are NOT cached, with the server gone a page visit shows the friendly 'You are offline' page; 2 tests
+- [x] 5.3 Pashto and Dari interface: language switch (profile + header), translation files, right-to-left layout; start with menu, dashboard, classes, attendance, settings headings.
+      → done: done: header language dropdown (English / پښتو / دری, switches in place, remembered per person and in a cookie), Settings › Appearance picker, right-to-left layout (assets/css/rtl.css), ~1,500 translated phrases + sentence patterns (includes/lang/strings*.php, includes/lang/rules.php), every menu / form / validation message / pop-up (pop-ups and inline errors built by JavaScript are translated in the browser by assets/js/i18n-live.js), login/register/unsubscribe pages, all settings pages; checked with tests/i18n_coverage.py (crawls every page as admin / teacher / student in Pashto and lists English left: only names and text typed by users remain); 5 tests. Limits: user-written content (lectures, posts, class names) and e-mails stay as written; Pashto/Dari wording needs a native-speaker review
+- [x] 5.4 First-run guide for a new teacher (create class → invite students → take attendance) shown on the dashboard until finished.
+      → done: done: includes/onboarding.php + a 'Getting started' card on the teacher dashboard (create a class → invite students → take attendance); every step is ticked only when the data really exists (class, a student who joined, attendance rows), shows a progress bar and the class code, disappears when all three are real; students never see it; works in Pashto / Dari; tests/OnboardingTest.php
+- [x] 5.5 Roadmap leftovers: quiz question bank, longer quiz deadline for one student, customers approving support access, billing notes.
+      → done: done: (1) question bank — 'Keep these questions in my question bank' when publishing a quiz (+ optional tag), 'My question bank' panel in the quiz builder to search / add / remove, private per teacher, same question kept once (migration 052, includes/question_bank.php, pages/quizzes/bank.php, assets/js/quiz-bank.js); (2) 'Only give more time' when reactivating a quiz — nobody's attempt is cleared, finished ones are left alone (the full reactivation still keeps the old score in the history); (3) customers approving support access — Settings › Privacy & data › 'Support needs my approval': the provider's link files a request and waits, the administrator approves / denies, entry is one-time (checked end-to-end on a real customer site); (4) billing notes per customer — plan, price, paid-until, note, overdue badge (migration 051); 5 new test files
+
+## 6. Code health
+- [x] 6.1 Move grading, attendance and permission rules that are duplicated into `includes/` functions with tests (no behaviour change).
+      → done: done: the 'teaches this class' condition (teachesClassSql) replaces 22 hand-written copies in the dashboard, my classes, approvals, attendance, assignments, resources, profile and the first-run guide; 'counts as attended' (attendedSql / ATTENDED_STATUSES) replaces 7 copies of the status list; attendancePct() gives the one-decimal attendance percentage (insights, reports) — same results as before (the whole suite was green before and after, plus tests/RulesTest.php that pins the exact condition and the three attendance statuses)
+- [x] 6.2 `docs/ARCHITECTURE.md`: folders, request flow, security rules, how to add a module / migration / test.
+      → done: done: docs/ARCHITECTURE.md — folders, the life of one request, the security rules every change must keep, hosting several schools, and how to add a screen / module / migration / setting / translation / test
+- [x] 6.3 Final full run: all tests, accessibility scan, permission matrix, restore drill; update `docs/IMPROVEMENT_PLAN.md`.
+      → done: done: full suite 84/84 green; restore drill passed (66 tables, 122 foreign keys identical); permission matrix (tests/PermissionsTest.php) green; phone-width scan of student / teacher / admin pages (no sideways scroll, no JavaScript errors); Pashto / Dari coverage crawl and page-by-page screenshots (desktop, tablet, phone); docs/IMPROVEMENT_PLAN.md and docs/ARCHITECTURE.md updated

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Class Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Tooltip container -->
+    <div class="tooltip"></div>
+
+    <div class="container">
+      <!-- Sidebar -->
+      <aside>
+        <div class="sidebar-inner">
+          <!-- Logo Area -->
+          <div class="logo-area">
+            <div class="logo">
+              <i class="fas fa-graduation-cap"></i>
+              <span class="logo-text">Smart Class</span>
+              <span class="logo-short">SC</span>
+            </div>
+            <button class="sidebar-toggle">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+          </div>
+
+          <!-- Navigation -->
+          <nav class="sidebar-nav">
+            <!-- Class Management -->
+            <div class="menu-item" data-tooltip="Class Management">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Class Management</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addClass.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Class</span>
+                </a>
+                <a href="pages/viewClass.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Classes</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Students -->
+            <div class="menu-item" data-tooltip="Students">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Students</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addStudent.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Student</span>
+                </a>
+                <a href="pages/viewStudent.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Students</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Teachers -->
+            <div class="menu-item" data-tooltip="Teachers">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-chalkboard"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Teachers</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addTeacher.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Teacher</span>
+                </a>
+                <a href="pages/viewTeacher.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Teachers</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Courses -->
+            <div class="menu-item" data-tooltip="Courses">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-book-open"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Courses</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addCourse.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Course</span>
+                </a>
+                <a href="pages/viewCourse.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Courses</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Exams -->
+            <div class="menu-item" data-tooltip="Exams">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Exams</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addExam.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Exam</span>
+                </a>
+                <a href="pages/viewExam.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Exams</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Quizzes -->
+            <div class="menu-item" data-tooltip="Quizzes">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Quizzes</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addQuiz.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Quiz</span>
+                </a>
+                <a href="pages/viewQuiz.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Quizzes</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Assignments -->
+            <div class="menu-item" data-tooltip="Assignments">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-tasks"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Assignments</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addAssignment.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Assignment</span>
+                </a>
+                <a href="pages/viewAssignment.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Assignments</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Projects -->
+            <div class="menu-item" data-tooltip="Projects">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-project-diagram"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Projects</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addProject.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Project</span>
+                </a>
+                <a href="pages/viewProject.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Projects</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Marks -->
+            <div class="menu-item" data-tooltip="Marks">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Marks</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addMarks.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Marks</span>
+                </a>
+                <a href="pages/viewMarks.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Marks</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Resources -->
+            <div class="menu-item" data-tooltip="Resources">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-folder"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Resources</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addResource.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Resource</span>
+                </a>
+                <a href="pages/viewResource.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Resources</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Research -->
+            <div class="menu-item" data-tooltip="Research">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-flask"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Research</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addResearch.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Research</span>
+                </a>
+                <a href="pages/viewResearch.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Research</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Attendance -->
+            <div class="menu-item" data-tooltip="Attendance">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Attendance</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/markAttendance.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Mark Attendance</span>
+                </a>
+                <a href="pages/viewAttendance.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Attendance</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Schedules -->
+            <div class="menu-item" data-tooltip="Schedules">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Schedules</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addSchedule.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Schedule</span>
+                </a>
+                <a href="pages/viewSchedule.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Schedules</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Forums -->
+            <div class="menu-item" data-tooltip="Forums">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-comments"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Forums</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addForum.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Forum</span>
+                </a>
+                <a href="pages/viewForum.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Forums</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Events -->
+            <div class="menu-item" data-tooltip="Events">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Events</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addEvent.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Event</span>
+                </a>
+                <a href="pages/viewEvent.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Events</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Announcements -->
+            <div class="menu-item" data-tooltip="Announcements">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Announcements</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addAnnouncement.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Announcement</span>
+                </a>
+                <a href="pages/viewAnnouncement.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Announcements</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Notifications -->
+            <div class="menu-item" data-tooltip="Notifications">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-bell"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Notifications</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/addNotification.php" class="dropdown-item">
+                  <i class="fas fa-plus"></i>
+                  <span>Create Notification</span>
+                </a>
+                <a href="pages/viewNotification.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Notifications</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="menu-item" data-tooltip="Settings">
+              <a class="menu-header">
+                <div class="menu-icon">
+                  <i class="fas fa-cog"></i>
+                </div>
+                <div class="menu-text">
+                  <h2>Settings</h2>
+                  <i class="fas fa-chevron-right arrow"></i>
+                </div>
+              </a>
+              <div class="dropdown-content">
+                <a href="pages/updateSettings.php" class="dropdown-item">
+                  <i class="fas fa-edit"></i>
+                  <span>Update Settings</span>
+                </a>
+                <a href="pages/viewSettings.php" class="dropdown-item">
+                  <i class="fas fa-eye"></i>
+                  <span>View Settings</span>
+                </a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="main-wrapper">
+        <!-- Header -->
+        <header class="main-header">
+          <button class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <div class="header-nav">
+            <!-- Home -->
+            <a href="index.php" class="header-item" data-tooltip="Home">
+              <i class="fas fa-home"></i>
+              <span class="header-text">Home</span>
+            </a>
+
+            <!-- My Classes -->
+            <a
+              href="pages/myClasses.php"
+              class="header-item"
+              data-tooltip="My Classes"
+            >
+              <i class="fas fa-chalkboard"></i>
+              <span class="header-text">My Classes</span>
+            </a>
+
+            <!-- Resources -->
+            <a
+              href="pages/resources.php"
+              class="header-item"
+              data-tooltip="Resources"
+            >
+              <i class="fas fa-folder"></i>
+              <span class="header-text">Resources</span>
+            </a>
+
+            <!-- Quizzes -->
+            <a
+              href="pages/quizzes.php"
+              class="header-item"
+              data-tooltip="Quizzes"
+            >
+              <i class="fas fa-question-circle"></i>
+              <span class="header-text">Quizzes</span>
+            </a>
+
+            <!-- Assignments -->
+            <a
+              href="pages/assignments.php"
+              class="header-item"
+              data-tooltip="Assignments"
+            >
+              <i class="fas fa-tasks"></i>
+              <span class="header-text">Assignments</span>
+            </a>
+
+            <!-- myNotes -->
+            <a
+              href="pages/notes.php"
+              class="header-item"
+              data-tooltip="myNotes"
+            >
+              <i class="fas fa-sticky-note"></i>
+              <span class="header-text">myNotes</span>
+            </a>
+
+            <!-- Research -->
+            <a
+              href="pages/research.php"
+              class="header-item"
+              data-tooltip="Research"
+            >
+              <i class="fas fa-flask"></i>
+              <span class="header-text">Research</span>
+            </a>
+
+            <!-- Attendance -->
+            <a
+              href="pages/attendance.php"
+              class="header-item"
+              data-tooltip="Attendance"
+            >
+              <i class="fas fa-clipboard-check"></i>
+              <span class="header-text">Attendance</span>
+            </a>
+
+            <!-- Profile -->
+            <div class="header-item profile-item" data-tooltip="Profile">
+              <i class="fas fa-user-circle"></i>
+              <span class="header-text">Profile</span>
+              <div class="profile-dropdown">
+                <a href="pages/profile.php"
+                  ><i class="fas fa-user"></i> View Profile</a
+                >
+                <a href="pages/editProfile.php"
+                  ><i class="fas fa-edit"></i> Edit Profile</a
+                >
+                <a href="pages/settings.php"
+                  ><i class="fas fa-cog"></i> Settings</a
+                >
+                <div class="divider"></div>
+                <a href="logout.php" class="logout"
+                  ><i class="fas fa-sign-out-alt"></i> Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard">
+          <!-- External Dropdown Container (for medium screens) -->
+          <div class="external-dropdown-wrapper"></div>
+
+          <div class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+              <h1>Welcome to Smart Class</h1>
+              <p>Manage your classes, students, and resources in one place</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-info">
+                  <h3>Classes</h3>
+                  <p class="stat-number">24</p>
+                  <span class="stat-change">+2 this week</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-info">
+                  <h3>Students</h3>
+                  <p class="stat-number">1,254</p>
+                  <span class="stat-change">+48 today</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="stat-info">
+                  <h3>Exams</h3>
+                  <p class="stat-number">7</p>
+                  <span class="stat-change">Upcoming: 3</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="stat-info">
+                  <h3>Attendance</h3>
+                  <p class="stat-number">94%</p>
+                  <span class="stat-change">+2% from last week</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Activity & Upcoming Events -->
+            <div class="dashboard-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h2><i class="fas fa-history"></i> Recent Activity</h2>
+                  <a href="#" class="view-all">View All</a>
+                </div>
+                <div class="card-body">
+                  <div class="activity-list">
+                    <div class="activity-item">
+                      <div class="activity-icon success">
+                        <i class="fas fa-user-plus"></i>
+                      </div>
+                      <div class="activity-content">
+                        <p>New student registered</p>
+                        <span>2 minutes ago</span>
+                      </div>
+                    </div>
+                    <div class="activity-item">
+                      <div class="activity-icon info">
+                        <i class="fas fa-file-upload"></i>
+                      </div>
+                      <div class="activity-content">
+                        <p>Assignment submitted</p>
+                        <span>15 minutes ago</span>
+                      </div>
+                    </div>
+                    <div class="activity-item">
+                      <div class="activity-icon warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                      </div>
+                      <div class="activity-content">
+                        <p>Exam schedule updated</p>
+                        <span>1 hour ago</span>
+                      </div>
+                    </div>
+                    <div class="activity-item">
+                      <div class="activity-icon primary">
+                        <i class="fas fa-bullhorn"></i>
+                      </div>
+                      <div class="activity-content">
+                        <p>New announcement posted</p>
+                        <span>3 hours ago</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h2>
+                    <i class="fas fa-calendar-alt"></i> Upcoming Deadlines
+                  </h2>
+                  <a href="#" class="view-all">View Calendar</a>
+                </div>
+                <div class="card-body">
+                  <div class="deadline-list">
+                    <div class="deadline-item urgent">
+                      <div class="deadline-date">
+                        <span class="date">15</span>
+                        <span class="month">DEC</span>
+                      </div>
+                      <div class="deadline-content">
+                        <p>Final Exam - Mathematics</p>
+                        <span>10:00 AM - 12:00 PM</span>
+                      </div>
+                    </div>
+                    <div class="deadline-item">
+                      <div class="deadline-date">
+                        <span class="date">18</span>
+                        <span class="month">DEC</span>
+                      </div>
+                      <div class="deadline-content">
+                        <p>Project Submission - Science</p>
+                        <span>11:59 PM</span>
+                      </div>
+                    </div>
+                    <div class="deadline-item">
+                      <div class="deadline-date">
+                        <span class="date">20</span>
+                        <span class="month">DEC</span>
+                      </div>
+                      <div class="deadline-content">
+                        <p>Quiz - History</p>
+                        <span>9:00 AM - 10:00 AM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Performance Summary -->
+            <div class="card full-width">
+              <div class="card-header">
+                <h2><i class="fas fa-chart-line"></i> Performance Summary</h2>
+                <div class="time-filter">
+                  <button class="filter-btn active">Week</button>
+                  <button class="filter-btn">Month</button>
+                  <button class="filter-btn">Year</button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="performance-placeholder">
+                  <div class="placeholder-content">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Performance charts will be displayed here</p>
+                    <small
+                      >Click on the time filters above to view different
+                      periods</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <footer>
+          <div class="footer-content">
+            <p>
+              &copy; 2023 Smart Class Management System. All rights reserved.
+            </p>
+            <div class="footer-links">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="#">Help Center</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

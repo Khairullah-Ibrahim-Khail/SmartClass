@@ -1,0 +1,179 @@
+/* =======================
+   Design Tokens
+======================= */
+:root {
+  --bg: #f9fafb;
+  --card-bg: #ffffff;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+
+  --primary: #3b82f6;
+  --success: #10b981;
+
+  --radius-lg: 18px;
+  --radius-sm: 10px;
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 20px 45px rgba(0, 0, 0, 0.12);
+
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =======================
+   Container & Title
+======================= */
+.containerClass {
+  width: 100%;
+  padding: 20px;
+  margin: auto;
+}
+
+.containerClass h1 {
+  text-align: center;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 60px;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+/* =======================
+   Grid
+======================= */
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 36px;
+}
+
+/* =======================
+   Card
+======================= */
+.class-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.class-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.04));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.class-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-md);
+  border-color: transparent;
+}
+
+.class-card:hover::after {
+  opacity: 1;
+}
+
+/* =======================
+   Image
+======================= */
+.class-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform var(--transition);
+}
+
+.class-card:hover .class-image {
+  transform: scale(1.08);
+}
+
+/* =======================
+   Card Content
+======================= */
+.class-info {
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =======================
+   Progress Info
+======================= */
+.inProgress {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* =======================
+   Progress Bar
+======================= */
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #eef2f7;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--success), var(--primary));
+  animation: loadProgress 0.9s ease-out;
+}
+
+@keyframes loadProgress {
+  from {
+    width: 0;
+  }
+}
+
+/* =======================
+   Text
+======================= */
+.class-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.class-description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* =======================
+   Accessibility
+======================= */
+.class-card:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
+}
+
+/* =======================
+   Responsive
+======================= */
+@media (max-width: 768px) {
+  .class-image {
+    height: 180px;
+  }
+}

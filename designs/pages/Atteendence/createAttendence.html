@@ -1,0 +1,137 @@
+<div class="AttendenceContainer">
+  <div class="header">
+    <h1>📚 Smart Class Attendance</h1>
+  </div>
+
+  <form action="/submit-attendance" method="post">
+    <!-- Controls -->
+    <div class="controls">
+      <div class="control-group">
+        <label for="classSelect">Select Class:</label>
+        <select id="classSelect" name="class">
+          <option value="">-- Choose Class --</option>
+          <option value="10-A">Class 10-A</option>
+          <option value="10-B">Class 10-B</option>
+          <option value="11-A">Class 11-A</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="subjectSelect">Subject:</label>
+        <select id="subjectSelect" name="subject">
+          <option value="">-- Choose Subject --</option>
+          <option value="Math">Mathematics</option>
+          <option value="Science">Science</option>
+          <option value="English">English</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="dateInput">Date:</label>
+        <input type="date" id="dateInput" name="date" />
+      </div>
+    </div>
+
+    <!-- Attendance Table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Student Name</th>
+            <th>Roll No.</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Official Present</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Ahmed Ali</td>
+            <td>101</td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-1-status" value="present" />
+              </div>
+            </td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-1-status" value="absent" />
+              </div>
+            </td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-1-status" value="official" />
+              </div>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="student-1-remarks"
+                placeholder="Add remarks..."
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Fatima Khan</td>
+            <td>102</td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-2-status" value="present" />
+              </div>
+            </td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-2-status" value="absent" />
+              </div>
+            </td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-2-status" value="official" />
+              </div>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="student-2-remarks"
+                placeholder="Add remarks..."
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Hassan Muhammad</td>
+            <td>103</td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-3-status" value="present" />
+              </div>
+            </td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-3-status" value="absent" />
+              </div>
+            </td>
+            <td>
+              <div class="radio-wrapper">
+                <input type="radio" name="student-3-status" value="official" />
+              </div>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="student-3-remarks"
+                placeholder="Add remarks..."
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Action Button -->
+    <div class="button-group">
+      <button type="submit" class="btn-primary">Save Attendance</button>
+    </div>
+  </form>
+</div>

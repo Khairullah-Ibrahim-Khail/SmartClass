@@ -1,0 +1,275 @@
+/* =====================================================
+   SmartClass - dark theme (html[data-theme="dark"])
+   Loaded after app.css. Variables + hand-written fixes first,
+   then rules generated from the light styles (every light
+   background / dark text / light border in dashboard.css and
+   app.css gets a dark counterpart).
+   Chosen with the moon/sun button in the header; "auto" follows
+   the system setting. Saved in this browser only.
+   ===================================================== */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --d-surface: #1f2133;
+  --d-surface2: #262942;
+  --d-surface3: #2f3350;
+  --d-text: #e6e8f2;
+  --d-border: #3a3e5c;
+  --dark: #e6e8f2;
+  --light: #232538;
+  --gray-100: #262942;
+  --gray-200: #2f3350;
+  --gray-300: #3a3e5c;
+  --gray-600: #a3a9c2;
+  --gray-800: #d6d9e8;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, .4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, .45);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, .5);
+}
+html[data-theme="dark"] body { background: linear-gradient(135deg, #14151f 0%, #1d2036 100%); color: var(--d-text); }
+html[data-theme="dark"] a { color: #8fa3ff; }
+html[data-theme="dark"] .btn-app, html[data-theme="dark"] .btn-app:hover, html[data-theme="dark"] .sidebar a, html[data-theme="dark"] .sidebar button { color: #fff !important; }
+html[data-theme="dark"] .btn-app.btn-outline { color: #8fa3ff !important; border-color: #4a5fd0; background: transparent !important; }
+html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea {
+  background-color: var(--d-surface2); color: var(--d-text); border-color: var(--d-border);
+}
+html[data-theme="dark"] input::placeholder, html[data-theme="dark"] textarea::placeholder { color: #7e84a0; }
+html[data-theme="dark"] input:disabled, html[data-theme="dark"] select:disabled, html[data-theme="dark"] textarea:disabled { background-color: #1a1c2c; color: #7e84a0; }
+html[data-theme="dark"] .app-table th, html[data-theme="dark"] .gradebook th { background-color: var(--d-surface3) !important; color: var(--d-text) !important; }
+html[data-theme="dark"] .app-table td { border-color: var(--d-border) !important; }
+html[data-theme="dark"] .app-table tbody tr:hover { background-color: rgba(143, 163, 255, .08) !important; }
+html[data-theme="dark"] .form-hint, html[data-theme="dark"] .notif-meta, html[data-theme="dark"] .page-subtitle { color: var(--gray-600) !important; }
+html[data-theme="dark"] hr, html[data-theme="dark"] .divider { border-color: var(--d-border); background-color: var(--d-border); }
+html[data-theme="dark"] code { background: var(--d-surface3); color: #f0b3c7; }
+html[data-theme="dark"] .status-badge { filter: brightness(1.05); }
+html[data-theme="dark"] .mistake-explain, html[data-theme="dark"] .insight-box, html[data-theme="dark"] .study-out { background: rgba(143, 163, 255, .1); }
+html[data-theme="dark"] .alert-box { background: rgba(255, 255, 255, .06); }
+html[data-theme="dark"] .alert-box.warn { background: rgba(255, 183, 3, .12); }
+/* SweetAlert2 dialogs */
+html[data-theme="dark"] .swal2-popup { background: var(--d-surface); color: var(--d-text); }
+html[data-theme="dark"] .swal2-title, html[data-theme="dark"] .swal2-html-container, html[data-theme="dark"] .swal2-content { color: var(--d-text) !important; }
+html[data-theme="dark"] .swal2-input, html[data-theme="dark"] .swal2-textarea, html[data-theme="dark"] .swal2-select { background: var(--d-surface2); color: var(--d-text); border-color: var(--d-border); }
+html[data-theme="dark"] .swal2-validation-message { background: var(--d-surface3); color: var(--d-text); }
+/* the theme button itself */
+.theme-toggle .fa-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .fa-sun { display: inline-block; }
+html[data-theme="dark"] .theme-toggle .fa-moon { display: none; }
+
+/* icon-only theme button (keeps the header from overflowing) */
+.theme-toggle .header-text { display: none !important; }
+/* places that used the (now light) --dark variable as a background */
+html[data-theme="dark"] footer,
+html[data-theme="dark"] .cron-line,
+html[data-theme="dark"] .quiz-timer { background: #12131e !important; color: #d6d9e8 !important; }
+html[data-theme="dark"] .soon-toast { background: #2f3350 !important; color: #e6e8f2 !important; }
+/* refresh pass (polish.css) */
+html[data-theme="dark"] { --canvas: #14151f; --surface: #1f2133; --ink: #e6e8f2; --ink-2: #c2c7dc; --ink-3: #9aa1bd; --line: #343854; }
+html[data-theme="dark"] .sidebar { background: linear-gradient(180deg, #14173a 0%, #0f122d 100%); }
+html[data-theme="dark"] .main-header { background: var(--d-surface); border-bottom-color: var(--d-border); }
+html[data-theme="dark"] .header-item { color: #c2c7dc; }
+html[data-theme="dark"] .header-item:hover, html[data-theme="dark"] .profile-item { background: #2a2e4d; color: #fff; }
+html[data-theme="dark"] .btn-app { background: #4361ee; }
+html[data-theme="dark"] .btn-app.btn-outline { background: transparent; border-color: #4a5fd0; color: #9fb0ff; }
+html[data-theme="dark"] .icon-btn { background: var(--d-surface2); border-color: var(--d-border); color: #c2c7dc; }
+html[data-theme="dark"] .empty-state { background: #1b1d2e; border-color: var(--d-border); }
+html[data-theme="dark"] .empty-state i { background: #2a2e4d; color: #9fb0ff; }
+html[data-theme="dark"] input[type=file] { background: var(--d-surface2); border-color: var(--d-border); }
+html[data-theme="dark"] input[type=file]::file-selector-button { background: #2a2e4d; color: #9fb0ff; }
+html[data-theme="dark"] .app-table th { background-color: var(--d-surface3) !important; }
+html[data-theme="dark"] .app-table tbody tr:hover td { background: rgba(143, 163, 255, .07) !important; }
+html[data-theme="dark"] .content-card, html[data-theme="dark"] .form-card, html[data-theme="dark"] .card, html[data-theme="dark"] .stat-card { border-color: var(--d-border); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
+html[data-theme="dark"] .tt-day, html[data-theme="dark"] .tt-slot { background: var(--d-surface2); border-color: var(--d-border); }
+/* GENERATED by gen_dark.py from dashboard.css + app.css — overrides only; edit the hand-written part in theme-dark-base.css */
+html[data-theme="dark"] .main-header,
+html[data-theme="dark"] .profile-dropdown,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .activity-item:hover,
+html[data-theme="dark"] .deadline-item:hover,
+html[data-theme="dark"] .external-dropdown.active,
+html[data-theme="dark"] .mobile-toggle,
+html[data-theme="dark"] .form-card,
+html[data-theme="dark"] .klass-card,
+html[data-theme="dark"] .empty-state,
+html[data-theme="dark"] .content-card,
+html[data-theme="dark"] .module-row:hover,
+html[data-theme="dark"] .filter-form select,
+html[data-theme="dark"] .lecture-card,
+html[data-theme="dark"] .lecture-view,
+html[data-theme="dark"] .icon-btn,
+html[data-theme="dark"] .question-block,
+html[data-theme="dark"] .notif-dropdown,
+html[data-theme="dark"] .tab-pills a.active,
+html[data-theme="dark"] .pager a,
+html[data-theme="dark"] .gradebook .sticky-col,
+html[data-theme="dark"] .archived-classes,
+html[data-theme="dark"] .search-box input,
+html[data-theme="dark"] .gc-card,
+html[data-theme="dark"] .stream-note,
+html[data-theme="dark"] .move-topic select,
+html[data-theme="dark"] .conv-new select,
+html[data-theme="dark"] .bubble,
+html[data-theme="dark"] .thread-reply,
+html[data-theme="dark"] .ov-tile,
+html[data-theme="dark"] .cal-day.blank,
+html[data-theme="dark"] .cw-search input,
+html[data-theme="dark"] .done-toggle,
+html[data-theme="dark"] .people-sort select,
+html[data-theme="dark"] .stream-post.scheduled,
+html[data-theme="dark"] .invite-link-row input,
+html[data-theme="dark"] .ai-feature-row select,
+html[data-theme="dark"] .lec-body blockquote,
+html[data-theme="dark"] .code-explain,
+html[data-theme="dark"] .lec-notes,
+html[data-theme="dark"] .lec-filters select,
+html[data-theme="dark"] .lec-card,
+html[data-theme="dark"] .lec-tabs button.active,
+html[data-theme="dark"] .lec-toolbar,
+html[data-theme="dark"] .lec-toolbar button:hover,
+html[data-theme="dark"] .lec-toolbar button:focus-visible,
+html[data-theme="dark"] .lec-toolbar select,
+html[data-theme="dark"] .lec-preview,
+html[data-theme="dark"] .lec-color-menu,
+html[data-theme="dark"] .lec-imgpanel,
+html[data-theme="dark"] .ai-suggest,
+html[data-theme="dark"] .release-card.is-held,
+html[data-theme="dark"] .release-actions select,
+html[data-theme="dark"] .tt-day,
+html[data-theme="dark"] input[type=file],
+html[data-theme="dark"] .app-table th,
+html[data-theme="dark"] .app-table tbody tr:hover td { background-color: var(--d-surface) !important; }
+html[data-theme="dark"] .gb-swatch.band-2,
+html[data-theme="dark"] .gradebook .band-2 .marks,
+html[data-theme="dark"] .gradebook .band-2 .percentage,
+html[data-theme="dark"] .gb-swatch.band-3,
+html[data-theme="dark"] .gradebook .band-3 .marks,
+html[data-theme="dark"] .gradebook .band-3 .percentage,
+html[data-theme="dark"] .lec-body :not(pre) > code,
+html[data-theme="dark"] .lec-notes :not(pre) > code,
+html[data-theme="dark"] .code-explain :not(pre) > code,
+html[data-theme="dark"] .lc-mark,
+html[data-theme="dark"] .header-item:hover,
+html[data-theme="dark"] .header-item:focus,
+html[data-theme="dark"] .profile-item,
+html[data-theme="dark"] .btn-app.btn-outline:hover,
+html[data-theme="dark"] .icon-btn:hover,
+html[data-theme="dark"] .icon-btn.danger:hover,
+html[data-theme="dark"] input[type=file]::file-selector-button,
+html[data-theme="dark"] .empty-state i { background-color: var(--d-surface2) !important; }
+html[data-theme="dark"] .gb-swatch.band-1,
+html[data-theme="dark"] .gradebook .band-1 .marks,
+html[data-theme="dark"] .gradebook .band-1 .percentage,
+html[data-theme="dark"] .gb-swatch.band-4,
+html[data-theme="dark"] .gradebook .band-4 .marks,
+html[data-theme="dark"] .gradebook .band-4 .percentage { background-color: var(--d-surface3) !important; }
+html[data-theme="dark"] .gc-chip.danger,
+html[data-theme="dark"] .gb-swatch.band-1,
+html[data-theme="dark"] .gradebook .band-1 .marks,
+html[data-theme="dark"] .gradebook .band-1 .percentage,
+html[data-theme="dark"] .gb-swatch.band-4,
+html[data-theme="dark"] .gradebook .band-4 .marks,
+html[data-theme="dark"] .gradebook .band-4 .percentage,
+html[data-theme="dark"] .lec-body,
+html[data-theme="dark"] .lec-body :not(pre) > code,
+html[data-theme="dark"] .lec-notes :not(pre) > code,
+html[data-theme="dark"] .code-explain :not(pre) > code,
+html[data-theme="dark"] .code-explain-error,
+html[data-theme="dark"] .lc-red,
+html[data-theme="dark"] .lc-purple,
+html[data-theme="dark"] .lec-img-error,
+html[data-theme="dark"] .ai-suggest-error,
+html[data-theme="dark"] .form-group label,
+html[data-theme="dark"] label.form-label { color: var(--d-text) !important; }
+html[data-theme="dark"] .form-group input[type="text"],
+html[data-theme="dark"] .form-group input[type="email"],
+html[data-theme="dark"] .form-group input[type="password"],
+html[data-theme="dark"] .form-group input[type="number"],
+html[data-theme="dark"] .form-group input[type="url"],
+html[data-theme="dark"] .form-group input[type="date"],
+html[data-theme="dark"] .form-group input[type="datetime-local"],
+html[data-theme="dark"] .form-group textarea,
+html[data-theme="dark"] .form-group select,
+html[data-theme="dark"] .filter-form select,
+html[data-theme="dark"] .question-block textarea,
+html[data-theme="dark"] .question-block input[type="number"],
+html[data-theme="dark"] .option-row .o-text,
+html[data-theme="dark"] .stream-composer textarea,
+html[data-theme="dark"] .comment-form textarea,
+html[data-theme="dark"] .search-box input,
+html[data-theme="dark"] .gc-avatar,
+html[data-theme="dark"] .topic-add input[type="text"],
+html[data-theme="dark"] .pc-thread .comment-form textarea,
+html[data-theme="dark"] .att-date-card input[type="date"],
+html[data-theme="dark"] .att-note,
+html[data-theme="dark"] .conv-new select,
+html[data-theme="dark"] .lec-notes,
+html[data-theme="dark"] .lec-toolbar,
+html[data-theme="dark"] .lec-preview,
+html[data-theme="dark"] .lec-imgpanel,
+html[data-theme="dark"] .lec-drop,
+html[data-theme="dark"] .rubric-main input,
+html[data-theme="dark"] .rubric-pts input[type=number],
+html[data-theme="dark"] .ai-suggest,
+html[data-theme="dark"] .lecture-card:hover,
+html[data-theme="dark"] .klass-card:hover,
+html[data-theme="dark"] .stat-card:hover,
+html[data-theme="dark"] .btn-app.btn-outline,
+html[data-theme="dark"] .icon-btn:hover,
+html[data-theme="dark"] .icon-btn.danger:hover,
+html[data-theme="dark"] input[type=text],
+html[data-theme="dark"] input[type=email],
+html[data-theme="dark"] input[type=password],
+html[data-theme="dark"] input[type=number],
+html[data-theme="dark"] input[type=url],
+html[data-theme="dark"] input[type=search],
+html[data-theme="dark"] input[type=time],
+html[data-theme="dark"] input[type=datetime-local],
+html[data-theme="dark"] input[type=date],
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] input[type=file],
+html[data-theme="dark"] .app-table td,
+html[data-theme="dark"] .empty-state { border-color: var(--d-border) !important; }
+html[data-theme="dark"] .btn-app.btn-danger { background: #e5484d; color: #fff !important; }
+
+/* ---- dashboard + review (written after the generated part) ---- */
+html[data-theme="dark"] .dash-kpi, html[data-theme="dark"] .dash-class { background: var(--d-surface); border-color: var(--d-border); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
+html[data-theme="dark"] a.attn-row, html[data-theme="dark"] a.feed-row, html[data-theme="dark"] a.dash-kpi, html[data-theme="dark"] a.dash-class { color: var(--d-text); }
+html[data-theme="dark"] .kpi-value, html[data-theme="dark"] .dash-hero h1, html[data-theme="dark"] .dash-section-head h2, html[data-theme="dark"] .date-chip b { color: var(--d-text); }
+html[data-theme="dark"] .kpi-label, html[data-theme="dark"] .kpi-note, html[data-theme="dark"] .feed-text small, html[data-theme="dark"] .dash-hero p, html[data-theme="dark"] .dash-class small, html[data-theme="dark"] .slot-time small, html[data-theme="dark"] .date-chip small { color: var(--gray-600); }
+html[data-theme="dark"] .kpi-note.warn { color: #ffcf5c; }
+html[data-theme="dark"] .attn-row, html[data-theme="dark"] .feed-row { border-color: var(--d-border); }
+html[data-theme="dark"] a.attn-row:hover, html[data-theme="dark"] a.feed-row:hover { background: rgba(143, 163, 255, .08); }
+html[data-theme="dark"] .tone-indigo .kpi-icon, html[data-theme="dark"] .feed-icon.tone-primary { background: rgba(67, 97, 238, .22); color: #9fb0ff; }
+html[data-theme="dark"] .tone-teal .kpi-icon, html[data-theme="dark"] .feed-icon.tone-success { background: rgba(6, 214, 160, .18); color: #4de0b8; }
+html[data-theme="dark"] .tone-amber .kpi-icon, html[data-theme="dark"] .feed-icon.tone-warning, html[data-theme="dark"] .attn-icon.on { background: rgba(255, 183, 3, .18); color: #ffcf5c; }
+html[data-theme="dark"] .tone-violet .kpi-icon { background: rgba(124, 58, 237, .25); color: #c4a3ff; }
+html[data-theme="dark"] .tone-sky .kpi-icon, html[data-theme="dark"] .feed-icon.tone-info { background: rgba(11, 132, 198, .22); color: #6cc4f2; }
+html[data-theme="dark"] .tone-rose .kpi-icon, html[data-theme="dark"] .feed-icon.tone-danger { background: rgba(225, 29, 72, .22); color: #ff8aa3; }
+html[data-theme="dark"] .attn-icon, html[data-theme="dark"] .date-chip { background: var(--d-surface3); }
+html[data-theme="dark"] .attn-count { background: rgba(6, 214, 160, .18); color: #4de0b8; }
+html[data-theme="dark"] .attn-count.on { background: rgba(255, 183, 3, .22); color: #ffd466; }
+html[data-theme="dark"] .date-chip.soon { background: rgba(225, 29, 72, .24); }
+html[data-theme="dark"] .date-chip.soon b { color: #ff8aa3; }
+html[data-theme="dark"] .kind-tag { background: rgba(143, 163, 255, .18); color: #a9b8ff; }
+html[data-theme="dark"] .feed-row.is-live { background: rgba(255, 183, 3, .1); }
+html[data-theme="dark"] .slot-time { color: #9fb0ff; }
+
+/* ---------- Accessibility: text contrast of at least 4.5 : 1 (dark theme) ---------- */
+html[data-theme="dark"] .skip-to-main { background: #2a3fb5 !important; color: #fff !important; }
+html[data-theme="dark"] .required-mark { color: #ff8a8f !important; }
+html[data-theme="dark"] .status-badge.graded { color: #4ee3a8 !important; }
+html[data-theme="dark"] .status-badge.late { color: #ffd166 !important; }
+html[data-theme="dark"] .status-badge.missing, html[data-theme="dark"] span.danger, html[data-theme="dark"] .danger-text { color: #ff8fa8 !important; }
+html[data-theme="dark"] .status-badge.submitted { color: #7fd8f2 !important; }
+html[data-theme="dark"] .status-badge.pending { color: #c9d0da !important; }
+html[data-theme="dark"] .kind-tag, html[data-theme="dark"] .role-tag, html[data-theme="dark"] .file-type { color: #a8b8ff !important; }
+html[data-theme="dark"] .sn-item.active, html[data-theme="dark"] .sn-item.active i, html[data-theme="dark"] .sn-item.active span { color: #a8b8ff !important; }
+html[data-theme="dark"] a.view-all, html[data-theme="dark"] a.active, html[data-theme="dark"] button.active, html[data-theme="dark"] .tabs a.active,
+html[data-theme="dark"] #addLinkRow, html[data-theme="dark"] summary, html[data-theme="dark"] .link-btn,
+html[data-theme="dark"] main a:not([class]), html[data-theme="dark"] .lec-crumbs a, html[data-theme="dark"] .back-link { color: #a8b8ff !important; }
+html[data-theme="dark"] button.link-btn.danger, html[data-theme="dark"] .link-btn[class*="danger"] { color: #ff8fa8 !important; }
+html[data-theme="dark"] #count-present { color: #4ee3a8 !important; } html[data-theme="dark"] #count-late { color: #ffd166 !important; }
+html[data-theme="dark"] .lec-tabs button { color: #c9d0da !important; } html[data-theme="dark"] .lec-tabs button.active { color: #a8b8ff !important; }
+html[data-theme="dark"] .tab-pills a.active { color: #a8b8ff !important; }
+html[data-theme="dark"] { --danger: #ff7d9a; }
+html[data-theme="dark"] .btn-app.btn-danger { background: #c62a2f !important; color: #fff !important; }

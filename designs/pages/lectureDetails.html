@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class Detail</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background: #f0f4f8;
+        color: #1f2937;
+        padding: 40px 20px;
+      }
+
+      .container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        background: linear-gradient(90deg, #3b82f6, #10b981);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      p.description {
+        font-size: 1.1rem;
+        color: #4b5563;
+        margin-bottom: 30px;
+      }
+
+      .lecture-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .lecture-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #ffffff;
+        padding: 20px 25px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 1px solid #e5e7eb;
+      }
+
+      .lecture-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        border-color: #3b82f6;
+      }
+
+      .lecture-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .lecture-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #111827;
+        transition: color 0.3s ease;
+      }
+
+      .lecture-card:hover .lecture-title {
+        color: #3b82f6;
+      }
+
+      .lecture-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .lecture-actions a {
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s ease;
+        display: inline-block;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .see-lecture {
+        background: #3b82f6;
+      }
+
+      .see-lecture:hover {
+        background: #2563eb;
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        .lecture-card {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 15px;
+        }
+
+        .lecture-actions {
+          width: 100%;
+          justify-content: flex-start;
+          gap: 10px;
+        }
+
+        .lecture-actions a {
+          width: 48%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Python Programming - Lectures</h1>
+      <p class="description">
+        Below are all the lectures for this class. Click "See Lecture" to view
+        it.
+      </p>
+
+      <div class="lecture-list">
+        <div class="lecture-card">
+          <div class="lecture-info">
+            <div class="lecture-title">Lecture 1: Introduction to Python</div>
+          </div>
+          <div class="lecture-actions">
+            <a href="Viewlectures.html" class="see-lecture">See Lecture</a>
+          </div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-info">
+            <div class="lecture-title">Lecture 2: Variables and Data Types</div>
+          </div>
+          <div class="lecture-actions">
+            <a href="Viewlectures.html" class="see-lecture">See Lecture</a>
+          </div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-info">
+            <div class="lecture-title">Lecture 3: Control Flow</div>
+          </div>
+          <div class="lecture-actions">
+            <a href="Viewlectures.html" class="see-lecture">See Lecture</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

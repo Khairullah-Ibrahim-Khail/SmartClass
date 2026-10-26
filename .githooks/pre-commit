@@ -1,0 +1,4 @@
+#!/bin/sh
+# Turn on once with:   git config core.hooksPath .githooks
+# A commit is refused when a file has a syntax error (the full test suite is `sh bin/check.sh`).
+exec sh "$(git rev-parse --show-toplevel)/bin/check.sh" --quick

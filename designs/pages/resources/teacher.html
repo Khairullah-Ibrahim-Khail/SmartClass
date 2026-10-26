@@ -1,0 +1,239 @@
+<div class="resources-container">
+  <main class="main-content">
+    <div class="content-wrapper">
+      <!-- Page Header with Stats -->
+      <div class="page-header">
+        <div class="header-left">
+          <h2>All Research Resources</h2>
+          <p class="subtitle">Manage, edit, and track all research materials</p>
+        </div>
+        <div class="header-right">
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-value">24</span>
+              <span class="stat-label">Resources</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">5.2GB</span>
+              <span class="stat-label">Storage Used</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Search -->
+      <div class="filters-section">
+        <div class="search-box">
+          <input
+            type="search"
+            placeholder="Search resources..."
+            class="search-input"
+          />
+          <button class="search-btn">🔍</button>
+        </div>
+        <div class="filter-controls">
+          <select class="filter-select">
+            <option value="">All Categories</option>
+            <option value="paper">Research Papers</option>
+            <option value="presentation">Presentations</option>
+            <option value="dataset">Datasets</option>
+          </select>
+          <select class="filter-select">
+            <option value="">All Status</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+          </select>
+          <button class="filter-btn">Filter</button>
+        </div>
+      </div>
+
+      <!-- Resources Table -->
+      <div class="resources-table-container">
+        <div class="table-header">
+          <h3>Uploaded Resources</h3>
+          <div class="table-actions">
+            <button class="action-btn bulk-select">Select All</button>
+            <button class="action-btn bulk-delete" disabled>
+              Delete Selected
+            </button>
+          </div>
+        </div>
+
+        <table class="resources-table">
+          <thead>
+            <tr>
+              <th class="select-col">
+                <input type="checkbox" id="select-all" />
+              </th>
+              <th>Resource Details</th>
+              <th class="category-col">Category</th>
+              <th class="type-col">Type</th>
+              <th class="date-col">Uploaded</th>
+              <th class="size-col">Size</th>
+              <th class="status-col">Status</th>
+              <th class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Resource 1 -->
+            <tr class="resource-item">
+              <td class="select-col">
+                <input type="checkbox" class="resource-select" />
+              </td>
+              <td class="resource-details">
+                <div class="resource-title">
+                  <span class="file-icon">📄</span>
+                  AI Research Paper 2023
+                </div>
+                <div class="resource-description">
+                  Comprehensive introduction to Artificial Intelligence with
+                  practical applications
+                </div>
+                <div class="resource-meta">
+                  <span class="meta-item">📊 142 views</span>
+                  <span class="meta-item">⬇️ 45 downloads</span>
+                  <span class="meta-item">👤 Shared with 24 students</span>
+                </div>
+              </td>
+              <td class="category-col">
+                <span class="category-tag research">Research Paper</span>
+              </td>
+              <td class="type-col">
+                <span class="file-type pdf">PDF</span>
+              </td>
+              <td class="date-col">Nov 15, 2023</td>
+              <td class="size-col">2.4 MB</td>
+              <td class="status-col">
+                <span class="status-badge published">Published</span>
+              </td>
+              <td class="actions-col">
+                <div class="action-buttons">
+                  <button class="icon-btn edit-btn" title="Edit Resource">
+                    ✏️
+                  </button>
+                  <button class="icon-btn delete-btn" title="Delete Resource">
+                    🗑️
+                  </button>
+                  <button class="icon-btn share-btn" title="Share Resource">
+                    🔗
+                  </button>
+                  <button class="icon-btn download-btn" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Resource 2 -->
+            <tr class="resource-item">
+              <td class="select-col">
+                <input type="checkbox" class="resource-select" />
+              </td>
+              <td class="resource-details">
+                <div class="resource-title">
+                  <span class="file-icon">📊</span>
+                  Machine Learning Presentation
+                </div>
+                <div class="resource-description">
+                  Detailed presentation on neural networks and ML algorithms
+                </div>
+                <div class="resource-meta">
+                  <span class="meta-item">📊 89 views</span>
+                  <span class="meta-item">⬇️ 32 downloads</span>
+                  <span class="meta-item">👤 Draft - Not shared</span>
+                </div>
+              </td>
+              <td class="category-col">
+                <span class="category-tag presentation">Presentation</span>
+              </td>
+              <td class="type-col">
+                <span class="file-type ppt">PPT</span>
+              </td>
+              <td class="date-col">Nov 14, 2023</td>
+              <td class="size-col">15.7 MB</td>
+              <td class="status-col">
+                <span class="status-badge draft">Draft</span>
+              </td>
+              <td class="actions-col">
+                <div class="action-buttons">
+                  <button class="icon-btn edit-btn" title="Edit Resource">
+                    ✏️
+                  </button>
+                  <button class="icon-btn delete-btn" title="Delete Resource">
+                    🗑️
+                  </button>
+                  <button class="icon-btn publish-btn" title="Publish Resource">
+                    📤
+                  </button>
+                  <button class="icon-btn preview-btn" title="Preview">
+                    👁️
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Resource 3 -->
+            <tr class="resource-item">
+              <td class="select-col">
+                <input type="checkbox" class="resource-select" />
+              </td>
+              <td class="resource-details">
+                <div class="resource-title">
+                  <span class="file-icon">📁</span>
+                  Research Dataset 2023
+                </div>
+                <div class="resource-description">
+                  Clean dataset for analysis and machine learning model training
+                </div>
+                <div class="resource-meta">
+                  <span class="meta-item">📊 210 views</span>
+                  <span class="meta-item">⬇️ 67 downloads</span>
+                  <span class="meta-item">👤 Shared with all students</span>
+                </div>
+              </td>
+              <td class="category-col">
+                <span class="category-tag dataset">Dataset</span>
+              </td>
+              <td class="type-col">
+                <span class="file-type csv">CSV</span>
+              </td>
+              <td class="date-col">Nov 10, 2023</td>
+              <td class="size-col">45.2 MB</td>
+              <td class="status-col">
+                <span class="status-badge published">Published</span>
+              </td>
+              <td class="actions-col">
+                <div class="action-buttons">
+                  <button class="icon-btn edit-btn" title="Edit Resource">
+                    ✏️
+                  </button>
+                  <button class="icon-btn delete-btn" title="Delete Resource">
+                    🗑️
+                  </button>
+                  <button class="icon-btn stats-btn" title="View Statistics">
+                    📈
+                  </button>
+                  <button class="icon-btn download-btn" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Bulk Actions Panel -->
+      <div class="bulk-actions-panel">
+        <span class="selected-count">0 items selected</span>
+        <div class="bulk-buttons">
+          <button class="secondary-btn" disabled>Download Selected</button>
+          <button class="secondary-btn" disabled>Change Status</button>
+          <button class="danger-btn" disabled>Delete Selected</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/teacher-resources.js"></script>
+</div>

@@ -1,0 +1,301 @@
+/* =====================================================
+   SmartClass - Auth pages (login / register / pending)
+   Same palette as the dashboard design (style.css):
+   light gradient page background + vivid gradient card header
+   ===================================================== */
+
+:root {
+  /* Palette from the main dashboard design */
+  --primary: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary: #7209b7;
+  --accent: #4cc9f0;
+  --success: #06d6a0;
+  --warning: #ffd166;
+  --danger: #ef476f;
+  --dark: #1a1a2e;
+  --light: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-600: #6c757d;
+  --gray-800: #343a40;
+
+  --border-radius: 8px;
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  /* same light gradient as the dashboard body */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) no-repeat;
+  background-size: cover;
+}
+
+body {
+  font-family: "Poppins", "Segoe UI", Tahoma, sans-serif;
+  background: transparent;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  color: var(--dark);
+}
+
+.auth-wrap {
+  width: 100%;
+  max-width: 430px;
+}
+
+/* ---------- Cards ---------- */
+.login-card,
+.register-card,
+.pending-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  width: 100%;
+}
+
+.pending-card {
+  text-align: center;
+}
+
+/* ---------- Card headers ---------- */
+.login-header,
+.register-header,
+.pending-header {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 28px 30px 24px;
+  text-align: center;
+}
+
+.login-header i,
+.register-header i,
+.pending-header i {
+  font-size: 2.6rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+  display: inline-block;
+}
+
+.login-header h2,
+.register-header h3,
+.pending-header h3 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.login-header p,
+.register-header p {
+  font-size: 0.85rem;
+  margin: 6px 0 0;
+  opacity: 0.85;
+}
+
+.icon-clock {
+  font-size: 3.2rem;
+  margin-bottom: 12px;
+}
+
+/* ---------- Card bodies ---------- */
+.login-body,
+.register-body,
+.pending-body {
+  padding: 26px 30px;
+}
+
+.form-floating > label {
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+.form-control {
+  border-radius: 10px;
+  border-color: var(--gray-300);
+  font-size: 0.95rem;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.18);
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* ---------- Buttons ---------- */
+.btn-login,
+.btn-register,
+.btn-primary {
+  background: var(--gradient-primary) !important;
+  border: none !important;
+  padding: 12px;
+  font-weight: 600;
+  border-radius: 10px;
+  letter-spacing: 0.3px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-login:hover,
+.btn-register:hover,
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(67, 97, 238, 0.35);
+}
+
+.btn-outline-primary {
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  background: transparent !important;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary) !important;
+  color: #fff !important;
+}
+
+.btn-outline-danger {
+  color: var(--danger) !important;
+  border-color: var(--danger) !important;
+  border-radius: 10px;
+}
+
+.btn-outline-danger:hover {
+  background: var(--danger) !important;
+  color: #fff !important;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* ---------- Footer strip ---------- */
+.login-footer {
+  text-align: center;
+  padding: 14px 30px;
+  background: var(--light);
+  border-top: 1px solid var(--gray-200);
+  font-size: 0.8rem;
+}
+
+.login-footer p {
+  margin: 0;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 18px;
+}
+
+.login-link p {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+/* ---------- Demo accounts box ---------- */
+.demo-accounts {
+  background: var(--light);
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  font-size: 0.83rem;
+  border: 1px solid var(--gray-200);
+}
+
+.demo-accounts h6 {
+  margin-bottom: 8px;
+  color: var(--gray-800);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.demo-accounts .account {
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--gray-300);
+}
+
+.demo-accounts .account:last-child {
+  border-bottom: none;
+}
+
+.demo-accounts strong {
+  color: var(--primary);
+}
+
+/* ---------- Password show / hide toggle ---------- */
+.password-field {
+  position: relative;
+}
+
+.password-field .form-control {
+  padding-right: 3rem;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--gray-600);
+  cursor: pointer;
+  padding: 6px;
+  z-index: 5;
+  transition: color 0.2s ease;
+}
+
+.password-toggle:hover,
+.password-toggle:focus {
+  color: var(--primary);
+  outline: none;
+}
+
+/* keep the eye icon clean when the field is invalid (hide Bootstrap's X icon) */
+.password-field .form-control.is-invalid {
+  background-image: none;
+}
+
+/* inline field errors */
+.invalid-feedback {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 480px) {
+  .login-body,
+  .register-body,
+  .pending-body {
+    padding: 22px 20px;
+  }
+}
+
+/* "or" divider between student code sign-in and teacher password sign-in */
+.login-divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; color: #6c757d; font-size: 13px; }
+.login-divider::before, .login-divider::after { content: ""; flex: 1; height: 1px; background: #dee2e6; }

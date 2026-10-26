@@ -1,0 +1,170 @@
+<div class="AttendenceContainer" id="attendanceContainer">
+  <form action="/submit-attendance" method="post" id="attendanceForm">
+    <!-- Controls -->
+    <div class="controls" id="controls">
+      <div class="control-group" id="classControl">
+        <label for="classSelect">Select Class:</label>
+        <select id="classSelect" name="class">
+          <option value="">-- Choose Class --</option>
+          <option value="10-A">Class 10-A</option>
+          <option value="10-B">Class 10-B</option>
+          <option value="11-A">Class 11-A</option>
+        </select>
+      </div>
+
+      <div class="control-group" id="subjectControl">
+        <label for="subjectSelect">Subject:</label>
+        <select id="subjectSelect" name="subject">
+          <option value="">-- Choose Subject --</option>
+          <option value="Math">Mathematics</option>
+          <option value="Science">Science</option>
+          <option value="English">English</option>
+        </select>
+      </div>
+
+      <div class="control-group" id="dateControl">
+        <label id="dateLebal" for="dateInput">Date:</label>
+        <input type="date" id="dateInput" name="date" />
+      </div>
+    </div>
+
+    <!-- Attendance Table -->
+    <div class="table-wrapper" id="attendanceTableWrapper">
+      <table id="attendanceTable">
+        <thead id="attendanceTableHead">
+          <tr id="attendanceHeaderRow">
+            <th id="thIndex">#</th>
+            <th id="thStudentName">Student Name</th>
+            <th id="thRollNo">Roll No.</th>
+            <th id="thPresent">Present</th>
+            <th id="thAbsent">Absent</th>
+            <th id="thOfficial">Official Present</th>
+            <th id="thRemarks">Remarks</th>
+          </tr>
+        </thead>
+
+        <tbody id="attendanceTableBody">
+          <tr id="rowStudent1">
+            <td id="cellIndex1">1</td>
+            <td id="cellName1">Ahmed Ali</td>
+            <td id="cellRoll1">101</td>
+            <td id="cellPresent1">
+              <input
+                type="radio"
+                id="student1Present"
+                name="student-1-status"
+                value="present"
+              />
+            </td>
+            <td id="cellAbsent1">
+              <input
+                type="radio"
+                id="student1Absent"
+                name="student-1-status"
+                value="absent"
+              />
+            </td>
+            <td id="cellOfficial1">
+              <input
+                type="radio"
+                id="student1Official"
+                name="student-1-status"
+                value="official"
+              />
+            </td>
+            <td id="cellRemarks1">
+              <input
+                type="text"
+                id="student1Remarks"
+                name="student-1-remarks"
+                placeholder="Add remarks..."
+              />
+            </td>
+          </tr>
+
+          <tr id="rowStudent2">
+            <td id="cellIndex2">2</td>
+            <td id="cellName2">Fatima Khan</td>
+            <td id="cellRoll2">102</td>
+            <td id="cellPresent2">
+              <input
+                type="radio"
+                id="student2Present"
+                name="student-2-status"
+                value="present"
+              />
+            </td>
+            <td id="cellAbsent2">
+              <input
+                type="radio"
+                id="student2Absent"
+                name="student-2-status"
+                value="absent"
+              />
+            </td>
+            <td id="cellOfficial2">
+              <input
+                type="radio"
+                id="student2Official"
+                name="student-2-status"
+                value="official"
+              />
+            </td>
+            <td id="cellRemarks2">
+              <input
+                type="text"
+                id="student2Remarks"
+                name="student-2-remarks"
+                placeholder="Add remarks..."
+              />
+            </td>
+          </tr>
+
+          <tr id="rowStudent3">
+            <td id="cellIndex3">3</td>
+            <td id="cellName3">Hassan Muhammad</td>
+            <td id="cellRoll3">103</td>
+            <td id="cellPresent3">
+              <input
+                type="radio"
+                id="student3Present"
+                name="student-3-status"
+                value="present"
+              />
+            </td>
+            <td id="cellAbsent3">
+              <input
+                type="radio"
+                id="student3Absent"
+                name="student-3-status"
+                value="absent"
+              />
+            </td>
+            <td id="cellOfficial3">
+              <input
+                type="radio"
+                id="student3Official"
+                name="student-3-status"
+                value="official"
+              />
+            </td>
+            <td id="cellRemarks3">
+              <input
+                type="text"
+                id="student3Remarks"
+                name="student-3-remarks"
+                placeholder="Add remarks..."
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="button-group" id="attendanceButtonGroup">
+      <button type="submit" class="btn-primary" id="saveAttendanceBtn">
+        Save Attendance
+      </button>
+    </div>
+  </form>
+</div>

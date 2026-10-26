@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New Class</title>
+    <style>
+      /* =======================
+     Reset & Global Styles
+  ======================= */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f5f7fb;
+        color: #1f2937;
+        line-height: 1.5;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #111827;
+      }
+
+      /* =======================
+     Form Styles
+  ======================= */
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #111827;
+      }
+      input[type="text"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font-size: 1rem;
+        transition: border 0.3s;
+      }
+      input[type="text"]:focus,
+      input[type="number"]:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: #3b82f6;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .tags-input {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .tags-input input {
+        flex: 1;
+      }
+
+      button {
+        padding: 12px;
+        background: #3b82f6;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      button:hover {
+        background: #2563eb;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 20px;
+        }
+        h1 {
+          font-size: 1.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create New Class</h1>
+
+      <form action="#" method="POST">
+        <div>
+          <label for="className">Class Name</label>
+          <input
+            type="text"
+            id="className"
+            name="className"
+            placeholder="Enter class name"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="classDescription">Description</label>
+          <textarea
+            id="classDescription"
+            name="classDescription"
+            placeholder="Enter class description"
+            required
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="tags">Category Tags (comma separated)</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            placeholder="e.g. Beginner,Python"
+          />
+        </div>
+
+        <div>
+          <label for="imageURL">Class Image URL</label>
+          <input
+            type="text"
+            id="imageURL"
+            name="imageURL"
+            placeholder="Enter image URL"
+          />
+        </div>
+
+        <button type="submit">Create Class</button>
+      </form>
+    </div>
+  </body>
+</html>
