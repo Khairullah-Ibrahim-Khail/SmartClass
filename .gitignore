@@ -20,3 +20,6 @@ logs/*
 *.swp
 .idea/
 .vscode/
+
+# Private list of logins
+config/CREDENTIALS.local.md
