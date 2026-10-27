@@ -63,3 +63,18 @@ test('H-001: behind an HTTPS-terminating proxy the app builds https links and Se
     contains('http://school.example.com', $off); contains('unset', $off);   // header ignored by default: it could be forged
     contains('https://school.example.com', $on); contains('|on', $on);
 });
+
+test('the administrator can rename the "School admin" title shown under their name (Settings > School)', function () {
+    $a = mkUser('TitleAdmin', 'teacher', 1); $h = client($a);
+    $h->get('pages/dashboard.php'); contains('School admin', $h->body);
+    $tok = $h->token('pages/settings/school.php');
+    $h->post('pages/settings/school.php', ['csrf_token' => $tok, 'school_name' => 'Title School', 'brand_color' => '#4361ee', 'admin_title' => 'Principal <b>']);
+    $h->get('pages/dashboard.php'); contains('Principal &lt;b&gt;', $h->body, 'new title shown, escaped'); notContains('>School admin<', $h->body);
+    $t = mkUser('TitleTeacher'); $tt = client(mkUser('TitleTeacher2', 'teacher')); $tt->get('pages/dashboard.php'); contains('Teacher', $tt->body); notContains('Principal', $tt->body, 'ordinary teachers keep their label');
+    TW('db')->query("DELETE FROM app_settings WHERE setting_key = 'admin_title'");
+});
+
+test('the header has a refresh button on every kind of page', function () {
+    $h = client(mkUser('RefreshT', 'teacher')); $h->get('pages/dashboard.php'); contains('id="refresh-btn"', $h->body);
+    $s = client(mkUser('RefreshS')); $s->get('pages/dashboard.php'); contains('id="refresh-btn"', $s->body);
+});

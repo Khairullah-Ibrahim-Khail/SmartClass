@@ -6,7 +6,7 @@ Version: working tree of 2026-10-27 (migrations 001–062). Decision basis: `tes
 
 | # | Criterion | Result | Evidence |
 | --- | --- | --- | --- |
-| 1 | `sh bin/check.sh`: no syntax error, all tests pass | **Met** — 169/169 | `test-results.md` §1 |
+| 1 | `sh bin/check.sh`: no syntax error, all tests pass | **Met** — 176/176 | `test-results.md` §1 |
 | 2 | Route matrix and security probe: zero findings, zero new PHP warnings in the error log | **Met** | §2 |
 | 3 | Clean install gives 76 tables, all migrations recorded, working first-administrator sign-in | **Met** | §3 |
 | 4 | Restore drill: identical rows, checksums, foreign keys | **Met** | §3 |

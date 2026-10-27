@@ -8,12 +8,12 @@ Run on 2026-10-27. Machine: Kali Linux (kernel 6.19), 8 CPUs, 16 GB RAM, PHP 8.4
 | --- | --- |
 | PHP syntax (every file) | pass |
 | JavaScript syntax (every file) | pass |
-| Test files | 45 |
-| Tests | **169 run, 169 passed, 0 failed, 0 skipped** (final run: 141.1 s) |
+| Test files | 47 |
+| Tests | **176 run, 176 passed, 0 failed, 0 skipped** (final run: 143.4 s) |
 
-Per suite (tests): Accessibility 1 · AiControl 3 · AiLanguage 1 · AiStream 3 · AiStudentWriting 4 · AiWriteEverywhere 6 · AssignmentWorkflow 6 · AttendanceHub 2 · AttendanceModule 5 · Attendance 5 · CodeRun 8 · Customers 1 · FinalMarks 2 · Grading 10 · Hardening 4 · Health 5 · I18n 5 · ListsEdit 4 · OffsiteBackup 2 · Onboarding 1 · Password 3 · Performance 1 · Permissions 8 · Privacy 11 · Push 3 · Pwa 2 · QaRegression 7 · QuestionBank 1 · QuizReopen 1 · RateLimit 4 · ResearchExtras 5 · Research 3 · RouteMatrix 1 · Rules 1 · Schema 2 · Search 2 · Secrets 2 · SecurityProbe 3 · Security 8 · StudentMarksPage 1 · SupportApproval 2 · TranslationReview 1 · Tutor 4 · UploadSecurity 1 · WhatsApp 14.
+Per suite (tests): Accessibility 1 · AiControl 3 · AiLanguage 1 · AiStream 3 · AiStudentWriting 4 · AiWriteEverywhere 6 · AssignmentWorkflow 6 · AttendanceHub 2 · AttendanceModule 5 · Attendance 5 · CodeRun 8 · Customers 1 · FinalMarks 2 · Grading 10 · Hardening 4 · Health 5 · I18n 5 · ListsEdit 4 · OffsiteBackup 2 · Onboarding 1 · Password 3 · Performance 1 · Permissions 8 · Privacy 11 · Push 3 · Pwa 2 · QaRegression 9 · QuestionBank 1 · QuizReopen 1 · RateLimit 4 · ResearchExtras 5 · Research 3 · RouteMatrix 1 · Rules 1 · Schema 2 · Search 2 · Secrets 2 · SecurityProbe 3 · Security 8 · SelfHosted 1 · StudentMarksPage 1 · Suggestions 4 · SupportApproval 2 · TranslationReview 1 · Tutor 4 · UploadSecurity 1 · WhatsApp 14.
 
-By category (counted from the suites above): feature/functional 97 · security 51 (Security 8, SecurityProbe 3, Permissions 8, Password 3, RateLimit 4, Hardening 4, Secrets 2, Privacy 11, UploadSecurity 1, QaRegression 7) · localization 7 (I18n, Rules, TranslationReview) · database/backup/health 10 (Schema, OffsiteBackup, Customers, Health) · route matrix 1 · performance 1 · accessibility 1. Total 169 (incl. SelfHosted 1, QaRegression 8).
+By category (counted from the suites above): feature/functional 102 (including Suggestions 4) · security 53 (Security 8, SecurityProbe 3, Permissions 8, Password 3, RateLimit 4, Hardening 4, Secrets 2, Privacy 11, UploadSecurity 1, QaRegression 9) · localization 7 (I18n, Rules, TranslationReview) · database/backup/health 10 (Schema, OffsiteBackup, Customers, Health) · route matrix 1 · performance 1 · accessibility 1 · self-hosted assets 1. Total 176.
 
 **Not run in this environment (and said so by the tests):** the "normal file is stored under a random name" half of `UploadSecurityTest` — the test user cannot write to `uploads/submissions` (owned by the web-server user). The refusal half (10 attack files + a 16 MB file) ran.
 
@@ -26,7 +26,9 @@ By category (counted from the suites above): feature/functional 97 · security 5
 | `UploadSecurityTest` | PHP, disguised PHP, HTML, EXE, empty, extension-less and oversized uploads are refused and leave nothing behind |
 | `PerformanceTest` | see section 4 |
 | `AccessibilityTest` | 79 pages: lang, viewport, title, alt, labels, names, duplicate ids; Pashto/Dari right-to-left |
-| `QaRegressionTest` (7) | D-003 (×2), S-001/D-001, S-003, S-004, Q-002 |
+| `QaRegressionTest` (9) | D-003 (×2), S-001/D-001, S-003, S-004, Q-002, H-001 (proxy HTTPS), admin title rename, header refresh button |
+| `SelfHostedTest` | no page loads code, styles or fonts from a CDN; every local vendor file (incl. the RTL Bootstrap build) exists |
+| `SuggestionsTest` (4) | each dashboard-suggestion rule, privacy, dismissal, approve-and-send rules, AI button only when AI is on |
 
 ## 3. Other checks (manual commands, results)
 

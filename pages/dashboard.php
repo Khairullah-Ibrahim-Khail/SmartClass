@@ -527,6 +527,63 @@ include dirname(__DIR__) . '/includes/app_header.php';
 </div>
 <?php endif; ?>
 
+<?php if (isTeacher() && ($suggestions = suggestionsFor($current_user_id))): ?>
+<div class="content-card sugg-card" id="suggestions">
+    <div class="card-head"><h2><i class="fas fa-lightbulb"></i> Suggestions <span class="sugg-note">from your class data &middot; you decide</span></h2></div>
+    <div class="sugg-list">
+        <?php foreach ($suggestions as $i => $sg): $act = suggestionAction($sg['key'], $sg['class']); $mid = 'sgMsg' . $i; ?>
+        <div class="sugg-row lvl-<?php echo $sg['level']; ?>" data-key="<?php echo htmlspecialchars($sg['key']); ?>">
+            <span class="sugg-icon"><i class="fas <?php echo $sg['icon']; ?>" aria-hidden="true"></i></span>
+            <div class="sugg-body">
+                <div class="sugg-title"><?php echo htmlspecialchars($sg['title']); ?></div>
+                <div class="sugg-detail"><span><?php echo htmlspecialchars($sg['class']); ?></span> &middot; <span><?php echo htmlspecialchars($sg['detail']); ?></span></div>
+                <?php if ($act): ?>
+                <div class="sugg-compose" hidden>
+                    <label for="<?php echo $mid; ?>" class="sr-only">Message to send</label>
+                    <textarea id="<?php echo $mid; ?>" rows="3" maxlength="500"><?php echo htmlspecialchars($act['text']); ?></textarea>
+                    <div class="sugg-compose-actions">
+                        <?php echo aiWriteButton('improve', '#' . $mid, ['class_id' => 0]); ?>
+                        <button type="button" class="btn-app btn-sm sugg-send"><i class="fas fa-paper-plane"></i> Approve &amp; send</button>
+                        <button type="button" class="btn-app btn-sm btn-outline sugg-cancel">Cancel</button>
+                    </div>
+                    <div class="form-hint">The student gets this as a notification. Nothing is sent until you press Approve &amp; send.</div>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="sugg-actions">
+                <a class="btn-app btn-sm btn-outline" href="<?php echo htmlspecialchars($sg['url']); ?>">Open</a>
+                <?php if ($act): ?><button type="button" class="btn-app btn-sm sugg-propose"><?php echo htmlspecialchars($act['label']); ?></button><?php endif; ?>
+                <button type="button" class="icon-btn sugg-dismiss" title="Hide for 14 days" aria-label="Hide for 14 days"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById("suggestions"); if (!box) return;
+  var tok = (document.querySelector("meta[name=csrf-token]") || {}).content || "";
+  function post(url, data) { var b = new URLSearchParams(data); return fetch(url, { method: "POST", headers: { "X-CSRF-Token": tok, "Content-Type": "application/x-www-form-urlencoded" }, body: b, credentials: "same-origin" }).then(function (r) { return r.json(); }); }
+  function gone(row) { row.remove(); if (!box.querySelector(".sugg-row")) box.remove(); }
+  box.addEventListener("click", function (e) {
+    var row = e.target.closest(".sugg-row"); if (!row) return;
+    var key = row.dataset.key, compose = row.querySelector(".sugg-compose");
+    if (e.target.closest(".sugg-dismiss")) post("<?php echo APP_URL; ?>/pages/suggestions/dismiss.php", { key: key }).then(function () { gone(row); });
+    else if (e.target.closest(".sugg-propose")) { compose.hidden = false; compose.querySelector("textarea").focus(); }
+    else if (e.target.closest(".sugg-cancel")) compose.hidden = true;
+    else if (e.target.closest(".sugg-send")) {
+      var btn = e.target.closest(".sugg-send"); btn.disabled = true;
+      post("<?php echo APP_URL; ?>/pages/suggestions/act.php", { key: key, message: compose.querySelector("textarea").value }).then(function (d) {
+        btn.disabled = false;
+        if (d.ok) { if (window.Swal) Swal.fire({ icon: "success", title: "Sent", text: d.sent + " student(s) notified.", timer: 1800, showConfirmButton: false }); gone(row); }
+        else if (window.Swal) Swal.fire({ icon: "error", title: "Not sent", text: d.error || "Please try again." });
+      }).catch(function () { btn.disabled = false; });
+    }
+  });
+})();
+</script>
+<?php endif; ?>
+
 <!-- Key numbers -->
 <section class="dash-kpis" aria-label="Key numbers">
     <?php foreach ($stats as $stat): $tone = $kpi_tone[$stat['icon']] ?? 'indigo'; ?>

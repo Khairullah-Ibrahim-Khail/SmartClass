@@ -273,3 +273,7 @@ html[data-theme="dark"] .lec-tabs button { color: #c9d0da !important; } html[dat
 html[data-theme="dark"] .tab-pills a.active { color: #a8b8ff !important; }
 html[data-theme="dark"] { --danger: #ff7d9a; }
 html[data-theme="dark"] .btn-app.btn-danger { background: #c62a2f !important; color: #fff !important; }
+
+/* header refresh button */
+.refresh-btn.spinning i { animation: sc-spin .7s linear infinite; }
+@keyframes sc-spin { to { transform: rotate(360deg); } }

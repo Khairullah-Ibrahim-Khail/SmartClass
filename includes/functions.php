@@ -60,6 +60,7 @@ require_once __DIR__ . '/research.php';
 require_once __DIR__ . '/pager.php';
 require_once __DIR__ . '/search.php';
 require_once __DIR__ . '/whatsapp.php';
+require_once __DIR__ . '/suggestions.php';
 
 // Teachers: invite new teachers from the app
 require_once __DIR__ . '/teachers.php';

@@ -1452,4 +1452,12 @@ CREATE TABLE whatsapp_queue (
     CONSTRAINT fk_waq_recipient FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE suggestion_dismissals (
+  user_id INT UNSIGNED NOT NULL,
+  suggestion_key VARCHAR(120) NOT NULL,
+  dismissed_until DATETIME NOT NULL,
+  PRIMARY KEY (user_id, suggestion_key),
+  CONSTRAINT fk_sugg_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;

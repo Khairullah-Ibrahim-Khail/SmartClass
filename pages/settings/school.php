@@ -8,15 +8,17 @@
 require_once dirname(__DIR__, 2) . '/includes/auth.php';
 requireAdmin();
 
-$errors = ['school_name' => '', 'brand_color' => '', 'logo' => ''];
+$errors = ['school_name' => '', 'admin_title' => '', 'brand_color' => '', 'logo' => ''];
 $task_result = Session::flash('school_msg');
-$form = ['school_name' => (string) getSetting('school_name', ''), 'brand_color' => (string) getSetting('brand_color', '#4361ee')];
+$form = ['school_name' => (string) getSetting('school_name', ''), 'admin_title' => (string) getSetting('admin_title', ''), 'brand_color' => (string) getSetting('brand_color', '#4361ee')];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!verifyCsrf()) {
         $task_result = ['error', 'Session expired', 'Please reload the page and try again.'];
     } else {
         $form['school_name'] = trim((string) ($_POST['school_name'] ?? ''));
+        $form['admin_title'] = trim((string) ($_POST['admin_title'] ?? ''));
+        if (mb_strlen($form['admin_title']) > 30) $errors['admin_title'] = 'The title must be under 30 characters';
         $form['brand_color'] = strtolower(trim((string) ($_POST['brand_color'] ?? '')));
         if (mb_strlen($form['school_name']) > 60) $errors['school_name'] = 'The name must be under 60 characters';
         if (!preg_match('/^#[0-9a-f]{6}$/', $form['brand_color'])) $errors['brand_color'] = 'Choose a colour';
@@ -49,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         if (!array_filter($errors)) {
             setSetting('school_name', $form['school_name'], $current_user_id);
+            setSetting('admin_title', $form['admin_title'], $current_user_id);
             setSetting('brand_color', $form['brand_color'], $current_user_id);
             $old = (string) getSetting('school_logo', '');
             if ($new_logo !== null || !empty($_POST['remove_logo'])) {
@@ -80,6 +83,11 @@ include dirname(__DIR__, 2) . '/includes/app_header.php';
         <label for="school_name">School name <span class="form-hint" style="display:inline;margin:0;">shown in the sidebar, page titles and emails</span></label>
         <input type="text" id="school_name" name="school_name" maxlength="60" placeholder="SmartClass" value="<?php echo htmlspecialchars($form['school_name']); ?>" class="<?php echo $errors['school_name'] ? 'is-invalid' : ''; ?>">
         <div class="invalid-feedback"><?php echo htmlspecialchars($errors['school_name']); ?></div>
+    </div>
+    <div class="form-group">
+        <label for="admin_title">Title of the school administrator <span class="form-hint" style="display:inline;margin:0;">shown under the administrator's name at the top; empty = "School admin"</span></label>
+        <input type="text" id="admin_title" name="admin_title" maxlength="30" placeholder="School admin" value="<?php echo htmlspecialchars($form['admin_title']); ?>" class="<?php echo $errors['admin_title'] ? 'is-invalid' : ''; ?>">
+        <div class="invalid-feedback"><?php echo htmlspecialchars($errors['admin_title']); ?></div>
     </div>
     <div class="form-group">
         <label for="brand_color">Accent colour</label>

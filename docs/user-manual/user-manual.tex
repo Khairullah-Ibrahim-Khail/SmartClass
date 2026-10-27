@@ -87,6 +87,22 @@ The stream (figure~\ref{fig:figures/t04-stream.png}) is the class notice board. 
 \ui{People} (figure~\ref{fig:figures/t14-people.png}) shows join requests with \ui{Approve} and \ui{Decline} (or \ui{Approve all}), the teachers and the students of the class.
 \fig{t14-people}{Join requests and members.}
 
+
+\section{Suggestions on the dashboard}
+Below the quick buttons your dashboard may show a \ui{Suggestions} card (figure~\ref{fig:figures/t21-suggestions.png}). SmartClass reads the data of \emph{your own} classes and lists, most urgent first (red, then orange, then grey), what may deserve your attention:
+\begin{itemize}
+\item a student present in less than 75\,\% of the last 30 days (at least 4 marked days);
+\item a student who has not handed in two or more past-due assignments;
+\item three or more submissions waiting more than 7 days for grading;
+\item a class whose attendance was not taken for 7 days;
+\item a quiz with a class average below 50\,\%;
+\item students who have not signed in for 14 days.
+\end{itemize}
+Each line has \ui{Open} (the page where you decide), an optional action button, and a cross that hides the suggestion for 14 days. Suggestions are computed from the data with fixed rules; they are advice, not decisions, and nothing happens by itself.
+
+\textbf{Sending a message.} For missing work, low attendance and inactive students the action button (\ui{Remind the student}, \ui{Check in with the student}, \ui{Remind the students}) opens a ready-made message. Read it, change it if you want, and press \ui{Approve \& send}: the student receives it as a notification and the action is logged. Nothing is sent before you press the button. If the school has AI switched on, an AI button polishes the wording of \emph{your} text; the AI never sends anything.
+\fig{t21-suggestions}{The Suggestions card with a message ready to approve.}
+
 \section{Lectures}
 \ui{Lectures} $\rightarrow$ new lecture (figure~\ref{fig:figures/t06-add-lecture.png}): give a title and a one-line summary, write the content with the toolbar (headings, bold, lists, links, images, code blocks, diagrams and charts) and choose the class and topic. Choose \ui{Publish now}, \ui{Schedule} (hidden until the time you choose) or \ui{Save as draft} (only teachers see it). \ui{Preview} shows the finished lecture.
 \fig{t06-add-lecture}{Writing a lecture.}

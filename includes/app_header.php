@@ -272,6 +272,17 @@ i18nStart();   // Pashto / Dari: the page is translated on its way out
                 </script>
               </li>
               <li>
+                <button class="header-item refresh-btn" id="refresh-btn" type="button" aria-label="Refresh this page" data-tooltip="Refresh">
+                  <i class="fas fa-rotate-right" aria-hidden="true"></i>
+                  <span class="header-text sr-only">Refresh</span>
+                </button>
+                <script>
+                  document.getElementById("refresh-btn").addEventListener("click", function () {
+                    this.classList.add("spinning"); window.location.reload();
+                  });
+                </script>
+              </li>
+              <li>
                 <button class="header-item theme-toggle" id="theme-toggle" type="button" aria-label="Switch between light and dark" data-tooltip="Light / dark">
                   <i class="fas fa-moon" aria-hidden="true"></i><i class="fas fa-sun" aria-hidden="true"></i>
                   <span class="header-text sr-only">Theme</span>
@@ -324,7 +335,7 @@ i18nStart();   // Pashto / Dari: the page is translated on its way out
                   <?php else: ?>
                   <i class="fas fa-user-circle" aria-hidden="true"></i>
                   <?php endif; ?>
-                  <span class="header-who"><span class="header-text" title="<?php echo htmlspecialchars($current_user_name); ?>"><?php echo htmlspecialchars($current_user_name); ?></span><small class="header-role"><?php echo isTeacher() ? (isAdmin() ? 'School admin' : 'Teacher') : 'Student'; ?></small></span>
+                  <span class="header-who"><span class="header-text" title="<?php echo htmlspecialchars($current_user_name); ?>"><?php echo htmlspecialchars($current_user_name); ?></span><small class="header-role"><?php echo isTeacher() ? (isAdmin() ? (($adm_title = trim((string) getSetting('admin_title', ''))) !== '' ? htmlspecialchars($adm_title) : 'School admin') : 'Teacher') : 'Student'; ?></small></span>
                   <i class="fas fa-chevron-down header-caret" aria-hidden="true"></i>
                 </button>
                 <div id="profile-dropdown" class="profile-dropdown" role="menu">
