@@ -1,0 +1,135 @@
+\documentclass[11pt,a4paper]{article}
+\newcommand{\manualtitle}{User Manual}
+\newcommand{\manualversion}{1.0}
+\input{../common/preamble}
+\input{../common/glossary}
+\newcommand{\fig}[2]{\shot{figures/#1.png}{#2}{0.97}}
+\begin{document}
+\begin{titlepage}
+\centering\sffamily
+\vspace*{3cm}
+{\Huge\bfseries\color{brand} SmartClass}\\[6pt]
+{\LARGE User Manual}\\[2cm]
+{\large Version \manualversion\quad|\quad 27 October 2026}\\[1cm]
+For teachers and students\\[4cm]
+{\small All screenshots were taken from a demonstration school with invented names and data (``Green Valley School''). Your school's name, colours and menus may differ slightly.}
+\end{titlepage}
+\tableofcontents\clearpage
+
+\section{What SmartClass is}
+SmartClass is the place where a school's classes live online. A teacher creates a \gls{class}, publishes lectures, gives assignments and quizzes, takes attendance and enters marks. A student joins the class with a \gls{classcode}, reads the lectures, hands in work, takes quizzes and sees their marks. The interface is available in English, Pashto and Dari (the last two are shown right-to-left).
+
+There are three kinds of people:
+\begin{itemize}
+\item \textbf{Students} -- join classes, read, hand in work, take quizzes.
+\item \textbf{Teachers} -- run their own classes and see only their own classes' data.
+\item \textbf{The administrator} (\gls{superadmin}) -- a teacher who also approves users and manages the school settings (see the Administrator Manual).
+\end{itemize}
+
+\section{Signing in}
+Open the address your school gave you. Type your e-mail address and password and press \ui{Login} (figure~\ref{fig:figures/g01-login.png}). The eye icon shows or hides the password. The \ui{Register as Student} button creates a new student account; at the bottom you can switch the language between English, Dari and Pashto. When the school has e-mail switched on, a \ui{Forgot password?} link also appears next to \ui{Remember me}. If your account has two-step sign-in, you are asked for a code from your phone after the password.
+\fig{g01-login}{The sign-in page.}
+\begin{tip}New students create their own account with the registration page of the school. Until a teacher or the administrator \gls{approval}s the account the student sees nothing. If you forget your password and the link is shown, use it and follow the e-mail; otherwise ask the administrator.\end{tip}
+\begin{caution}Never share your password. Sign out on shared computers. After sign-in you can see your last sign-ins under \ui{Settings} $\rightarrow$ \ui{Password \& security}; if one is not yours, change your password at once.\end{caution}
+
+\section{Finding your way around}
+The \textbf{left menu} lists the modules: Dashboard, Classes, Lectures, Resources, Assignments, Quizzes, Exams, Marks, Attendance, Research, Schedules, Forums, Events, Announcements, Reports, Notifications and Settings (students additionally have an AI Tutor when the school switched it on). The \textbf{top bar} has quick links, search, the language selector, the light/dark switch, the notification bell and your profile menu. The page you are on is highlighted in the menu.
+
+\part*{For students}
+\addcontentsline{toc}{section}{For students}
+\section{Student dashboard}
+The dashboard (figure~\ref{fig:figures/s01-dashboard.png}) answers ``what do I need to do?'': a green banner says when you are all caught up, tiles count your classes, work still to do, missing work, submitted work and lectures, and the lists show what needs attention, today's lessons and what is due soon.
+\fig{s01-dashboard}{The student dashboard.}
+
+\section{Joining a class}
+Press \ui{Join a class} on the dashboard and type the class code your teacher gave you. If the class needs approval, the teacher sees your request and approves it.
+
+\section{Inside a class}
+Open a class from \ui{Classes}. The class page has the tabs \ui{Stream}, \ui{Classwork}, \ui{Calendar}, \ui{People}, \ui{Grades}, \ui{Attendance} and \ui{Messages}. The coloured banner shows the class, its teacher and code; the tiles show \emph{your} grade, attendance, missing work and the next due date. \ui{Classwork} (figure~\ref{fig:figures/s04-classwork.png}) lists lectures, resources, assignments and quizzes grouped by unit, with the status of each (``Assigned'', ``Score 7/7'', ``Graded 36/50'').
+\fig{s04-classwork}{Classwork of a class as a student sees it.}
+
+\section{Handing in an assignment}
+\begin{enumerate}
+\item Open the assignment from \ui{Classwork} or \ui{Assignments}; press the hand-in button.
+\item Read the instructions (figure~\ref{fig:figures/s06-submit-assignment.png}).
+\item Type your answer, or attach a file, or both. Allowed files: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, TXT, ZIP, JPG, PNG, MP4, up to 14\,MB.
+\item Press the submit button. Handing in after the due date is accepted and marked \emph{late}.
+\end{enumerate}
+If the teacher returns your work with a note, change it and hand it in again; the earlier mark is cleared until it is graded again.
+\fig{s06-submit-assignment}{Handing in an assignment.}
+
+\section{Taking a quiz}
+Open the quiz. The page tells you the number of questions, total marks, the time limit and the due date (figure~\ref{fig:figures/s08-take-quiz.png}). You get one attempt; the timer starts when you press \ui{Start Quiz} and the quiz submits itself when time runs out. After the due date the quiz is closed.
+\fig{s08-take-quiz}{A quiz before it is started.}
+
+\section{Notifications}
+The bell in the top bar and the \ui{Notifications} page (figure~\ref{fig:figures/s11-notifications.png}) list new lectures, announcements, grades and reminders. Use \ui{Unread}, the filters \ui{Classwork} and \ui{Grades}, or \ui{Mark all as read}.
+\fig{s11-notifications}{The notification list.}
+
+\part*{For teachers}
+\addcontentsline{toc}{section}{For teachers}
+\section{Teacher dashboard}
+Your dashboard (figure~\ref{fig:figures/t01-dashboard.png}) opens with quick buttons (\ui{New class}, \ui{Attendance}, \ui{New assignment}, \ui{New quiz}, \ui{Announce}), a ``Needs you now'' strip (classes without attendance today, join requests, submissions to grade) and tiles for your classes, students, pending approvals, lectures, resources and work to grade.
+\fig{t01-dashboard}{The teacher dashboard.}
+
+\section{Creating a class}
+Go to \ui{Classes} $\rightarrow$ \ui{New class} (figure~\ref{fig:figures/t03-create-class.png}). Type the class name and a description; tags and a picture address are optional. Press \ui{Create Class}. The class gets a code (for example \texttt{DEMOMATH} in the demonstration) that you give to your students.
+\fig{t03-create-class}{Creating a class.}
+
+\section{The class page}
+\subsection{Stream}
+The stream (figure~\ref{fig:figures/t04-stream.png}) is the class notice board. Write an announcement and press \ui{Post}, or \ui{Schedule for later}. Pin, share, edit or delete posts with the small buttons. The left column shows the class code, \ui{Copy invite link} and what is coming up; the tiles show students, class average, today's attendance and work to grade.
+\fig{t04-stream}{The class stream.}
+\subsection{Classwork and topics}
+\ui{Classwork} (figure~\ref{fig:figures/t05-classwork.png}) holds everything you publish, grouped by topic (unit). Add a topic, then create a lecture, resource, assignment or quiz with the buttons on the right; the ``Due this week'' list reminds you of deadlines and shows how many students turned work in.
+\fig{t05-classwork}{Classwork with topics and the create buttons.}
+\subsection{People}
+\ui{People} (figure~\ref{fig:figures/t14-people.png}) shows join requests with \ui{Approve} and \ui{Decline} (or \ui{Approve all}), the teachers and the students of the class.
+\fig{t14-people}{Join requests and members.}
+
+\section{Lectures}
+\ui{Lectures} $\rightarrow$ new lecture (figure~\ref{fig:figures/t06-add-lecture.png}): give a title and a one-line summary, write the content with the toolbar (headings, bold, lists, links, images, code blocks, diagrams and charts) and choose the class and topic. Choose \ui{Publish now}, \ui{Schedule} (hidden until the time you choose) or \ui{Save as draft} (only teachers see it). \ui{Preview} shows the finished lecture.
+\fig{t06-add-lecture}{Writing a lecture.}
+
+\section{Assignments}
+\subsection{Creating}
+\ui{Assignments} $\rightarrow$ create (figure~\ref{fig:figures/t07-create-assignment.png}): choose the class and optional topic, title, instructions, due date and maximum marks. A rubric (what earns the marks) can be added; students see it. Late hand-ins are still accepted and marked late.
+\fig{t07-create-assignment}{Creating an assignment.}
+\subsection{Following the work}
+The assignment page (figure~\ref{fig:figures/t08-assignment-detail.png}) shows how many are \emph{to grade}, \emph{handed in}, \emph{graded} and \emph{returned}, how the class did, the student list with status and a reminder button for those who did not hand in. \ui{Grade work} opens the grading screen.
+\fig{t08-assignment-detail}{An assignment with its counters and student list.}
+\subsection{Grading}
+The grading screen (figure~\ref{fig:figures/t09-grading-screen.png}) has the student list on the left (filters: All, To grade, Missing, Graded, Returned), the student's answer in the middle with private comments, and the mark and feedback on the right. \ui{Save \& next} saves and moves to the next student; shortcuts: Ctrl+Enter saves and goes next, J/K next/previous. \ui{Return for changes} sends the work back with a note; the student fixes it and hands it in again and any mark is cleared.
+\fig{t09-grading-screen}{The grading screen.}
+
+\section{Quizzes}
+\ui{Quizzes} $\rightarrow$ \ui{Create Quiz} (figure~\ref{fig:figures/t10-create-quiz.png}). Choose class and title, optional instructions, an optional time limit (the quiz submits itself) and due date, and when students see results: as soon as graded, or when you release them. Multiple-choice questions are graded automatically; short answers are marked by you.
+\fig{t10-create-quiz}{Creating a quiz.}
+
+\section{Exams}
+\ui{Exams} (figure~\ref{fig:figures/t11-exam.png}) lists scheduled exams with date, duration, room and maximum marks, and how many marks are entered. \ui{Marks} opens the mark entry; results stay hidden from students (``Results hidden'') until you publish them.
+\fig{t11-exam}{An exam in the exam list.}
+
+\section{Attendance}
+Open \ui{Attendance} and choose the class (figure~\ref{fig:figures/t12-attendance.png}). Pick the date and session, then mark each student \ui{Present}, \ui{Late}, \ui{Absent} or \ui{Official Present} and add an optional remark. The counters above the list show how many are marked. The tabs \ui{Report} and \ui{Edit a student} give the attendance report and corrections; a small warning under a name shows low attendance.
+\fig{t12-attendance}{Taking attendance.}
+
+\section{Grades}
+The \ui{Grades} tab (figure~\ref{fig:figures/t13-gradebook.png}) is the gradebook. The overall percentage is marks earned divided by marks possible on \emph{graded} work. Click a column title to open that item, the arrows to sort, a turned-in cell to grade it. Export as \ui{PDF report}, \ui{Gradebook (PDF)}, \ui{CSV} or \ui{Excel}; \ui{Grading scale} shows the score bands.
+\fig{t13-gradebook}{The gradebook.}
+
+\section{Other modules}
+\textbf{Resources} (files for the class), \textbf{Forums}, \textbf{Events}, \textbf{Announcements}, \textbf{Schedules} (timetable), \textbf{Research} (student projects and milestones), \textbf{Reports} and \textbf{Safeguarding} follow the same pattern: choose the class, press the create button, fill in the form, save. Where AI help is switched on by the school, a small AI button next to a text box can draft text for you; you always read and change the draft before it is used, and nothing is published or graded without you.
+
+\section{Tips and problems}
+\begin{longtable}{@{}p{5cm}p{9.2cm}@{}}
+\toprule\textbf{Problem} & \textbf{What to do}\\\midrule\endhead
+I cannot sign in & Check the e-mail address and caps lock. After 8 wrong passwords the account is locked for a while; wait and try again, or use the forgot-password link.\\
+I registered but see nothing & A teacher or the administrator must approve your account first.\\
+My file is refused & Use an allowed type and keep it under 14\,MB; the file's content must match its extension.\\
+The page looks unstyled & Check your internet connection, then reload.\\
+Text looks mirrored & Pashto and Dari are right-to-left on purpose; change the language at the top.\\
+\bottomrule\end{longtable}
+
+\printglossary[title=Glossary]
+\end{document}

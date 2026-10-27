@@ -4,7 +4,7 @@
  *
  * Run this once to prepare the system:
  *   1. Checks PHP requirements and the MySQL server connection
- *   2. Creates the smartclass_db database and imports config/smartclass_db.sql
+ *   2. Creates the database and imports config/install_schema.sql (the complete, current schema)
  *   3. Creates the upload folders (profile / resources / submissions)
  *   4. Lets you create the first teacher account
  *
@@ -36,7 +36,8 @@ $dbUser = $master['db_user'];
 $dbPass = $master['db_pass'];
 $appUrl = '';
 
-$schemaFile = __DIR__ . '/config/smartclass_db.sql';
+require_once __DIR__ . '/includes/migrator.php';
+$schemaFile = __DIR__ . '/config/install_schema.sql';
 
 // ---------- Helpers ----------
 
@@ -111,6 +112,7 @@ $status   = [
     'tables_ok'     => false,
     'teacher_count' => 0,
     'user_count'    => 0,
+    'admin_count'   => 0,
 ];
 
 $server = null;
@@ -124,6 +126,7 @@ try {
             $db = serverConnect($dbHost, $dbUser, $dbPass, $dbName);
             $status['teacher_count'] = (int) $db->query("SELECT COUNT(*) AS c FROM users WHERE role = 'teacher'")->fetch()['c'];
             $status['user_count']    = (int) $db->query("SELECT COUNT(*) AS c FROM users")->fetch()['c'];
+            $status['admin_count']   = (int) $db->query("SELECT COUNT(*) AS c FROM users WHERE is_admin = 1")->fetch()['c'];
         }
     }
 } catch (PDOException $e) {
@@ -132,9 +135,16 @@ try {
 
 $installed = $status['tables_ok'];
 
+// LOCK: once the system has an administrator, this page must not do anything for an anonymous visitor (it has no sign-in): no wipe, no new
+// accounts. Someone with access to the server's files can allow a deliberate reinstall by creating an empty file config/allow_reinstall.
+$locked = $installed && $status['admin_count'] > 0 && !is_file(__DIR__ . '/config/allow_reinstall');
+if ($locked) {
+    $errors[] = 'Setup is finished and locked: this system already has an administrator. Delete setup.php from the server. (To reinstall on purpose, create an empty file config/allow_reinstall on the server first and delete it afterwards.)';
+}
+
 // ---------- Handle actions ----------
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $status['server_ok']) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $status['server_ok'] && !$locked) {
     $action = $_POST['action'] ?? '';
 
     // --- Install / reinstall the database schema ---
@@ -144,7 +154,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $status['server_ok']) {
             $errors[] = 'The database is already installed. To wipe it and reinstall, type RESET in the confirmation box.';
         } else {
             try {
-                $stmtCount = importSqlFile($server, $schemaFile);
+                $server->exec('CREATE DATABASE IF NOT EXISTS `' . str_replace('`', '', $dbName) . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+                $target = serverConnect($dbHost, $dbUser, $dbPass, $dbName);
+                $stmtCount = 0;
+                foreach (migrationStatements(file_get_contents($schemaFile)) as $stmt) { $target->exec($stmt); $stmtCount++; }
+                $mig = migrateDatabase($target, ['baseline' => '999']);   // the schema file already contains every migration: record them as applied
+                if ($mig['error']) throw new RuntimeException($mig['error']);
                 $created   = createUploadDirs();
                 $messages[] = "Database <strong>{$dbName}</strong> installed ({$stmtCount} statements executed).";
                 if ($created) {
@@ -176,8 +191,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $status['server_ok']) {
                 $errors[] = 'Please fill in name, email and password.';
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = 'Please enter a valid email address.';
-            } elseif (strlen($password) < 6) {
-                $errors[] = 'Password must be at least 6 characters.';
+            } elseif (strlen($password) < 8) {
+                $errors[] = 'Password must be at least 8 characters.';
             } else {
                 try {
                     $db = serverConnect($dbHost, $dbUser, $dbPass, $dbName);
@@ -220,8 +235,8 @@ function badge($ok, $okText = 'OK', $failText = 'Missing') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setup - SmartClass</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/bootstrap/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/fontawesome/css/all.min.css'); ?>" rel="stylesheet">
     <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -297,7 +312,7 @@ function badge($ok, $okText = 'OK', $failText = 'Missing') {
                     <td class="text-end"><?php echo badge($status['pdo_mysql']); ?></td>
                 </tr>
                 <tr>
-                    <td>Schema file (config/smartclass_db.sql)</td>
+                    <td>Schema file (config/install_schema.sql)</td>
                     <td class="text-end"><?php echo badge($status['schema_file'], 'Found', 'Missing'); ?></td>
                 </tr>
                 <tr>
@@ -316,12 +331,13 @@ function badge($ok, $okText = 'OK', $failText = 'Missing') {
 
             <!-- Step 1: Install database -->
             <h5 class="mb-3"><i class="fas fa-database me-2"></i>Step 1: Install Database</h5>
-            <?php if (!$installed): ?>
+            <?php if ($locked): ?>
+            <div class="alert alert-secondary mb-2"><i class="fas fa-lock me-2"></i>Locked: the system is installed and has an administrator.</div>
+            <?php elseif (!$installed): ?>
             <form method="POST" class="mb-4">
                 <input type="hidden" name="action" value="install">
-                <p class="text-muted">Creates <code><?php echo htmlspecialchars($dbName); ?></code> and imports the
-                    schema with the demo accounts (teacher@test.com / student@test.com, password
-                    <code>password</code>).</p>
+                <p class="text-muted">Creates <code><?php echo htmlspecialchars($dbName); ?></code> (if needed) and imports the
+                    complete current schema (no sample data). The first teacher you create in step 2 becomes the administrator.</p>
                 <button type="submit" class="btn btn-setup">
                     <i class="fas fa-download me-2"></i>Install Database
                 </button>
@@ -350,7 +366,9 @@ function badge($ok, $okText = 'OK', $failText = 'Missing') {
 
             <!-- Step 2: Create first teacher -->
             <h5 class="mb-3 mt-4"><i class="fas fa-user-tie me-2"></i>Step 2: Create Teacher Account</h5>
-            <?php if (!$installed): ?>
+            <?php if ($locked): ?>
+            <p class="text-muted">Locked.</p>
+            <?php elseif (!$installed): ?>
             <p class="text-muted">Install the database first.</p>
             <?php else: ?>
             <form method="POST" class="mb-4">
@@ -367,8 +385,8 @@ function badge($ok, $okText = 'OK', $failText = 'Missing') {
                             value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Password (min 6 characters)</label>
-                        <input type="password" name="password" class="form-control" required minlength="6">
+                        <label class="form-label">Password (min 8 characters)</label>
+                        <input type="password" name="password" class="form-control" required minlength="8">
                     </div>
                     <div class="col-md-6 d-flex align-items-end">
                         <button type="submit" class="btn btn-setup w-100">
@@ -391,7 +409,7 @@ function badge($ok, $okText = 'OK', $failText = 'Missing') {
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo asset('assets/vendor/bootstrap/bootstrap.bundle.min.js'); ?>"></script>
 </body>
 
 </html>

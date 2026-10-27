@@ -380,7 +380,7 @@ function requestToJoinClass($class, $student_id, $student_name) {
         $db->insert('class_members', ['class_id' => $class_id, 'student_id' => $student_id]);
         logActivity('join_class', 'classes', "Joined class {$class['class_name']} ({$class['class_code']})", $student_id);
         notifyClassTeachers($class['id'], 'student_joined', 'New student joined your class',
-            "{$student_name} joined {$class['class_name']}.", 'pages/classes/people.php?id=' . $class_id, $student_id, $class_id);
+            "{$student_name} joined {$class['class_name']}.", 'pages/classes/people.php?id=' . $class_id, $student_id);
         return 'joined';
     }
 
@@ -397,7 +397,7 @@ function requestToJoinClass($class, $student_id, $student_name) {
     }
     logActivity('request_join', 'classes', "Asked to join {$class['class_name']} ({$class['class_code']})", $student_id);
     notifyClassTeachers($class['id'], 'join_requested', 'Request to join ' . $class['class_name'],
-        "{$student_name} asked to join {$class['class_name']}.", 'pages/classes/people.php?id=' . $class_id . '#requests', $student_id, $class_id);
+        "{$student_name} asked to join {$class['class_name']}.", 'pages/classes/people.php?id=' . $class_id . '#requests', $student_id);
     return 'requested';
 }
 

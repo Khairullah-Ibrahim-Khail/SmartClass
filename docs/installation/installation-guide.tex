@@ -1,0 +1,204 @@
+\documentclass[11pt,a4paper]{article}
+\newcommand{\manualtitle}{Hosting Guide}
+\newcommand{\manualversion}{1.1}
+\input{../common/preamble}
+\input{../common/glossary}
+\begin{document}
+\begin{titlepage}
+\centering\sffamily
+\vspace*{3cm}
+{\Huge\bfseries\color{brand} SmartClass}\\[6pt]
+{\LARGE Hosting Guide}\\[1.2cm]
+{\large Put SmartClass on a real server with a real domain and HTTPS}\\[1cm]
+{\large Version \manualversion\quad|\quad 27 October 2026}\\[3cm]
+{\small Three ways: A. cPanel shared hosting\quad B. Ubuntu server with Apache\quad C. Ubuntu server with nginx}
+\end{titlepage}
+\tableofcontents\clearpage
+
+\section{Choose your way}
+\begin{tabular}{@{}p{3.1cm}p{5.6cm}p{5.3cm}@{}}
+\toprule & \textbf{Good for} & \textbf{You need}\\\midrule
+\textbf{A. cPanel} & one school, no server skills, cheapest & a hosting plan with PHP 8.0+, MySQL/MariaDB, cron jobs, SSL (AutoSSL), 1 GB+ disk\\
+\textbf{B. Ubuntu + Apache} & full control, several schools & a VPS (2 GB RAM is enough for one school), a domain, SSH\\
+\textbf{C. Ubuntu + nginx} & same as B, lighter server & the same\\
+\bottomrule\end{tabular}
+
+Every way ends with the same three things: the \textbf{pre-flight check} (section~\ref{sec:preflight}), the \textbf{web-exposure check} (section~\ref{sec:exposure}) and a \textbf{tested backup} (section~\ref{sec:backups}). Do not let students in before all three are green.
+
+\section{Prepare once (all ways)}
+\begin{enumerate}
+\item \textbf{Make the release package} on your own computer, inside the project folder: \cmd{sh bin/package.sh}. It creates \cmd{../smartclass-release-DATE.tar.gz} without \cmd{.git}, tests, QA files, secrets and uploads. (Do \emph{not} upload the project folder by hand and do not \cmd{git clone} into the web folder.)
+\item \textbf{Domain:} point the domain's \emph{A record} to the server's IP (VPS) or use the one your host gives you (cPanel). Example used below: \cmd{school.example.com}.
+\item \textbf{Write down, in a password manager:} the database name, the database user, a long random database password, and a \cmd{secret\_key} (create with \cmd{php -r 'echo bin2hex(random\_bytes(32));'} or any 64-character random text). Never put them in the code or send them by chat.
+\end{enumerate}
+
+\section{Way A --- cPanel shared hosting}
+\begin{enumerate}
+\item \textbf{PHP version:} cPanel $\rightarrow$ \ui{Select PHP Version}: choose 8.1 or newer. Tick the extensions \cmd{pdo\_mysql}, \cmd{mbstring}, \cmd{curl}, \cmd{gd}, \cmd{zip}, \cmd{fileinfo}, \cmd{openssl}. In \ui{Options} set \cmd{upload\_max\_filesize} = 14M and \cmd{post\_max\_size} = 20M.
+\item \textbf{Database:} \ui{MySQL Databases} $\rightarrow$ create a database, a user with the long password, and \ui{add the user to the database} with \ui{ALL PRIVILEGES}. cPanel adds a prefix: the real names look like \cmd{cpuser\_smartclass} and \cmd{cpuser\_sc}.
+\item \textbf{Upload:} \ui{File Manager} $\rightarrow$ the folder \cmd{public\_html} (or the folder of the domain) $\rightarrow$ \ui{Upload} the \cmd{.tar.gz} $\rightarrow$ select it $\rightarrow$ \ui{Extract}. The folder must now contain \cmd{setup.php}, \cmd{pages/}, \cmd{config/}.
+\item \textbf{Private settings:} in \cmd{config/} copy \cmd{local.example.php} to \cmd{local.php} and edit it:
+\begin{lstlisting}
+<?php
+return [
+  'db_host'    => 'localhost',
+  'db_name'    => 'cpuser_smartclass',
+  'db_user'    => 'cpuser_sc',
+  'db_pass'    => 'THE_LONG_DATABASE_PASSWORD',
+  'secret_key' => 'THE_64_CHARACTER_RANDOM_TEXT',
+  'base_path'  => '',        // '' = the site is at the domain root
+];
+\end{lstlisting}
+Set the file permission to 640.
+\item \textbf{Folders:} create \cmd{uploads}, \cmd{sessions}, \cmd{backups}, \cmd{logs}, \cmd{instances} if they do not exist (permission 755; if uploads fail later, use 775).
+\item \textbf{HTTPS:} \ui{SSL/TLS Status} $\rightarrow$ run AutoSSL for the domain. Open \cmd{https://school.example.com/setup.php}.
+\item \textbf{Install:} press \ui{Install Database}, then create the first teacher (this account is the administrator). Then \textbf{delete \cmd{setup.php}} in File Manager.
+\item \textbf{Cron jobs:} \ui{Cron Jobs} $\rightarrow$ add the four lines of \cmd{deploy/smartclass.cron} (use the PHP path of your host, for example \cmd{/usr/local/bin/php /home/cpuser/public\_html/cron/send\_emails.php}); the schedules are in the file.
+\item Continue with section~\ref{sec:after}.
+\end{enumerate}
+\begin{caution}On cPanel the \cmd{.htaccess} files do the protecting. If your host runs nginx only (no \cmd{.htaccess}), use way C rules in the host's nginx settings or ask support to deny \cmd{config/}, \cmd{includes/}, \cmd{.git} and \cmd{uploads/}. The exposure check in section~\ref{sec:exposure} tells you whether it works.\end{caution}
+
+\section{Way B --- Ubuntu server with Apache}
+Commands run on the server as a user with \cmd{sudo}; steps were written for Ubuntu 22.04/24.04 (the configuration files were prepared and the deny rules tested; the package installation itself you run on your server).
+\subsection{1. Secure the server}
+\begin{lstlisting}
+sudo apt update && sudo apt -y upgrade
+sudo ufw allow OpenSSH && sudo ufw allow 'Apache Full' && sudo ufw enable
+\end{lstlisting}
+Use SSH keys, not passwords (\cmd{PasswordAuthentication no} in \cmd{/etc/ssh/sshd\_config}).
+\subsection{2. Install the software}
+\begin{lstlisting}
+sudo apt -y install apache2 mariadb-server php8.3-fpm php8.3-mysql php8.3-mbstring \
+     php8.3-curl php8.3-gd php8.3-zip php8.3-xml certbot python3-certbot-apache
+sudo mysql_secure_installation
+\end{lstlisting}
+(If your Ubuntu has another PHP version, use its number everywhere.)
+\subsection{3. Database}
+\begin{lstlisting}
+sudo mysql
+CREATE DATABASE smartclass_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'smartclass'@'localhost' IDENTIFIED BY 'THE_LONG_DATABASE_PASSWORD';
+GRANT ALL PRIVILEGES ON smartclass_db.* TO 'smartclass'@'localhost';
+FLUSH PRIVILEGES;
+\end{lstlisting}
+The installer needs no other right, because the database already exists.
+\subsection{4. Upload and unpack the release}
+\begin{lstlisting}
+scp smartclass-release-DATE.tar.gz you@SERVER:/tmp/
+sudo mkdir -p /var/www/smartclass && cd /var/www/smartclass
+sudo tar -xzf /tmp/smartclass-release-DATE.tar.gz
+sudo mkdir -p uploads sessions backups logs instances config/instances
+\end{lstlisting}
+\subsection{5. Private settings and permissions}
+\begin{lstlisting}
+sudo cp config/local.example.php config/local.php
+sudo nano config/local.php      # db_name, db_user, db_pass, secret_key, 'base_path' => ''
+sudo chown -R www-data:www-data uploads sessions backups logs instances config/instances
+sudo chmod 640 config/local.php && sudo chgrp www-data config/local.php
+\end{lstlisting}
+\subsection{6. PHP and Apache}
+\begin{lstlisting}
+sudo cp deploy/php-smartclass.ini /etc/php/8.3/fpm/conf.d/90-smartclass.ini
+sudo systemctl restart php8.3-fpm
+sudo cp deploy/apache-smartclass.conf /etc/apache2/sites-available/smartclass.conf
+sudo nano /etc/apache2/sites-available/smartclass.conf    # ServerName
+sudo a2enmod proxy_fcgi setenvif rewrite headers && sudo a2enconf php8.3-fpm
+sudo a2dissite 000-default && sudo a2ensite smartclass
+sudo apache2ctl configtest && sudo systemctl reload apache2
+\end{lstlisting}
+\subsection{7. HTTPS (free certificate)}
+\begin{lstlisting}
+sudo certbot --apache -d school.example.com
+\end{lstlisting}
+Certbot installs the certificate, the redirect to HTTPS and automatic renewal. Test renewal: \cmd{sudo certbot renew --dry-run}.
+\subsection{8. Install the application}
+Open \cmd{https://school.example.com/setup.php} $\rightarrow$ \ui{Install Database} $\rightarrow$ create the first teacher $\rightarrow$ then \cmd{sudo rm /var/www/smartclass/setup.php}.
+\subsection{9. Cron jobs}
+\begin{lstlisting}
+sudo crontab -u www-data -e      # paste deploy/smartclass.cron (check the path)
+\end{lstlisting}
+Continue with section~\ref{sec:after}.
+
+\section{Way C --- Ubuntu server with nginx}
+Do steps 1, 3, 4, 5, 8 and 9 of way B, but install nginx instead of Apache:
+\begin{lstlisting}
+sudo apt -y install nginx mariadb-server php8.3-fpm php8.3-mysql php8.3-mbstring \
+     php8.3-curl php8.3-gd php8.3-zip php8.3-xml certbot python3-certbot-nginx
+sudo ufw allow 'Nginx Full'
+sudo cp deploy/php-smartclass.ini /etc/php/8.3/fpm/conf.d/90-smartclass.ini && sudo systemctl restart php8.3-fpm
+sudo cp deploy/nginx-smartclass.conf /etc/nginx/sites-available/smartclass
+sudo nano /etc/nginx/sites-available/smartclass            # server_name, php socket
+sudo ln -s /etc/nginx/sites-available/smartclass /etc/nginx/sites-enabled/
+sudo rm /etc/nginx/sites-enabled/default
+sudo nginx -t && sudo systemctl reload nginx
+sudo certbot --nginx -d school.example.com
+\end{lstlisting}
+nginx ignores \cmd{.htaccess}; the block in \cmd{deploy/nginx-smartclass.conf} contains the equivalent rules (deny \cmd{.git}, \cmd{config}, \cmd{includes}, \cmd{tests}, \cmd{backups}, private upload folders; never execute anything in \cmd{uploads/}; 20\,MB bodies; unbuffered live AI answers). It was syntax-checked with \cmd{nginx -t} and its deny rules were tested with \cmd{curl}.
+
+\section{After installation (all ways)}
+\label{sec:after}
+\subsection{If a proxy or Cloudflare is in front}
+When another server ends HTTPS in front of SmartClass (Cloudflare, a load balancer, a hosting panel proxy), add to \cmd{config/local.php}: \cmd{'trust\_proxy' => true,}. Without it the site would build \cmd{http://} links and session cookies without the Secure flag. Do this \emph{only} when you control that proxy.
+\subsection{Settings to do first (as administrator)}
+\begin{enumerate}
+\item \ui{Settings} $\rightarrow$ \ui{Personal} $\rightarrow$ \ui{Two-step sign-in}: switch it on for yourself.
+\item \ui{Communication} $\rightarrow$ \ui{E-mail}: SMTP host, port, user, password of your mail account (stored encrypted) and press the test button. Without it nobody can reset a password.
+\item \ui{Rules \& policies} $\rightarrow$ security rules: switch on \ui{Force HTTPS} (possible only from a page opened over HTTPS).
+\item School name, logo, languages, grading scale.
+\end{enumerate}
+
+\section{Pre-flight check}
+\label{sec:preflight}
+On the server, in the project folder:
+\begin{lstlisting}
+php bin/preflight.php
+\end{lstlisting}
+It prints PASS, WARN or FAIL for: PHP version and extensions, \cmd{config/local.php} and the secret key, database login and connection, all migrations applied, an administrator exists, no demo account with a well-known password, Force HTTPS, e-mail, cron jobs ran, folders, \cmd{setup.php} removed, no \cmd{.git}/\cmd{tests} in the web folder. It changes nothing. \textbf{Every FAIL must be fixed; read every WARN.} Run it again after every upgrade. (Folders may show a WARN when you run it as your own user instead of the web user; check them in \ui{Settings} $\rightarrow$ \ui{System} $\rightarrow$ \ui{System check}.)
+
+\section{Web-exposure check}
+\label{sec:exposure}
+From \emph{another computer} (replace the domain). Every line must \textbf{not} print 200:
+\begin{lstlisting}
+for p in .git/config config/local.php includes/auth.php tests/lib.php \
+         logs/php-error.log backups/ sessions/ setup.php README.md; do
+  printf "%-26s " $p; curl -s -o /dev/null -w "%{http_code}\n" https://school.example.com/$p
+done
+curl -sI http://school.example.com/ | head -3     # must redirect (301) to https
+curl -sI https://school.example.com/pages/auth/login.php | grep -i "set-cookie\|x-frame\|nosniff"
+\end{lstlisting}
+Expected: 403 or 404 for every path (\cmd{setup.php} must be 404 after you deleted it). The login page must set a cookie with \cmd{Secure; HttpOnly; SameSite=Lax}. Also upload a 5\,MB PDF as a test resource: if it fails, the PHP limits (\cmd{upload\_max\_filesize}, \cmd{post\_max\_size}) were not applied to the web PHP.
+
+\section{Backups --- set up and test}
+\label{sec:backups}
+\begin{enumerate}
+\item The cron lines of \cmd{deploy/smartclass.cron} make a nightly database backup into \cmd{backups/all/} (14 days) and copy the newest one to \emph{another machine} (edit the \cmd{--to=} target; SSH key login required). A backup only on the same server does not survive a lost server.
+\item Copy \cmd{uploads/} as well (it is not in the database backup): \cmd{rsync -a /var/www/smartclass/uploads/ user@backup-host:/backups/smartclass-uploads/} nightly.
+\item \textbf{Test it:} \cmd{php bin/restore\_drill.php} --- it restores the newest backup into a temporary database, compares every table and foreign key, drops the copy and prints \cmd{restore drill PASSED}.
+\end{enumerate}
+
+\section{Upgrade}
+\begin{enumerate}
+\item On your computer: \cmd{git pull}, \cmd{sh bin/check.sh} (all tests must pass), \cmd{sh bin/package.sh}.
+\item On the server: backup (\cmd{php bin/backup\_all.php}); unpack the new package \emph{over} the folder (it never contains \cmd{config/local.php}, \cmd{uploads/}, \cmd{backups/}, \cmd{config/instances/}); fix owners (\cmd{chown -R www-data:www-data uploads sessions backups logs}).
+\item \cmd{php bin/migrate.php} (or \cmd{php bin/update\_all.php} for hosted schools), then \cmd{php bin/preflight.php}.
+\end{enumerate}
+
+\section{Several schools on one server}
+\label{sec:multi}
+\cmd{php bin/create\_customer.php --name="Example School" --domain=school2.example.com --admin-email=owner@school2.example.com} creates its own database, user, storage folder and configuration, and prints the administrator's temporary password once. Point the domain to the same server and add it to the web server (Apache: another \cmd{ServerName} / \cmd{ServerAlias}; nginx: add the domain to \cmd{server\_name}), then run certbot for it. Check one school with \cmd{php bin/preflight.php school2.example.com}.
+
+\section{Troubleshooting}
+\begin{longtable}{@{}p{5cm}p{9.2cm}@{}}
+\toprule\textbf{Symptom} & \textbf{Check}\\\midrule\endhead
+Database error on every page & \cmd{config/local.php} exists and is right; \cmd{mysql -u smartclass -p smartclass\_db} works; \cmd{php bin/preflight.php}.\\
+Blank page / 500 & last lines of \cmd{logs/php-error.log} (pages never print errors).\\
+Links start with \cmd{http://} on an HTTPS site & a proxy ends HTTPS: set \cmd{'trust\_proxy' => true} (section~\ref{sec:after}).\\
+Links or images broken & \cmd{'base\_path'} in \cmd{config/local.php}: \cmd{''} for a domain root, \cmd{'/folder'} for a sub-folder.\\
+Uploads fail & \cmd{uploads/} owner/permissions; PHP limits; disk space.\\
+No e-mail & e-mail not set up or the cron line for \cmd{send\_emails.php} missing.\\
+Live AI answers arrive all at once & nginx: \cmd{fastcgi\_buffering off} (included in the block); a proxy in front must not buffer.\\
+\cmd{/.git/config} answers 200 & Apache: \cmd{AllowOverride All} missing (the \cmd{.htaccess} is ignored); nginx: the deny block is not active.\\
+\bottomrule\end{longtable}
+
+\printglossary[title=Glossary]
+\end{document}

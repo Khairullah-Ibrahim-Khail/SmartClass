@@ -410,7 +410,7 @@ if ($created) {
 function quizOptionRow($qi, $oi, $text, $checked) {
     return '<div class="option-row">'
         . '<label class="correct-pick" title="Correct answer"><input type="radio" class="o-correct" name="questions[' . $qi . '][correct]" value="' . $oi . '"' . ($checked ? ' checked' : '') . '> <span>Correct</span></label>'
-        . '<input type="text" class="o-text" name="questions[' . $qi . '][options][' . $oi . ']" maxlength="500" placeholder="Option ' . ($oi + 1) . '" value="' . htmlspecialchars($text) . '">'
+        . '<input type="text" class="o-text" name="questions[' . $qi . '][options][' . $oi . ']" maxlength="500" placeholder="Option ' . ($oi + 1) . '" aria-label="Option ' . ($oi + 1) . '" value="' . htmlspecialchars($text) . '">'
         . '<button type="button" class="icon-btn danger remove-option" title="Remove option" aria-label="Remove option"><i class="fas fa-times"></i></button>'
         . '</div>';
 }

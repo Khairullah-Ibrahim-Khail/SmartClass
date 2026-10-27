@@ -17,7 +17,6 @@ else echo "== JavaScript syntax skipped (node is not installed)"; fi
 [ "$fail" = 0 ] || { echo "FAILED: fix the errors above"; exit 1; }
 [ "$1" = "--quick" ] && { echo "OK (quick)"; exit 0; }
 echo "== Tests"
-php tests/run.php | tail -3
 php tests/run.php >/tmp/sc_check.out 2>&1; rc=$?
-[ "$rc" = 0 ] && echo "OK" || { grep -A3 "FAIL\|ERROR" /tmp/sc_check.out | head -30; echo "FAILED"; }
+[ "$rc" = 0 ] && { tail -1 /tmp/sc_check.out; echo "OK"; } || { grep -A3 "FAIL\|ERROR" /tmp/sc_check.out | head -30; echo "FAILED"; }
 exit $rc

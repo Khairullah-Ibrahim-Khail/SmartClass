@@ -32,10 +32,10 @@ test('lecture text cannot inject HTML or scripts', function () {
     $h = client($t); $h->get("pages/lectures/view.php?id=$l"); ok($h->shown());
     notContains("<script>alert('x')", $h->body); notContains('<img src=x', $h->body); notContains('href="javascript:', $h->body); notContains('<b>raw</b>', $h->body);
 });
-test('demo logins ("Password: password") are shown on a development machine only, never on a school domain', function () {
+test('the login page never lists demo credentials; System check flags weak demo accounts', function () {
     $db = TW('db'); $db->query("DELETE FROM users WHERE email = 'admin@test.com'");
     $db->insert('users', ['name' => 'Demo Admin', 'email' => 'admin@test.com', 'password' => password_hash('password', PASSWORD_DEFAULT), 'role' => 'teacher', 'is_admin' => 1, 'is_approved' => 1]);
-    $dev = anon(); $dev->get('pages/auth/login.php'); contains('Demo Accounts', $dev->body, 'localhost / IP: shown');
+    $dev = anon(); $dev->get('pages/auth/login.php'); notContains('Demo Accounts', $dev->body, 'the login page lists no credentials, not even on localhost');
     $real = anon(); $real->req('GET', 'pages/auth/login.php', [], [], ['Host' => 'school.example.com']); eq(200, $real->code); notContains('Demo Accounts', $real->body, 'a real domain: hidden'); notContains('Password: password', $real->body);
     $weak = weakDemoAccounts(); ok(in_array('admin@test.com', array_column($weak, 'email'), true), 'System check flags the weak account');
     $a = mkUser('SecAdm', 'teacher', 1); $h = client($a); $h->get('pages/settings/system.php'); contains('well-known password', $h->body);

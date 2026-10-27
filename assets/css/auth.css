@@ -247,6 +247,17 @@ a:hover {
   color: var(--primary);
 }
 
+.demo-accounts .demo-note { font-weight: 500; font-size: 0.72rem; color: var(--gray-500, #6b7280); margin-left: 6px; }
+.demo-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.demo-table th { text-align: left; font-weight: 600; color: var(--gray-600, #4b5563); padding: 4px 6px; border-bottom: 1px solid var(--gray-300); }
+.demo-table td { padding: 6px; border-bottom: 1px dashed var(--gray-300); vertical-align: middle; }
+.demo-table tr:last-child td { border-bottom: none; }
+.demo-table code { color: var(--gray-800); background: transparent; padding: 0; }
+.demo-mail { white-space: nowrap; font-size: 0.8rem; }
+.demo-pw { color: var(--gray-600, #4b5563); font-size: 0.72rem; }
+.demo-role { display: inline-block; padding: 2px 8px; border-radius: 999px; background: rgba(67, 97, 238, .12); color: var(--primary); font-weight: 600; font-size: 0.72rem; white-space: nowrap; }
+.demo-hint { margin-top: 8px; font-size: 0.74rem; color: var(--gray-600, #4b5563); }
+
 /* ---------- Password show / hide toggle ---------- */
 .password-field {
   position: relative;

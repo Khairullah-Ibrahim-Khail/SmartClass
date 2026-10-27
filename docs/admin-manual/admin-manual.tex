@@ -1,0 +1,131 @@
+\documentclass[11pt,a4paper]{article}
+\newcommand{\manualtitle}{Administrator and Operations Manual}
+\newcommand{\manualversion}{1.0}
+\input{../common/preamble}
+\input{../common/glossary}
+\newcommand{\fig}[2]{\shot{figures/#1.png}{#2}{0.97}}
+\begin{document}
+\begin{titlepage}
+\centering\sffamily
+\vspace*{3cm}
+{\Huge\bfseries\color{brand} SmartClass}\\[6pt]
+{\LARGE Administrator and Operations Manual}\\[2cm]
+{\large Version \manualversion\quad|\quad 27 October 2026}\\[1cm]
+For the school administrator and the person who runs the server\\[4cm]
+{\small Screenshots come from a demonstration school with invented data. Secrets in this manual are placeholders (\texttt{CHANGE\_ME}).}
+\end{titlepage}
+\tableofcontents\clearpage
+
+\section{Roles and responsibilities}
+\begin{tabular}{@{}p{3.4cm}p{11cm}@{}}
+\toprule\textbf{Role} & \textbf{Responsible for}\\\midrule
+\gls{superadmin} (school administrator) & approving students and teachers, school settings, privacy, AI and WhatsApp rules, grading scales, backups from the application, reading the system check\\
+Server operator & installation, upgrades, cron jobs, database and file backups, web-server and PHP settings, TLS, monitoring (see the Installation Guide)\\
+Teacher & only their own classes\\
+\bottomrule\end{tabular}
+
+\section{Architecture in one page}
+\begin{itemize}
+\item \textbf{Code:} plain PHP 8 (no framework). \cmd{pages/<module>/} one file per screen; \cmd{includes/} shared code (not web-reachable); \cmd{config/} database connection, \cmd{install\_schema.sql} (fresh install), \cmd{migrations/} (changes to an existing database); \cmd{bin/} command-line tools; \cmd{cron/} scheduled jobs; \cmd{tests/} automated tests.
+\item \textbf{One request:} the page loads \cmd{config/db.php}, which finds the school (by domain), opens that school's database, starts the session and sets security headers; \cmd{includes/auth.php} stops visitors who are not signed in and students who are not approved; the page checks who may do the action, checks the \gls{csrf} token on every POST, uses prepared statements, and redirects.
+\item \textbf{Data:} MariaDB/MySQL (76 tables, 62 migrations in this version); uploaded files in \cmd{uploads/} under random names; backups in \cmd{backups/}; sessions in \cmd{sessions/}; the PHP error log in \cmd{logs/php-error.log} (pages never print errors).
+\item \textbf{Several schools:} each customer has \cmd{config/instances/<domain>.php} (database, storage folder) and its own database; one code folder serves all. See \cmd{docs/CUSTOMERS.md}.
+\item \textbf{Languages:} English text is written in the pages; Pashto and Dari are produced by a translation layer from dictionaries in \cmd{includes/lang/}.
+\end{itemize}
+
+\section{First steps after installation}
+\begin{enumerate}
+\item Sign in with the account created by the installer. Change the password if it is temporary (\ui{Settings} $\rightarrow$ \ui{Password \& security}, figure~\ref{fig:figures/a04-settings-security.png}); set up two-step sign-in (\ui{Two-step sign-in}).
+\item Open \ui{Settings} $\rightarrow$ \ui{System} $\rightarrow$ \ui{System check}: it reports folder permissions and when the background jobs last ran. Fix every warning.
+\item Fill in the school settings (name, logo, languages, grading scale) and the rules and policies.
+\item Switch e-mail on (\ui{Settings} $\rightarrow$ \ui{Communication} $\rightarrow$ \ui{E-mail}) so password reset and notifications can be sent.
+\item Invite teachers; approve students (section~\ref{sec:approve}).
+\item Take and \emph{test} a backup (section~\ref{sec:backup}).
+\end{enumerate}
+\fig{a04-settings-security}{Personal settings: password and recent sign-ins.}
+
+\section{People}
+\subsection{Approving students}
+\label{sec:approve}
+New students wait until approved (figure~\ref{fig:figures/a01-approve-students.png}). \ui{Review} shows the account, \ui{Approve} lets them in, \ui{Reject} refuses (a confirmation is asked). Teachers can also approve join requests for their own classes.
+\fig{a01-approve-students}{Students waiting for approval.}
+\subsection{Teachers}
+Teachers join through an invitation from the administrator (the invitation page is \cmd{pages/auth/teacher\_invite.php}). A teacher sees only their own classes. The first teacher created at installation is the super admin.
+
+\section{School settings}
+All settings are under \ui{Settings}, in six groups: \textbf{Personal} (profile, password, two-step sign-in, appearance, my AI), \textbf{Communication} (notifications, WhatsApp, WhatsApp numbers, e-mail), \textbf{Teaching}, \textbf{School}, \textbf{Rules \& policies} and \textbf{System} (AI providers, code runner, system check, backup). The search box ``Find a setting'' jumps to a setting by name. Nothing the administrator may want to change is hard-coded.
+
+\subsection{Artificial intelligence}
+\ui{System} $\rightarrow$ \ui{AI providers} (figure~\ref{fig:figures/a05-settings-ai.png}) holds the master switch: when off, teachers and students see no AI button anywhere and every feature still works by hand. When on, choose a default provider (and a fallback), optionally a different provider per feature (quiz questions, grading help, class insights, \ldots) and keep an eye on the monthly usage. AI only drafts: nothing is published, graded or e-mailed without a teacher. Provider keys are stored encrypted and never shown again. Teachers decide per class whether students get the AI writing help.
+\fig{a05-settings-ai}{AI settings (here: switched off for the school).}
+
+\subsection{WhatsApp}
+\ui{Communication} $\rightarrow$ \ui{WhatsApp} (figure~\ref{fig:figures/a06-settings-whatsapp.png}). WhatsApp is optional. \textbf{Level 1} is a button that opens WhatsApp with the message ready; the person presses Send. \textbf{Level 2} sends by itself through the official WhatsApp Business service from a sender set up on this page. The page also holds your own number and consent, the school rules (the switch for the whole school), message texts per language and the log. A person receives messages only after agreeing, and can stop at any time. Details: \cmd{docs/WHATSAPP.md}. Real delivery depends on your own Meta business account and was not verified in the test environment.
+\fig{a06-settings-whatsapp}{WhatsApp settings (switched off for the school).}
+
+\subsection{Privacy and safeguarding}
+\ui{Rules \& policies} contains the privacy rules (retention, export, deletion) and safeguarding. \cmd{docs/PRIVACY.md} states who can read what; \cmd{docs/AI\_POLICY\_TEMPLATE.md} is a template for the school's AI rules, which should be agreed with parents and teachers before AI is switched on for students.
+
+\section{Backups and recovery}
+\label{sec:backup}
+\subsection{From the application}
+\ui{System} $\rightarrow$ \ui{Backup} (figure~\ref{fig:figures/a07-settings-backup.png}) downloads a complete copy of the database as one compressed file. Uploaded files are \emph{not} in it. The file contains accounts, password hashes and saved keys -- keep it private. \ui{Restore a backup} replaces everything with the backup (a safety copy of the current data is saved first) and asks for your password and the word \texttt{RESTORE}.
+\fig{a07-settings-backup}{Download and restore a backup.}
+\subsection{From the command line}
+\begin{lstlisting}
+php bin/backup_all.php                    # every school -> backups/all/<date>/ (14 days kept)
+php bin/backup_offsite.php --to=user@host:/backups/smartclass
+php bin/restore_drill.php                 # proves a backup can be restored (read-only on live data)
+\end{lstlisting}
+Schedule the first in cron (Installation Guide) and copy backups \emph{off the server} -- a backup on the same disk is not protection against loss of the server. Copy \cmd{uploads/} with your normal file backup.
+\subsection{Recovery procedure}
+\begin{enumerate}
+\item Put the maintenance page on / stop the web server.
+\item Restore the code from Git or the installation package; put back \cmd{config/local.php} (with the \emph{same} \cmd{secret\_key}) and \cmd{config/instances/}.
+\item Create an empty database and import the newest good backup: \cmd{gunzip -c file.sql.gz | mysql -u USER -p DB}.
+\item Restore \cmd{uploads/}.
+\item Run \cmd{php bin/migrate.php} (applies anything newer than the backup), start the web server, open \ui{System check}.
+\item Tell users what time period of data may be missing (everything after the backup).
+\end{enumerate}
+Run \cmd{php bin/restore\_drill.php} regularly: it restores a fresh backup into a throw-away database and compares every table (row counts, checksums) and all foreign keys. On the test system it reported 76 tables identical in about 2 seconds.
+
+\section{Monitoring and routine maintenance}
+\begin{longtable}{@{}p{3.4cm}p{11cm}@{}}
+\toprule\textbf{When} & \textbf{What}\\\midrule\endhead
+Daily (automatic) & \cmd{cron/housekeeping.php} records that it ran, archives the error log when it exceeds 2\,MB and tells administrators if something went wrong in the last 24 hours or a job is late. \cmd{cron/send\_emails.php} (every 5 minutes) sends e-mail and WhatsApp messages and publishes scheduled posts.\\
+Weekly & open \ui{System check}; read the tail of \cmd{logs/php-error.log}; check free disk space for \cmd{uploads/} and \cmd{backups/}; confirm that the off-server backup arrived.\\
+Monthly & run the restore drill; review users (disable leavers); check AI usage against the budget.\\
+After any change & \cmd{sh bin/check.sh} on a copy (the full test suite, about 2.5 minutes) before it goes live.\\
+\bottomrule\end{longtable}
+\textbf{Capacity.} A normal page takes a fraction of a second; a streamed AI answer keeps one PHP worker busy for its whole duration (5--30\,s). Plan workers as in \cmd{docs/CAPACITY.md}; measure with the FPM status page during a real lesson. On the test machine (single worker, PHP built-in server) the key pages answered in 2--30\,ms with 120 students and about 1\,400 submissions; this is not a promise for your server.
+
+\section{Security operations}
+\begin{itemize}
+\item \textbf{Secrets:} \cmd{config/local.php} (database login, \cmd{secret\_key}) is never committed. Rotate the database password if it was ever written in code or shared, then update \cmd{local.php}; run \cmd{php bin/rotate\_secrets.php} to tie stored secrets to the independent key.
+\item \textbf{Web exposure:} after every deployment check that \cmd{.git/config}, \cmd{config/local.php}, \cmd{logs/php-error.log}, \cmd{tests/} and \cmd{backups/} are \emph{not} downloadable (commands in the Installation Guide). Delete \cmd{setup.php}.
+\item \textbf{HTTPS:} serve only over HTTPS; the application can force it (\ui{Rules \& policies}).
+\item \textbf{Sign-in protection:} 8 wrong passwords lock an account for a while; a school can require two-step sign-in for administrators; reset a lost two-step device with \cmd{php bin/reset\_two\_factor.php}.
+\item \textbf{Updates:} keep PHP, MariaDB and the operating system patched.
+\item \textbf{Known open items} of this version are listed in \cmd{qa/release-readiness.md} (for example the missing site-wide Content-Security-Policy).
+\end{itemize}
+
+\section{Troubleshooting reference}
+\begin{longtable}{@{}p{4.6cm}p{9.6cm}@{}}
+\toprule\textbf{Symptom} & \textbf{Cause and action}\\\midrule\endhead
+Everyone gets a database error & \cmd{config/local.php} missing/wrong, or MariaDB stopped: \cmd{systemctl status mariadb}; test with \cmd{mysql -u USER -p DB}.\\
+Blank page, HTTP 500 & read \cmd{logs/php-error.log}; the page never prints errors.\\
+Uploads fail & folder rights (\ui{System check}); PHP limits (\cmd{upload\_max\_filesize 14M}, \cmd{post\_max\_size 20M}); disk full.\\
+No e-mail / WhatsApp & cron line for \cmd{send\_emails.php} missing; e-mail or WhatsApp not configured; the sender's token expired (WhatsApp page log).\\
+System check says cron did not run & the crontab is for the wrong user; run the command by hand as the web-server user and read the output.\\
+Migration fails & the command prints file and SQL error; fix and re-run; finished files are not repeated. Restore the pre-update backup if needed.\\
+A hosted school shows ``paused'' or ``unknown site'' & Customers page (status), \cmd{config/instances/<domain>.php}, DNS/virtual host for the domain.\\
+Administrator locked out & use another administrator; or reset the password with \cmd{php cron/reset\_password.php}; two-step device lost: \cmd{php bin/reset\_two\_factor.php}.\\
+AI answers do not appear live & reverse proxy buffering: \cmd{proxy\_buffering off;}.\\
+Pages unstyled & the files in \cmd{assets/vendor/} are missing or blocked (check the exposure rules do not deny \cmd{assets/}); reload with the cache cleared.\\
+\bottomrule\end{longtable}
+
+\section{Quality evidence}
+The test suite (\cmd{php tests/run.php}) runs on a throw-away database and drives the real pages: 169 tests passed in the final run of this release, including a route matrix of 2\,330 requests, 1\,152 injection and script probes, upload attacks, accessibility checks and a performance check. Reports are in \cmd{qa/}.
+
+\printglossary[title=Glossary]
+\end{document}

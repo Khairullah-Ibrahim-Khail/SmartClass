@@ -1,0 +1,45 @@
+% Shared preamble for the SmartClass manuals. Build with XeLaTeX (Unicode, Pashto/Dari text).
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}[Scale=0.88]
+\newfontfamily\arabicfont[Script=Arabic,Scale=1.05]{Noto Sans Arabic}
+\newcommand{\ar}[1]{{\arabicfont\textdir TRT #1}}   % inline right-to-left text (Pashto / Dari): \ar{...}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{xcolor}
+\definecolor{brand}{HTML}{4361EE}
+\definecolor{note}{HTML}{EEF1FF}
+\definecolor{warn}{HTML}{FFF4E5}
+\definecolor{code}{HTML}{F3F4F6}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=4pt}
+\usepackage{titlesec}
+\titleformat{\section}{\sffamily\Large\bfseries\color{brand}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\large\bfseries}{\thesubsection}{0.6em}{}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\sffamily\small SmartClass --- \manualtitle}
+\fancyhead[R]{\sffamily\small Version \manualversion}
+\fancyfoot[C]{\sffamily\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\usepackage{tcolorbox}
+\newtcolorbox{tip}{colback=note,colframe=brand,boxrule=0.4pt,left=6pt,right=6pt,top=4pt,bottom=4pt,title={Tip},fonttitle=\sffamily\bfseries}
+\newtcolorbox{caution}{colback=warn,colframe=orange!80!black,boxrule=0.4pt,left=6pt,right=6pt,top=4pt,bottom=4pt,title={Careful},fonttitle=\sffamily\bfseries}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\small,backgroundcolor=\color{code},frame=single,rulecolor=\color{black!15},breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,upquote=true,xleftmargin=0pt}
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\ui}[1]{\textsf{\textbf{#1}}}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true,linkcolor=brand,urlcolor=brand,pdfauthor={SmartClass},pdfcreator={XeLaTeX}}
+\usepackage{glossaries}
+\makeglossaries
+\emergencystretch=4em
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.25}
+% a figure with a number, a caption and a link target
+\newcommand{\shot}[3]{\begin{figure}[H]\centering\includegraphics[width=#3\linewidth]{#1}\caption{#2}\label{fig:#1}\end{figure}}

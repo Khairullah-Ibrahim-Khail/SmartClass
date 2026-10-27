@@ -86,18 +86,18 @@ $page_title = 'Login';
     <link rel="icon" type="image/svg+xml" href="<?php echo APP_URL; ?>/assets/img/favicon.svg">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/bootstrap/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/bootstrap-icons/bootstrap-icons.css'); ?>" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/fontawesome/css/all.min.css'); ?>" rel="stylesheet">
 
     <!-- Poppins font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/fonts/fonts.css'); ?>" rel="stylesheet">
 
     <!-- Shared auth styles (dashboard palette) -->
     <link href="<?php echo asset('assets/css/auth.css'); ?>" rel="stylesheet">
-    <?php if (i18nRtl()): ?><link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet"><link href="<?php echo asset('assets/css/rtl.css'); ?>" rel="stylesheet"><?php endif; ?><?php echo i18nLiveScripts(); ?>
+    <?php if (i18nRtl()): ?><link href="<?php echo asset('assets/vendor/fonts/fonts.css'); ?>" rel="stylesheet"><link href="<?php echo asset('assets/css/rtl.css'); ?>" rel="stylesheet"><?php endif; ?><?php echo i18nLiveScripts(); ?>
 </head>
 
 <body>
@@ -154,26 +154,10 @@ $page_title = 'Login';
                             </button>
                         </form>
 
-                        <?php
-                        // Demo logins are listed only on installations that really have those demo accounts (never on a clean customer install)
-                        $demo = [];
-                        if (isDevHost()) foreach (['admin@test.com' => 'Super Admin', 'teacher@test.com' => 'Teacher', 'student@test.com' => 'Student'] as $de => $dl) {
-                            if ($db->fetchOne("SELECT id FROM users WHERE email = ? AND is_active = 1" . ($de === 'admin@test.com' ? ' AND is_admin = 1' : ''), [$de])) $demo[$de] = $dl;
-                        } ?>
-                        <div class="demo-accounts mt-4">
-                            <?php if ($demo): ?>   <?php /* only on a development machine — never on a real school domain */ ?>
-                            <h6><i class="fas fa-info-circle me-2"></i>Demo Accounts</h6>
-                            <?php foreach ($demo as $de => $dl): ?>
-                            <div class="account">
-                                <strong><?php echo $dl; ?>:</strong> <?php echo $de; ?><br>
-                                <small>Password: password</small>
-                            </div>
-                            <?php endforeach; endif; ?>
-                            <div class="account text-center mt-3">
-                                <a href="register.php<?php echo $invite_code !== '' ? '?code=' . rawurlencode($invite_code) : ''; ?>" class="btn btn-sm btn-outline-primary w-100">
-                                    <i class="fas fa-user-plus me-2"></i>Register as Student
-                                </a>
-                            </div>
+                        <div class="mt-3">
+                            <a href="register.php<?php echo $invite_code !== '' ? '?code=' . rawurlencode($invite_code) : ''; ?>" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="fas fa-user-plus me-2"></i>Register as Student
+                            </a>
                         </div>
                     </div>
 
@@ -187,10 +171,10 @@ $page_title = 'Login';
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo asset('assets/vendor/bootstrap/bootstrap.bundle.min.js'); ?>"></script>
 
     <!-- SweetAlert2 (task-level messages only) -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo asset('assets/vendor/sweetalert2/sweetalert2.all.min.js'); ?>"></script>
 
     <!-- Shared auth JS (password toggle + inline validation helpers) -->
     <script src="<?php echo asset('assets/js/auth.js'); ?>"></script>

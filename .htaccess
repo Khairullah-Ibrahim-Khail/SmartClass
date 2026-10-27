@@ -8,3 +8,11 @@
     php_value upload_max_filesize 14M
     php_value post_max_size 20M
 </IfModule>
+
+# Never serve the repository itself, hidden folders or internal notes (a deployed copy that was made with `git clone` contains .git with the whole history)
+<IfModule mod_alias.c>
+    RedirectMatch 404 "(^|/)\.(git|githooks|github|idea|vscode)(/|$)"
+</IfModule>
+<FilesMatch "^(TODO|README)\.md$">
+    Require all denied
+</FilesMatch>

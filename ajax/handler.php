@@ -20,7 +20,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQ
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
 // Check if user is logged in for protected actions
-$public_actions = ['login', 'register', 'check_class_code', 'get_class_info'];
+$public_actions = [];   // nothing here is open to a visitor: signing in and signing up have their own pages (lockout, two-step sign-in, password rules and registration settings live there)
 if (!in_array($action, $public_actions) && !isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'Please login first']);
     exit;
@@ -36,14 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verifyCsrf()) {
 // Process request based on action
 switch ($action) {
     // ================== AUTHENTICATION ==================
-    case 'login':
-        handleLogin();
-        break;
-        
-    case 'register':
-        handleRegister();
-        break;
-        
     case 'logout':
         handleLogout();
         break;
@@ -101,111 +93,7 @@ switch ($action) {
 
 // ================== AUTHENTICATION HANDLERS ==================
 
-function handleLogin() {
-    global $db;
-    
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    
-    if (empty($email) || empty($password)) {
-        echo json_encode(['success' => false, 'message' => 'Please enter email and password']);
-        return;
-    }
-    
-    $user = $db->fetchOne("SELECT * FROM users WHERE email = ? AND is_active = 1", [$email]);
-    
-    if ($user && password_verify($password, $user['password'])) {
-        // Check if student is approved
-        if ($user['role'] === 'student' && $user['is_approved'] == 0) {
-            echo json_encode(['success' => false, 'message' => 'Your account is pending approval']);
-            return;
-        }
-        
-        // Fresh session ID on login (fixation defense + replaces stale cookies)
-        session_regenerate_id(true);
 
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_role'] = $user['role'];
-        $_SESSION['user_name'] = $user['name'];
-        $_SESSION['user_photo'] = $user['photo'] ?? null;
-        
-        // Update last login
-        $db->update('users', ['last_login' => date('Y-m-d H:i:s')], 'id = ?', [$user['id']]);
-        
-        // Audit trail
-        logActivity('login', 'auth', null, $user['id']);
-        
-        echo json_encode([
-            'success' => true,
-            'message' => 'Login successful',
-            'redirect' => APP_URL . '/pages/dashboard.php',
-            'user' => [
-                'id' => $user['id'],
-                'name' => $user['name'],
-                'role' => $user['role']
-            ]
-        ]);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid email or password']);
-    }
-}
-
-function handleRegister() {
-    global $db;
-    
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $confirm_password = $_POST['confirm_password'] ?? '';
-    
-    if (empty($name) || empty($email) || empty($password)) {
-        echo json_encode(['success' => false, 'message' => 'Please fill in all required fields']);
-        return;
-    }
-    
-    if ($password !== $confirm_password) {
-        echo json_encode(['success' => false, 'message' => 'Passwords do not match']);
-        return;
-    }
-    
-    if (strlen($password) < 6) {
-        echo json_encode(['success' => false, 'message' => 'Password must be at least 6 characters']);
-        return;
-    }
-    
-    if ($db->exists('users', 'email', $email)) {
-        echo json_encode(['success' => false, 'message' => 'Email already registered']);
-        return;
-    }
-    
-    try {
-        $user_id = $db->insert('users', [
-            'name' => $name,
-            'email' => $email,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-            'role' => 'student',
-            'is_approved' => 0, // Pending
-            'is_active' => 1
-        ]);
-
-        // Audit trail + tell the super admin a student without a class awaits approval
-        logActivity('register', 'auth', "New student registered: {$name} ({$email})", $user_id);
-        notifyAdmins(
-            'student_registered',
-            'New student awaiting approval',
-            "{$name} ({$email}) registered and is waiting for approval.",
-            'pages/students/approve.php',
-            $user_id
-        );
-
-        echo json_encode([
-            'success' => true,
-            'message' => 'Registration successful! Please wait for teacher approval.'
-        ]);
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => 'Registration failed: ' . $e->getMessage()]);
-    }
-}
 
 function handleLogout() {
     if (isset($_SESSION['user_id'])) {

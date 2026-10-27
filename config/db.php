@@ -41,6 +41,9 @@ $sc_local = (!$sc_inst && is_file(__DIR__ . '/local.php')) ? (@include __DIR__ .
 if (!is_array($sc_local)) $sc_local = [];
 if ($sc_inst && !empty($sc_inst['secret_key'])) $sc_local['secret_key'] = $sc_inst['secret_key'];
 define('SC_SECRET_KEY', (string) ($sc_local['secret_key'] ?? (getenv('SC_SECRET_KEY') ?: '')));   // the environment variable is for tests and containers
+// Behind a reverse proxy / CDN that ends HTTPS (Cloudflare, nginx in front, a hosting panel): the proxy tells us in X-Forwarded-Proto. Only believed when this
+// server is told to trust its proxy ('trust_proxy' => true in config/local.php or the customer file, or SC_TRUST_PROXY=1) — otherwise a visitor could fake the header.
+if ((!empty($sc_local['trust_proxy']) || !empty($sc_inst['trust_proxy']) || getenv('SC_TRUST_PROXY') === '1') && strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https') $_SERVER['HTTPS'] = 'on';
 
 // Database
 define('DB_HOST', $sc_inst['db_host'] ?? $sc_local['db_host'] ?? 'localhost');
@@ -48,14 +51,14 @@ define('DB_HOST', $sc_inst['db_host'] ?? $sc_local['db_host'] ?? 'localhost');
 $sc_test_db = (string) getenv('SC_TEST_DB');
 define('DB_NAME', preg_match('/^sc_test_[a-z0-9]{6,16}$/', $sc_test_db) ? $sc_test_db : (SC_STAGING ? 'smartclass_staging' : ($sc_inst['db_name'] ?? $sc_local['db_name'] ?? 'smartclass_db')));
 define('DB_USER', $sc_inst['db_user'] ?? $sc_local['db_user'] ?? 'root');
-define('DB_PASS', $sc_inst['db_pass'] ?? $sc_local['db_pass'] ?? 'sahil123');
+define('DB_PASS', $sc_inst['db_pass'] ?? $sc_local['db_pass'] ?? '');
 define('DB_CHARSET', 'utf8mb4');
 
 // URL path where the app lives on the server. Examples:
 //   http://localhost/myProject/SmartClass  ->  '/myProject/SmartClass'
 //   https://yourdomain.com                 ->  ''   (app at domain root)
 //   https://yourdomain.com/smartclass      ->  '/smartclass'
-define('BASE_PATH', $sc_inst['base_path'] ?? '/myProject/SmartClass');
+define('BASE_PATH', $sc_inst['base_path'] ?? $sc_local['base_path'] ?? '/myProject/SmartClass');   // set 'base_path' in config/local.php; '' = the site is at the domain root
 
 // =====================================================
 

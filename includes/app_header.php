@@ -28,9 +28,7 @@ i18nStart();   // Pashto / Dari: the page is translated on its way out
     <meta name="csrf-token" content="<?php echo htmlspecialchars(csrfToken()); ?>" />
     <meta name="app-url" content="<?php echo htmlspecialchars(APP_URL); ?>/" />
     <title><?php echo htmlspecialchars($page_title); ?> - <?php echo APP_NAME; ?></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" />
+    <link href="<?php echo asset('assets/vendor/fonts/fonts.css'); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo asset('assets/css/dashboard.css'); ?>" />
     <link rel="stylesheet" href="<?php echo asset('assets/css/app.css'); ?>" />
     <link rel="stylesheet" href="<?php echo asset('assets/css/polish.css'); ?>" />
@@ -41,7 +39,7 @@ i18nStart();   // Pashto / Dari: the page is translated on its way out
     <?php endif; ?>
     <link rel="stylesheet" href="<?php echo asset('assets/css/theme-dark.css'); ?>" />
     <?php if (i18nRtl()): ?>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" />
+    <link href="<?php echo asset('assets/vendor/fonts/fonts.css'); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo asset('assets/css/rtl.css'); ?>" />
     <?php endif; ?>
     <?php echo i18nLiveScripts(); ?>
@@ -56,10 +54,10 @@ i18nStart();   // Pashto / Dari: the page is translated on its way out
     </script>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="<?php echo asset('assets/vendor/fontawesome/css/all.min.css'); ?>"
     />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo asset('assets/vendor/jquery/jquery-3.7.1.min.js'); ?>"></script>
+    <script src="<?php echo asset('assets/vendor/sweetalert2/sweetalert2.all.min.js'); ?>"></script>
   </head>
   <body>
 <?php if (defined('SC_STAGING') && SC_STAGING): ?><div class="staging-strip" role="status">STAGING COPY — test data only · no e-mail is sent · AI is off</div><?php endif; ?>

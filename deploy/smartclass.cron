@@ -1,0 +1,6 @@
+# Install as the web-server user:   sudo crontab -u www-data -e     (paste these lines; change the path)
+*/5 * * * *  php /var/www/smartclass/cron/send_emails.php >/dev/null 2>&1
+0 18 * * *   php /var/www/smartclass/cron/send_emails.php --digest >/dev/null 2>&1
+30 2 * * *   php /var/www/smartclass/cron/housekeeping.php >/dev/null 2>&1
+0 3 * * *    php /var/www/smartclass/bin/backup_all.php >/dev/null 2>&1
+30 3 * * *   php /var/www/smartclass/bin/backup_offsite.php --to=user@backup-host:/backups/smartclass >/dev/null 2>&1

@@ -41,7 +41,7 @@ require dirname(__DIR__) . '/config/db.php';
 if (DB_NAME !== $dbName) { fwrite(STDERR, "SAFETY STOP: the app is not using the test database (" . DB_NAME . ").\n"); exit(2); }
 $GLOBALS['T'] = ['db' => $db, 'base' => "http://127.0.0.1:$port$base_path", 'dbname' => $dbName, 'pdo' => $pdo];
 require __DIR__ . '/factory.php';
-foreach (glob(__DIR__ . '/*Test.php') as $f) { if ($filter === '' || stripos(basename($f), $filter) !== false) require $f; }
+foreach (glob(__DIR__ . '/*Test.php') as $f) { if ($filter === '' || stripos(basename($f), $filter) !== false) require_once $f; }
 
 foreach ($GLOBALS['__tests'] as [$name, $fn]) {
     try { $fn(); $GLOBALS['__pass']++; echo "  ok    $name\n"; }

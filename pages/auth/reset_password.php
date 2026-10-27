@@ -49,11 +49,11 @@ if ($reset && $_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="referrer" content="no-referrer">
     <title>Choose a new password - <?php echo APP_NAME; ?></title>
     <link rel="icon" type="image/svg+xml" href="<?php echo APP_URL; ?>/assets/img/favicon.svg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/bootstrap/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/fontawesome/css/all.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('assets/vendor/fonts/fonts.css'); ?>" rel="stylesheet">
     <link href="<?php echo asset('assets/css/auth.css'); ?>" rel="stylesheet">
-    <?php if (i18nRtl()): ?><link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet"><link href="<?php echo asset('assets/css/rtl.css'); ?>" rel="stylesheet"><?php endif; ?><?php echo i18nLiveScripts(); ?>
+    <?php if (i18nRtl()): ?><link href="<?php echo asset('assets/vendor/fonts/fonts.css'); ?>" rel="stylesheet"><link href="<?php echo asset('assets/css/rtl.css'); ?>" rel="stylesheet"><?php endif; ?><?php echo i18nLiveScripts(); ?>
 </head>
 <body>
     <div class="auth-wrap">
@@ -93,7 +93,7 @@ if ($reset && $_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo asset('assets/vendor/sweetalert2/sweetalert2.all.min.js'); ?>"></script>
     <script src="<?php echo asset('assets/js/auth.js'); ?>"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -107,7 +107,7 @@ if ($reset && $_SERVER['REQUEST_METHOD'] === 'POST') {
                 const p = document.getElementById('password'), c = document.getElementById('confirm_password');
                 let ok = true;
                 if (!p.value) { setFieldError(p, 'Password is required'); ok = false; }
-                else if (p.value.length < <?php echo passwordMinLength(); ?>) { setFieldError(p, 'Password must be at least <?php echo PASSWORD_MIN_LENGTH; ?> characters'); ok = false; }
+                else if (p.value.length < <?php echo passwordMinLength(); ?>) { setFieldError(p, 'Password must be at least <?php echo passwordMinLength(); ?> characters'); ok = false; }
                 if (!c.value) { setFieldError(c, 'Please confirm your password'); ok = false; }
                 else if (p.value && c.value !== p.value) { setFieldError(c, 'Passwords do not match'); ok = false; }
                 if (!ok) e.preventDefault();

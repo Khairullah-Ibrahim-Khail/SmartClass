@@ -233,7 +233,7 @@ function i18nTranslateHtml($html) {
     unset($p);
     $out = implode('', $parts);
     // Bootstrap's mirrored build for the sign-in pages
-    $out = str_replace('bootstrap@5.3.2/dist/css/bootstrap.min.css', 'bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css', $out);
+    $out = str_replace('assets/vendor/bootstrap/bootstrap.min.css', 'assets/vendor/bootstrap/bootstrap.rtl.min.css', $out);
     return $out;
 }
 

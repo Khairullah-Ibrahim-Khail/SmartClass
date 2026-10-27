@@ -226,7 +226,7 @@ $tabs = ['all' => 'All', 'todo' => 'To grade', 'missing' => 'Missing', 'graded' 
             <h4><i class="fas fa-rotate-left"></i> <?php echo t('Return for changes'); ?></h4>
             <p class="form-hint" style="margin:0 0 8px;"><?php echo t('Not good enough yet? Send it back with a note. The student fixes it and hands it in again; any mark is cleared.'); ?></p>
             <?php if ($can_ai && !empty($cur['content'])): ?><div class="ai-draft-row"><button type="button" class="btn-app btn-sm btn-outline" id="aiDraftBtn" data-sub="<?php echo (int) $cur['submission_id']; ?>"><i class="fas fa-wand-magic-sparkles"></i> <?php echo t('Draft the note with AI'); ?></button><span class="form-hint" id="aiDraftHint" style="margin:0;"></span></div><?php endif; ?>
-            <textarea name="note" id="returnNote" rows="3" maxlength="2000" placeholder="<?php echo htmlspecialchars(t('What should the student change?')); ?>" class="<?php echo !empty($errors['note']) ? 'is-invalid' : ''; ?>"><?php echo htmlspecialchars($form_old['note'] ?? ''); ?></textarea>
+            <textarea name="note" id="returnNote" aria-label="<?php echo htmlspecialchars(t('What should the student change?')); ?>" rows="3" maxlength="2000" placeholder="<?php echo htmlspecialchars(t('What should the student change?')); ?>" class="<?php echo !empty($errors['note']) ? 'is-invalid' : ''; ?>"><?php echo htmlspecialchars($form_old['note'] ?? ''); ?></textarea>
             <div class="invalid-feedback <?php echo !empty($errors['note']) ? 'show' : ''; ?>"><?php echo htmlspecialchars(t($errors['note'] ?? '')); ?></div>
             <button type="submit" class="btn-app btn-sm btn-outline"><i class="fas fa-paper-plane"></i> <?php echo t('Return to the student'); ?></button>
         </form>

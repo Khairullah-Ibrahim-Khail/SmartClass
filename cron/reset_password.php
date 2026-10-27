@@ -34,8 +34,8 @@ function readHidden($prompt) {
     return $line;
 }
 $pw = readHidden('New password: ');
-if (strlen($pw) < PASSWORD_MIN_LENGTH) {
-    fwrite(STDERR, 'Password must be at least ' . PASSWORD_MIN_LENGTH . " characters.\n");
+if (strlen($pw) < passwordMinLength()) {
+    fwrite(STDERR, 'Password must be at least ' . passwordMinLength() . " characters.\n");
     exit(1);
 }
 if ($pw !== readHidden('Repeat it:   ')) {
